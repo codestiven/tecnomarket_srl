@@ -1,3 +1,52 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* resources/css/global.css */
+
+/* Colores */
+:root {
+    --primary-color: #1F3082;
+    /* Color primario */
+    --secondary-color: #0B86E7;
+    /* Color secundario */
+    --tertiary-color: #6AB4E3;
+    /* Color terciario */
+    --quaternary-color: #517AA7;
+    /* Cuarto color */
+    --quinary-color: #1B1B1D;
+    /* Quinto color */
+    --senary-color: #949494;
+    /* Sexto color */
+    --background-color: #F0F5F7;
+    /* Color de fondo */
+
+    /* Tamaños de pantalla */
+
+    --screen-sm: 640px;
+    /* Small (640px y más) */
+    --screen-md: 768px;
+    /* Medium (768px y más) */
+    --screen-lg: 1024px;
+    /* Large (1024px y más) */
+    --screen-xl: 1280px;
+    /* Extra Large (1280px y más) */
+}
+
+/* Fuentes */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('/fonts/Helvetica.ttf') format('truetype');
+}
+
+/* Otros estilos globales */
+body {
+    font-family: 'Helvetica', sans-serif;
+    /* Aplicar la fuente */
+    background-color: var(--background-color);
+    /* Usar el color de fondo */
+}
+
+*{
+    font-family: 'Helvetica', sans-serif;
+}
