@@ -59,7 +59,7 @@
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div class="text-center mt-2 text-white/70">
-                    &copy; 2024 Pasangüino. Todos los derechos reservados.
+                    &copy; 2024 Tecno Market SRL. Todos los derechos reservados.
                 </div>
                 <div class="flex mt-4 sm:justify-center sm:mt-0">
                     <a href="#" class="text-gray-500 hover:text-gray-900 dark:hover:text-white">

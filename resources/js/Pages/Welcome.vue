@@ -5,7 +5,9 @@ import Footer from "@/Components/Principales/Footer.vue";
 import Titulo from "@/Components/Titulos.vue";
 import Carruser from "@/Components/Unicos/Carrusel.vue";
 import boton1 from "@/Components/Boton_principar.vue";
-import Card from "@/Components/Principales/ProductCard.vue";
+
+import Destacados from "@/Components/Unicos/Destacados.vue";
+import Ofertas from "@/Components/Unicos/Ofertas.vue";
 
 defineProps({
   canLogin: {
@@ -45,8 +47,9 @@ function handleImageError() {
 
   <Titulo
     titulo="productos"
-    subtitulo="Todos nuestro productos a solo un click de tus manos"
-  />
+    subtitulo="Todos nuestros productos a solo un click de tus manos"
+
+/>
 
   <div class="productos">
     <div class="Laptos p-8">
@@ -82,12 +85,12 @@ function handleImageError() {
     </div>
     <div class="otros flex flex-col md:flex-row items-start">
       <!-- Div con la imagen -->
-      <div class="hidden md:flex md:w-1/2 justify-end">
+      <div class="hidden md:flex md:w-1/2 justify-end item_img">
         <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" />
       </div>
 
       <!-- Div con el texto -->
-      <div class="md:w-1/2">
+      <div class="md:w-1/2 tt">
         <h1 class="text-3xl font-bold mb-4">Otros</h1>
         <p>
           Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
@@ -114,15 +117,9 @@ function handleImageError() {
 
   <!-- -----------------------------------------------------  Ofertas ------------------------------------ -->
 
-  <Titulo titulo="Nuevas Ofertas" />
+  <Titulo titulo="Nuevas Ofertas"      :mostrarLinea="false"/>
 
-  <div class="Ofertas">
-    <div class="cards">
-      <Card />
-      <Card />
-      <Card />
-    </div>
-  </div>
+<Ofertas />
 
   <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
 
@@ -137,11 +134,13 @@ function handleImageError() {
   <Titulo
     titulo="Articulos Destacado"
     subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audifonos   otros"
+        :mostrarLinea="false"
   />
 
+  <Destacados />
   <!-- -----------------------------------------------------  mapa ------------------------------------ -->
 
-  <Titulo titulo="Donde nos encontramos" />
+  <Titulo titulo="Donde nos encontramos"      :mostrarLinea="false"/>
 
   <iframe
     class="mapa"
@@ -173,7 +172,7 @@ function handleImageError() {
 .productos > div {
   background-image: url("/images/fondos_cuadros.jpg");
   text-align: center;
-  padding: 20px;
+
   font-size: 30px;
 
   border-radius: 40px;
@@ -181,6 +180,8 @@ function handleImageError() {
   color: #fff;
   font-size: 35px;
   font-weight: bold;
+  padding:  30px;
+  
 }
 
 .productos .img img {
@@ -203,7 +204,8 @@ function handleImageError() {
   display: grid;
   grid-template-columns: repeat(3, 1fr); /* Tres columnas */
   grid-template-rows: auto; /* Altura automática según el contenido */
-  grid-gap: 20px; /* Espacio entre las celdas */
+  grid-gap: 30px; 
+
 }
 
 .productos .Laptos {
@@ -222,6 +224,7 @@ function handleImageError() {
   grid-area: 2 / 1 / 3 / 4;
   text-align: end;
   background-image: url("/images/fondotros.jpg");
+
 }
 
 .productos .otros p {
@@ -231,10 +234,30 @@ function handleImageError() {
   margin-bottom: 20px;
 }
 
-.productos .otros img {
+.productos .otros .tt {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+}
+
+/* .item_img {
+  
+} */
+
+.productos .otros .item_img img {
   width: 100%;
   object-fit: scale-down;
   transform: scale(1.2) translateX(55px);
+}
+
+.productos .otros:hover .item_img img {
+ 
+  transform: scale(1.7) translateX(55px);
+}
+
+.productos .otros:hover .tt h1{
+ 
+  transform: scale(1.2) ;
 }
 
 @media (max-width: 768px) {
@@ -285,18 +308,7 @@ function handleImageError() {
   grid-area: 1 / 4 / 2 / 5;
 }
 
-/* Ofertas   -----------------------------------------*/
-.Ofertas {
-  width: 100%;
-  height: 500px;
 
-  background: rgb(106, 180, 227);
-  background: linear-gradient(
-    304deg,
-    rgba(106, 180, 227, 1) 0%,
-    rgba(81, 122, 167, 1) 100%
-  );
-}
 
 /* Motivacion   -----------------------------------------*/
 .motivacion {
@@ -344,12 +356,5 @@ function handleImageError() {
 }
 
 
-.cards {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  grid-template-rows: auto; /* Altura automática según el contenido */
-  grid-gap: 20px;
-  padding: 0 20px;
-/* Espacio entre las celdas */
-}
+
 </style>

@@ -85,6 +85,10 @@ const handleLikeProduct = () => {
   height: 100%;
 }
 
+.cartas:hover {
+  transform: scale(1.05);
+}
+
 .imagen {
   position: relative;
   flex: 2;
@@ -167,6 +171,7 @@ const handleLikeProduct = () => {
 
 .boton button:hover {
   background-color: var(--primary-color);
+  box-shadow: 0px 0px 30px 10px  rgba(41, 141, 255, 0.75);
   transform: scale(1.1);
 }
 
@@ -178,5 +183,13 @@ const handleLikeProduct = () => {
 .boton button svg {
   fill: rgb(255, 255, 255);
   transform: scale(0.9);
+}
+
+@media (max-width: 1024px) {
+  .cartas .boton button {
+
+    transform: translate(0, 0);
+}
+
 }
 </style>
