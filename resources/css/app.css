@@ -19,6 +19,8 @@
     --senary-color: #949494;
     /* Sexto color */
     --background-color: #F0F5F7;
+    /* color complementario */
+    --complementario-color: #F36262;
     /* Color de fondo */
 
     /* Tamaños de pantalla */
@@ -39,14 +41,27 @@
     src: url('/fonts/Helvetica.ttf') format('truetype');
 }
 
+@font-face {
+    font-family: 'Helvetica Light';
+    src: url('/fonts/Helvetica-Light.ttf') format('truetype');
+
+}
+
+@font-face {
+    font-family: 'Helvetica Bold';
+    src: url('/fonts/Helvetica-Bold.ttf') format('truetype');
+
+}
 /* Otros estilos globales */
 body {
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Helvetica Bold', sans-serif;
     /* Aplicar la fuente */
     background-color: var(--background-color);
     /* Usar el color de fondo */
 }
 
 *{
-    font-family: 'Helvetica', sans-serif;
+    font-family: 'Helvetica';
+    transition: 160ms;
+    z-index: 1;
 }
