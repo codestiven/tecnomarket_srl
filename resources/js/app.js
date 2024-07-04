@@ -1,5 +1,7 @@
 import './bootstrap';
 import '../css/app.css';
+import 'flowbite/dist/flowbite.min.css';
+import 'flowbite/dist/flowbite.min.js';
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';
