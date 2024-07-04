@@ -15,10 +15,6 @@
 <script>
 export default {
     props: {
-        emojiSrc: {
-            type: String,
-            required: true
-        },
         badgeNumber: {
             type: Number,
             default: 1
