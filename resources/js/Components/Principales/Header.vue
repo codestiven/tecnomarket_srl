@@ -238,14 +238,21 @@ onBeforeUnmount(() => {
       </div>
     </nav>
   </header>
+  <div class="placeholder"></div>
 </template>
 
 <style scoped>
+
+.placeholder {
+  height: 125px;
+  width: 100%;
+}
 header {
   width: 100%;
   height: auto;
   position: fixed;
   z-index: 10000000000;
+  margin-bottom: 100px;
 }
 
 .badges svg {
@@ -312,16 +319,19 @@ nav {
   margin: 0 25px;
   color: #fff;
   text-decoration: none;
-  font-weight: bold;
+
   font-size: 20px;
   transition: all 0.3s ease;
   display: flex;
   align-items: center;
   justify-content: center;
+
+  transition: all 0.1s ease;
 }
 
 .enlaces ul li:hover {
   transform: scale(1.1);
+  
 }
 
 .enlaces ul li:active {
