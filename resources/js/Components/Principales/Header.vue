@@ -166,45 +166,44 @@ onBeforeUnmount(() => {
         <div class="enlaces">
           <div class="text-center"></div>
           <div>
-          <div v-if="isMobile" class="flex items-center justify-center">
-            <button
-             
-              class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5  dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
-              type="button"
-              data-drawer-target="drawer-example"
-              data-drawer-show="drawer-example"
-              aria-controls="drawer-example"
-            >
-              <svg
-                class="w-5 h-5"
-                xmlns="http://www.w3.org/2000/svg"
-                viewBox="0 0 448 512"
+            <div v-if="isMobile" class="flex items-center justify-center">
+              <button
+                class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800"
+                type="button"
+                data-drawer-target="drawer-example"
+                data-drawer-show="drawer-example"
+                aria-controls="drawer-example"
               >
-                <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
-                <path
-                  fill="#ffffff"
-                  d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
-                />
-              </svg>
-            </button>
-
+                <svg
+                  class="w-5 h-5"
+                  xmlns="http://www.w3.org/2000/svg"
+                  viewBox="0 0 448 512"
+                >
+                  <!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.-->
+                  <path
+                    fill="#ffffff"
+                    d="M0 96C0 78.3 14.3 64 32 64H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32C14.3 128 0 113.7 0 96zM0 256c0-17.7 14.3-32 32-32H416c17.7 0 32 14.3 32 32s-14.3 32-32 32H32c-17.7 0-32-14.3-32-32zM448 416c0 17.7-14.3 32-32 32H32c-17.7 0-32-14.3-32-32s14.3-32 32-32H416c17.7 0 32 14.3 32 32z"
+                  />
+                </svg>
+              </button>
             </div>
             <div v-else>
               <ul>
                 <li>
-                  <Link :href="route('dashboard')"> Inicio </Link>
+                  <Link :href="route('home')"> Inicio </Link>
                 </li>
                 <li>
-                  <Link :href="route('dashboard')"> Productos </Link>
+                  <Link :href="route('Productos')"> Productos </Link>
                 </li>
                 <li>
-                  <Link :href="route('dashboard')"> Productos </Link>
+                  <Link :href="route('Ofertas')"> Ofertas </Link>
+                </li>
+
+                <li>
+                  <Link :href="route('SobreNosotros')"> Sobre nosotros </Link>
                 </li>
                 <li>
-                  <Link :href="route('dashboard')"> Productos </Link>
-                </li>
-                <li>
-                  <Link :href="route('dashboard')"> Productos </Link>
+                  <Link :href="route('Contacto')"> Contacto </Link>
                 </li>
               </ul>
             </div>
@@ -212,12 +211,11 @@ onBeforeUnmount(() => {
         </div>
       </div>
 
-      
       <div class="seccion">
         <Link
           v-if="$page.props.auth.user"
           :href="route('dashboard')"
-          class=" ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+          class="ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
         >
           Productos
         </Link>
@@ -225,16 +223,15 @@ onBeforeUnmount(() => {
         <div v-else>
           <Link
             :href="route('login')"
-            class=" ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+            class="ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
           >
             Inicio de sesion
           </Link>
 
           <Link
             :href="route('register')"
-            class=" ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+            class="ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
           >
-          
             Registro
           </Link>
         </div>
@@ -332,14 +329,10 @@ nav {
   transition: all 0s ease;
 }
 
-
-
 .seccion * {
-
   text-decoration: none;
   font-weight: 500;
   font-size: 20px;
-    color: #fff;
+  color: #fff;
 }
-
 </style>

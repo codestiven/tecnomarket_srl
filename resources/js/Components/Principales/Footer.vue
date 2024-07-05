@@ -6,8 +6,8 @@
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
                         <img src="/images/Logo_white.png" class=" logo" alt="FlowBite Logo" />
-                        <span class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
-                            SRL</span>
+                        <h1 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
+                            SRL</h1>
                     </a>
                     <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
                         toda la
@@ -25,32 +25,33 @@
                             </li>
                         </ul>
                     </div> -->
-                    <div>
+                    <div class="mr-10">
                         <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Información</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4">
-                                <a href="/about-us" class="hover:underline text-white">Sobre nosotros</a>
+                                <Link :href="route('SobreNosotros')" class="hover:underline text-white">Sobre nosotros</Link>
                             </li>
                             <li>
-                                <a href="/contact-us" class="hover:underline text-white">Contáctanos</a>
+                                <Link :href="route('Contacto')" class="hover:underline text-white">Contáctanos</Link>
                             </li>
                         </ul>
                     </div>
                     <div>
-                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Legal</h2>
+                        <h2 class="mb-6 text-sm font-semibold text-gray-900 uppercase dark:text-white">Menu</h2>
                         <ul class="text-gray-500 dark:text-gray-400 font-medium">
                             <li class="mb-4">
-                                <a href="/privacy" class="hover:underline text-white">Privacidad</a>
+                                <Link :href="route('home')" class="hover:underline text-white">Inicio</Link>
                             </li>
                             <li class="mb-4">
-                                <a href="/terms" class="hover:underline text-white">Términos y condiciones</a>
+                                <Link :href="route('Productos')" class="hover:underline text-white">Productos</Link>
                             </li>
                             <li class="mb-4">
-                                <a href="/help" class="hover:underline text-white">Ayuda</a>
+                                <Link :href="route('Ofertas')" class="hover:underline text-white">Ofertas</Link>
                             </li>
-                            <li>
-                                <a href="/faq" class="hover:underline text-white">FAQ</a>
+                            <li class="mb-4">
+                                <Link :href="route('Ofertas')" class="hover:underline text-white">ayuda</Link>
                             </li>
+                       
 
                         </ul>
                     </div>
@@ -107,6 +108,8 @@
 <script setup>
 
 import Logo from '@/Components/ApplicationLogo.vue';
+import { Link } from "@inertiajs/vue3";
+
 
 
 
@@ -128,6 +131,21 @@ footer {
     overflow: hidden;
 
 }
+
+footer p , footer h2 {
+    color: white;
+}
+
+footer h1 {
+    color: white;
+    font-size: 25px;
+    font-weight: bold;
+  
+
+}
+
+
+
 
 /* Estilos para el fondo de la página */
 </style>
