@@ -12,7 +12,7 @@ Route::get('/', function () {
         'laravelVersion' => Application::VERSION,
         'phpVersion' => PHP_VERSION,
     ]);
-});
+})->name('home');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -22,11 +22,11 @@ Route::get('/dashboard', function () {
 
 
 Route::get('/Nosotros', function () {
-    return Inertia::render('Productos');
+    return Inertia::render('Sobre_Nosotros');
 })->name('SobreNosotros');
 
 Route::get('/Contacto', function () {
-    return Inertia::render('Productos');
+    return Inertia::render('Contacto');
 })->name('Contacto');
 
 
@@ -44,13 +44,17 @@ Route::get('/Productos', function () {
 })->name('Productos');
 
 Route::get('/Ofertas', function () {
-    return Inertia::render('Productos');
+    return Inertia::render('Ofertas');
 })->name('Ofertas');
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
+
+Route::get('/test', function () {
+    return Inertia::render('Sobre_Nosotros');
 });
 
 require __DIR__.'/auth.php';

@@ -1,3 +1,77 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+/* resources/css/global.css */
+
+/* Colores */
+:root {
+    --primary-color: #1F3082;
+    /* Color primario */
+    --secondary-color: #0B86E7;
+    /* Color secundario */
+    --tertiary-color: #6AB4E3;
+    /* Color terciario */
+    --quaternary-color: #517AA7;
+    /* Cuarto color */
+    --quinary-color: #1B1B1D;
+    /* Quinto color */
+    --senary-color: #949494;
+    /* Sexto color */
+    --background-color: #F0F5F7;
+    /* color complementario */
+    --complementario-color: #F36262;
+    /* Color de fondo */
+
+    /* Tamaños de pantalla */
+
+    --screen-sm: 640px;
+    /* Small (640px y más) */
+    --screen-md: 768px;
+    /* Medium (768px y más) */
+    --screen-lg: 1024px;
+    /* Large (1024px y más) */
+    --screen-xl: 1280px;
+    /* Extra Large (1280px y más) */
+}
+
+/* Fuentes */
+@font-face {
+    font-family: 'Helvetica';
+    src: url('/fonts/Helvetica.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'Helvetica Light';
+    src: url('/fonts/Helvetica-Light.ttf') format('truetype');
+
+}
+
+@font-face {
+    font-family: 'Helvetica Bold';
+    src: url('/fonts/Helvetica-Bold.ttf') format('truetype');
+
+}
+/* Otros estilos globales */
+body {
+    font-family: 'Helvetica Bold', sans-serif;
+    /* Aplicar la fuente */
+    background-color: var(--background-color);
+    /* Usar el color de fondo */
+}
+
+*{
+    font-family: 'Helvetica';
+    transition: 160ms;
+    z-index: 1;
+}
+
+.texto_simple {
+    font-family: 'Helvetica Light';
+    font-size: 20px;
+    color: #1B1B1D;
+    font-weight: 500;
+    /* line-height: 30px; */
+    text-align: left;
+   
+}
