@@ -36,11 +36,54 @@ function handleImageError() {
 
 <template>
   <Head title="Productos" />
-  
+
+  <Header/>
+
+  <div class="Productos">
+  <div class="cantidad">
+  a
+  </div>
+  <div class="placeholder">
+  b
+  </div>
+  </div>
+
+
+
+
+
+
+
+<Footer/>
 </template>
 
 <style scoped>
 
+.Productos{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 3%;
+}
+.cantidad{
+  width: 25%;
+  height: 100px;
+  background-color: black;
+}
+.placeholder{
+  width: 75%;
+  height: auto;
+  background-color: rgb(238, 16, 16);
+}
 
+@media (max-width: 1024px) {
+  .cantidad{
+    display: none;
+  }
+  .placeholder{
+  width: 100%;
+;
+}
+}
 
 </style>
