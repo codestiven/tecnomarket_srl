@@ -12,7 +12,8 @@ class OfertaController extends Controller
      */
     public function index()
     {
-        //
+        $oferta = Oferta::all();
+        return response()->json(['ofertas' => $oferta]);
     }
 
     /**

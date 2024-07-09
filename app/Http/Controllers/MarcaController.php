@@ -12,7 +12,8 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        //
+        $marca = Marca::all();
+        return response()->json(['marcas' => $marca]);
     }
 
     /**
