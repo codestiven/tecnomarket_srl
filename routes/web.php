@@ -65,7 +65,12 @@ Route::get('/Productos/Crear', function () {
     return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
 }) ;
 
-Route::post('/pproductos', [ProductoController::class, 'create'])->name('productos.create');
+Route::post('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
+
+Route::get('Productos/{producto}', [ProductoController::class, 'show']);
+
+Route::get('/Productos/search/{buscar}', [ProductoController::class, 'search'])->name('productos.search');
+
 
 
 Route::middleware('auth')->group(function () {

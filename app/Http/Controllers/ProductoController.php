@@ -16,6 +16,22 @@ class ProductoController extends Controller
         return response()->json(['productos' => $producto]);
     }
 
+
+    public function search(Request $request)
+    {
+        $palabraClave = $request->input('buscar'); // 'q' es el parámetro de consulta que contiene la palabra clave
+
+        if (!$palabraClave) {
+            return response()->json([
+                'message' => 'Parámetro de búsqueda no proporcionado.'
+            ], 400);
+        }
+
+        $resultados = Producto::where('nombre', 'like', '%' . $palabraClave . '%')->get();
+
+        return response()->json($resultados);
+    }
+
     /**
      * Show the form for creating a new resource.
      */
@@ -44,7 +60,7 @@ class ProductoController extends Controller
                 'categoria_id' => $request->categoria_id,
                 'marca_id' => $request->marca_id,
                 'oferta_id' => $request->oferta_id,
-                'image' => $imagenPath,
+                'imagen' => $imagenPath,
             ]);
 
             return response()->json(['message' => 'Producto creado correctamente'], 201);
@@ -66,7 +82,7 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        //
+        return response()->json(['producto' => $producto]);
     }
 
     /**
