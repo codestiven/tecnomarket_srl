@@ -1,9 +1,21 @@
 <?php
 
-use App\Http\Controllers\ProfileController;
+
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+
+// Controladores
+use App\Http\Controllers\ProfileController;
+
+use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\ProductoController;
+
+
+
+
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -46,6 +58,15 @@ Route::get('/Productos', function () {
 Route::get('/Ofertas', function () {
     return Inertia::render('Ofertas');
 })->name('Ofertas');
+
+
+
+Route::get('/Productos/Crear', function () {
+    return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
+}) ;
+
+Route::post('/pproductos', [ProductoController::class, 'create'])->name('productos.create');
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
