@@ -69,7 +69,8 @@ Route::post('/productos/create', [ProductoController::class, 'create'])->name('p
 
 Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 
-Route::get('/Productos/search/{buscar}', [ProductoController::class, 'search'])->name('productos.search');
+Route::get('/Productos/search/{buscar?}', [ProductoController::class, 'search'])->name('productos.search');
+Route::get('/Productos/search', [ProductoController::class, 'search'])->name('productos.search');
 
 Route::get('pp', [ProductoController::class, 'index']);
 
