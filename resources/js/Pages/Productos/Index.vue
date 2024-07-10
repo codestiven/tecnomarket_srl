@@ -8,7 +8,7 @@ import boton1 from "@/Components/Boton_principar.vue";
 import Mapa from "@/Components/mapa.vue";
 import Destacados from "@/Components/Unicos/Destacados.vue";
 import Ofertas from "@/Components/Unicos/Ofertas.vue";
-import Filtro from "@/Components/Unicos/Filtro.vue";
+// import Filtro from "@/Components/Unicos/Filtro.vue";
 
 defineProps({
   canLogin: {
