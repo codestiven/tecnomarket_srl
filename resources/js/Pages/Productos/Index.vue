@@ -8,6 +8,7 @@ import boton1 from "@/Components/Boton_principar.vue";
 import Mapa from "@/Components/mapa.vue";
 import Destacados from "@/Components/Unicos/Destacados.vue";
 import Ofertas from "@/Components/Unicos/Ofertas.vue";
+import Filtro from "@/Components/Unicos/Filtro.vue";
 
 defineProps({
   canLogin: {
@@ -43,8 +44,22 @@ function handleImageError() {
   <div class="cantidad">
   a
   </div>
+
+<Filtro/>
+
+
+
+
   <div class="placeholder">
-  b
+  <div class="filtros">
+  <div class="left">
+  
+  
+  
+  </div>
+  <div class="right"></div>
+  </div>
+  <div class="contenido"></div>
   </div>
   </div>
 
