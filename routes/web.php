@@ -52,7 +52,7 @@ Route::get('/Contacto', function () {
 
 // productos ----------------------------------------------------------
 Route::get('/Productos', function () {
-    return Inertia::render('Productos');
+    return Inertia::render('Productos/Index');
 })->name('Productos');
 
 Route::get('/Ofertas', function () {
@@ -71,7 +71,7 @@ Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 
 Route::get('/Productos/search/{buscar}', [ProductoController::class, 'search'])->name('productos.search');
 
-
+Route::get('pp', [ProductoController::class, 'index']);
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
