@@ -60,7 +60,7 @@ class ProductoController extends Controller
                 'categoria_id' => $request->categoria_id,
                 'marca_id' => $request->marca_id,
                 'oferta_id' => $request->oferta_id,
-                'imagen' => $imagenPath,
+                'image' => $imagenPath,
             ]);
 
             return response()->json(['message' => 'Producto creado correctamente'], 201);
