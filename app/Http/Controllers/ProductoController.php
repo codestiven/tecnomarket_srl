@@ -24,11 +24,15 @@ class ProductoController extends Controller
 
         // Devolver la respuesta JSON con todos los productos actualizados
         return response()->json(['productos' => $productos]);
+
+        
         
     }
 
     public function Filtro(Request $request)
     {
+
+        //http://tecnomarket_srl.test/pp?categoria_id=1&marca_id=1
         // Obtener los parámetros de la URL
         $categoria_id = $request->query('categoria_id');
         $marca_id = $request->query('marca_id');
