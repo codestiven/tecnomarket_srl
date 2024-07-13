@@ -2,12 +2,8 @@
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
-import Titulo from "@/Components/Titulos.vue";
-import Carruser from "@/Components/Unicos/Carrusel.vue";
-import boton1 from "@/Components/Boton_principar.vue";
-import Mapa from "@/Components/mapa.vue";
-import Destacados from "@/Components/Unicos/Destacados.vue";
-import Ofertas from "@/Components/Unicos/Ofertas.vue";
+import Cantidad from "@/Components/Unicos/Cantidad.vue";
+
 // import Filtro from "@/Components/Unicos/Filtro.vue";
 
 defineProps({
@@ -42,10 +38,10 @@ function handleImageError() {
 
   <div class="Productos">
   <div class="cantidad">
-  a
+  <Cantidad />
   </div>
 
-<Filtro/>
+
 
 
 
@@ -53,11 +49,41 @@ function handleImageError() {
   <div class="placeholder">
   <div class="filtros">
   <div class="left">
-  
+
+
+  <select id="countries" class="filtro">
+    <option selected>Todos</option>
+    <option value="US">United States</option>
+    <option value="CA">Canada</option>
+    <option value="FR">France</option>
+    <option value="DE">Germany</option>
+  </select>
+
+
+    <select id="countries" class="">
+    <option selected>Todos</option>
+    <option value="US">United States</option>
+    <option value="CA">Canada</option>
+    <option value="FR">France</option>
+    <option value="DE">Germany</option>
+  </select>
+
+    <select id="countries" class="">
+    <option selected>Todos</option>
+    <option value="US">United States</option>
+    <option value="CA">Canada</option>
+    <option value="FR">France</option>
+    <option value="DE">Germany</option>
+  </select>
+
+
   
   
   </div>
-  <div class="right"></div>
+  <div class="right">
+  <h1>Odenar por :</h1>
+  
+  </div>
   </div>
   <div class="contenido"></div>
   </div>
@@ -82,14 +108,55 @@ function handleImageError() {
 }
 .cantidad{
   width: 25%;
-  height: 100px;
-  background-color: black;
+  min-height: 550px;
+  background-color: red;
+  
+
 }
 .placeholder{
   width: 75%;
   height: auto;
-  background-color: rgb(238, 16, 16);
+
 }
+
+.filtros{
+  display: grid;
+  grid-template-columns: repeat(12, 1fr); /* 12 columnas igualmente distribuidas */
+  gap: 10px; /* Espacio entre los elementos */
+}
+
+.filtros .left{
+  display: flex;
+
+  grid-column: span 9; 
+  justify-content: flex-start;
+  align-items: flex-start;
+  padding-right: 40%;
+  gap:30px
+}
+
+.filtros .left select{
+  background-color: transparent;
+  border: none;
+  outline: none;
+  appearance: none;
+
+  font-size: 20px;
+}
+
+
+
+.filtros .right{
+  display: flex;
+
+  grid-column: span 3; /* Ocupa 2 columnas */
+  
+}
+
+
+
+
+
 
 @media (max-width: 1024px) {
   .cantidad{
@@ -100,5 +167,7 @@ function handleImageError() {
 ;
 }
 }
+
+
 
 </style>
