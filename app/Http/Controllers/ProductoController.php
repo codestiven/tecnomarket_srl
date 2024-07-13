@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Producto;
 use Illuminate\Http\Request;
+use App\Http\Requests;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
 {
@@ -12,25 +15,67 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $producto = Producto::all();
-        return response()->json(['productos' => $producto]);
-    }
+        $productos = Producto::all();
 
-
-    public function search(Request $request)
-    {
-        $palabraClave = $request->input('buscar'); // 'q' es el parámetro de consulta que contiene la palabra clave
-
-        if (!$palabraClave) {
-            return response()->json([
-                'message' => 'Parámetro de búsqueda no proporcionado.'
-            ], 400);
+        // Iterar sobre cada producto para obtener la URL completa de la imagen
+        foreach ($productos as $producto) {
+            $producto->image = Storage::url($producto->image);
         }
 
-        $resultados = Producto::where('nombre', 'like', '%' . $palabraClave . '%')->get();
-
-        return response()->json($resultados);
+        // Devolver la respuesta JSON con todos los productos actualizados
+        return response()->json(['productos' => $productos]);
+        
     }
+
+    public function Filtro(Request $request)
+    {
+        // Obtener los parámetros de la URL
+        $categoria_id = $request->query('categoria_id');
+        $marca_id = $request->query('marca_id');
+
+        // Iniciar la consulta de productos
+        $productos = Producto::query();
+
+        // Aplicar filtro por categoria_id si está presente
+        if ($categoria_id !== null) {
+            $productos->where('categoria_id', $categoria_id);
+        }
+
+        // Aplicar filtro por marca_id si está presente
+        if ($marca_id !== null) {
+            $productos->where('marca_id', $marca_id);
+        }
+
+        // Obtener todos los productos si no se especifican filtros
+        if ($categoria_id === null && $marca_id === null) {
+            $productos->get();
+        }
+
+        // Ejecutar la consulta y obtener los resultados
+        $productos = $productos->get();
+
+        // Retornar los productos como JSON
+        return response()->json(['productos' => $productos]);
+    }
+
+
+    public function search(Request $request, $buscar = null)
+    {
+        if ($buscar != "*") {
+            $resultados = Producto::where('nombre', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $resultados = Producto::inRandomOrder()->get();
+        }
+
+        foreach ($resultados as $resultado) {
+            $resultado->image = Storage::url($resultado->image);
+        }
+
+        return Inertia::render('Productos/Buscar', [
+            'productos' => $resultados
+        ]);
+    }
+
 
     /**
      * Show the form for creating a new resource.
@@ -82,7 +127,14 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
-        return response()->json(['producto' => $producto]);
+        $producto->image = Storage::url($producto->image);
+
+        // return response()->json(['producto' => $producto]);
+
+
+        return Inertia::render('Productos/producto', [
+            'producto' => $producto
+        ]);
     }
 
     /**
