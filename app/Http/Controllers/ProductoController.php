@@ -22,9 +22,72 @@ class ProductoController extends Controller
             $producto->image = Storage::url($producto->image);
         }
 
+
         // Devolver la respuesta JSON con todos los productos actualizados
         return response()->json(['productos' => $productos]);
         
+    }
+
+
+
+        // Devolver la respuesta JSON con todos los productos actualizados
+        return response()->json(['productos' => $productos]);
+
+
+    public function search(Request $request, $buscar = null)
+    {
+        if ($buscar != "*") {
+            $resultados = Producto::where('nombre', 'like', '%' . $buscar . '%')->get();
+        } else {
+            $resultados = Producto::inRandomOrder()->get();
+        }
+
+        foreach ($resultados as $resultado) {
+            $resultado->image = Storage::url($resultado->image);
+        }
+
+        return Inertia::render('Productos/Buscar', [
+            'productos' => $resultados
+        ]);
+    }
+
+
+
+        
+        
+    }
+
+    public function Filtro(Request $request)
+    {
+
+        //http://tecnomarket_srl.test/pp?categoria_id=1&marca_id=1
+        // Obtener los parámetros de la URL
+        $categoria_id = $request->query('categoria_id');
+        $marca_id = $request->query('marca_id');
+
+        // Iniciar la consulta de productos
+        $productos = Producto::query();
+
+        // Aplicar filtro por categoria_id si está presente
+        if ($categoria_id !== null) {
+            $productos->where('categoria_id', $categoria_id);
+        }
+
+        // Aplicar filtro por marca_id si está presente
+        if ($marca_id !== null) {
+            $productos->where('marca_id', $marca_id);
+        }
+
+        // Obtener todos los productos si no se especifican filtros
+        if ($categoria_id === null && $marca_id === null) {
+            $productos->get();
+        }
+
+        // Ejecutar la consulta y obtener los resultados
+        $productos = $productos->get();
+
+        // Retornar los productos como JSON
+        return response()->json(['productos' => $productos]);
     }
 
 
@@ -44,6 +107,7 @@ class ProductoController extends Controller
             'productos' => $resultados
         ]);
     }
+
 
 
     /**
