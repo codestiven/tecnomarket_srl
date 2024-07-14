@@ -3,18 +3,40 @@ import { Link } from "@inertiajs/vue3";
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({
-  imageUrl: {
-    type: String,
-    default: "/images/laptos.png",
+  id: {
+    type: Number,
+    default: 26,
   },
+
   productName: {
     type: String,
     default:
-      'Dell Inspiron 16 Plus 7630 16" 2.5K (2560x1600) Core™ i7-13620H 1TB SSD 16GB W11 NVIDIA® RTX 3050 6GB SILVER',
+      'ffDell Inspiron 16 Plus 7630 16" 2.5K (2560x1600) Core™ i7-13620H 1TB SSD 16GB W11 NVIDIA® RTX 3050 6GB SILVER',
+  },
+  descripcion: {
+    type: String,
+    default:
+      "Dell Inspiron 16 Plus 7630 16' 2.5K (2560x1600) CoreTM i7-13620H 1TB SSD 16GB W11 NVIDIA® RTX 3050 6GB SILVER",
   },
   price: {
     type: Number,
     default: 20000,
+  },
+  id_categoria: {
+    type: Number,
+    default: 1,
+  },
+  id_marca: {
+    type: Number,
+    default: 1,
+  },
+  id_oferta: {
+    type: Number,
+    default: 1,
+  },
+    imageUrl: {
+    type: String,
+    default: "/images/laptos.png",
   },
 });
 
@@ -47,12 +69,12 @@ const handleLikeProduct = () => {
           </svg>
         </button>
       </div>
-      <img :src="imageUrl" alt="Product Image" />
+      <Link :href="`/Productos/${id}`"> <img :src="imageUrl" alt="Product Image" class="imageUrl"/> </Link>
     </div>
 
     <div class="contenido">
-      <h1>
-        <Link href="#">{{ productName }}</Link>
+      <h1 class="nombre">
+        <Link :href="`/Productos/${id}`">{{ productName }}</Link>
       </h1>
       <div class="precio">
         <h3>RD$ {{ price.toLocaleString() }}</h3>
@@ -94,7 +116,10 @@ const handleLikeProduct = () => {
   flex: 2;
   overflow: hidden;
 }
-
+.imagen:hover .imageUrl{
+  transform: scale(1.3) !important;
+  opacity: 1 !important;
+}
 .me_gusta {
   position: absolute;
   top: 0;
@@ -124,11 +149,16 @@ const handleLikeProduct = () => {
 .contenido h1 {
   margin-top: 10px;
   text-align: center;
-  font-size: 1.2vw; /* Texto adaptativo */
+  font-size: 17px; /* Texto adaptativo */
   font-weight: 700;
   overflow: hidden;
   text-overflow: ellipsis;
   /* white-space: nowrap; */
+}
+
+.contenido h1:hover{
+  color: var(--primary-color);
+  list-style: inside;
 }
 
 .precio {
@@ -192,4 +222,6 @@ const handleLikeProduct = () => {
 }
 
 }
+
+
 </style>
