@@ -3,13 +3,14 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
+use App\Models\Categoria;
 
-class DatabaseSeeder extends Seeder
+class CategoriasSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
         // Llama a los seeders que quieres ejecutar
         $this->call([
