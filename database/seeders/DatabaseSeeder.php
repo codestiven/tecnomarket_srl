@@ -1,27 +1,26 @@
 <?php
-
 namespace Database\Seeders;
 
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Categoria;
 
-class CategoriasSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
-        // Definir los datos que quieres insertar
-        $categorias = [
-            ['nombre' => 'Laptops'],
-            ['nombre' => 'TVS'],
-            ['nombre' => 'Accesorios'],
-            ['nombre' => 'Aire acondicionado'],
-        ];
+        // Llama a los seeders que quieres ejecutar
+        $this->call([
+            CategoriasSeeder::class,
+            MarcasSeeder::class,
+        ]);
 
-        // Insertar los datos en la tabla 'categorias'
-        Categoria::insert($categorias);
+        // Crear un usuario de prueba
+        User::factory()->create([
+            'name' => 'Test User',
+            'email' => 'test@example.com',
+        ]);
     }
 }

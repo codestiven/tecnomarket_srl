@@ -16,8 +16,9 @@ class CategoriasSeeder extends Seeder
         // Definir los datos que quieres insertar
         $categorias = [
             ['nombre' => 'Laptops'],
-            ['nombre' => 'Laptops Gamer'],
-            ['nombre' => 'Smart TV'],
+            ['nombre' => 'TVS'],
+            ['nombre' => 'Accesorios'],
+            ['nombre' => 'Aire acondicionado'],
         ];
 
         // Insertar los datos en la tabla 'categorias'
