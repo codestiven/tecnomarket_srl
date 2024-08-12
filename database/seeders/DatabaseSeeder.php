@@ -2,22 +2,26 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
-// use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Categoria;
 
-class DatabaseSeeder extends Seeder
+class CategoriasSeeder extends Seeder
 {
     /**
-     * Seed the application's database.
+     * Run the database seeds.
      */
-    public function run(): void
+    public function run()
     {
-        // User::factory(10)->create();
+        // Definir los datos que quieres insertar
+        $categorias = [
+            ['nombre' => 'Laptops'],
+            ['nombre' => 'TVS'],
+            ['nombre' => 'Accesorios'],
+            ['nombre' => 'Aire acondicionado'],
+        ];
 
-        User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-        ]);
+        // Insertar los datos en la tabla 'categorias'
+        Categoria::insert($categorias);
     }
 }
