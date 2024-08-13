@@ -3,19 +3,19 @@ namespace Database\Seeders;
 
 use App\Models\User;
 use Illuminate\Database\Seeder;
-use App\Models\Categoria;
 
-class CategoriasSeeder extends Seeder
+class DatabaseSeeder extends Seeder
 {
     /**
-     * Run the database seeds.
+     * Seed the application's database.
      */
-    public function run()
+    public function run(): void
     {
         // Llama a los seeders que quieres ejecutar
         $this->call([
             CategoriasSeeder::class,
             MarcasSeeder::class,
+            ProductosSeeder::class,
         ]);
 
         // Crear un usuario de prueba
