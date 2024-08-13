@@ -2,6 +2,8 @@ import './bootstrap';
 import '../css/app.css';
 import 'flowbite/dist/flowbite.min.css';
 import 'flowbite/dist/flowbite.min.js';
+import '@fortawesome/fontawesome-free/css/all.css';
+
 
 import { createApp, h } from 'vue';
 import { createInertiaApp } from '@inertiajs/vue3';

@@ -45,6 +45,9 @@ Route::get('/Contacto', function () {
 
 
 
+use App\Http\Controllers\MessageController;
+
+Route::post('/contact', [MessageController::class, 'store']);
 
 
 
