@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GuardadoController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -38,4 +39,13 @@ Route::prefix('Marcas')->group(function () {
     Route::get('/{marca}/edit', [MarcaController::class, 'edit']);
     Route::put('/{marca}', [MarcaController::class, 'update']);
     Route::delete('/{marca}', [MarcaController::class, 'destroy']);
+});
+
+
+
+
+Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/guardados', [GuardadoController::class, 'store']);
+    Route::delete('/guardados/{producto_id}', [GuardadoController::class, 'destroy']);
+    Route::get('/guardados', [GuardadoController::class, 'index']);
 });
