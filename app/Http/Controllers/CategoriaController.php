@@ -37,17 +37,17 @@ class CategoriaController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
-    {
-        //
-    }
-
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $categoria = Categoria::create([
+            'nombre' => $request->input('nombre'),
+        ]);
+
+        return response()->json($categoria, 201);
     }
 
     /**
@@ -55,15 +55,7 @@ class CategoriaController extends Controller
      */
     public function show(Categoria $categoria)
     {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(Categoria $categoria)
-    {
-        //
+        return response()->json($categoria);
     }
 
     /**
@@ -71,7 +63,15 @@ class CategoriaController extends Controller
      */
     public function update(Request $request, Categoria $categoria)
     {
-        //
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        $categoria->update([
+            'nombre' => $request->input('nombre'),
+        ]);
+
+        return response()->json($categoria);
     }
 
     /**
@@ -79,6 +79,8 @@ class CategoriaController extends Controller
      */
     public function destroy(Categoria $categoria)
     {
-        //
+        $categoria->delete();
+
+        return response()->json(['message' => 'Categoría eliminada correctamente']);
     }
 }

@@ -16,10 +16,26 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
 
-Route::get('/Categorias', [CategoriaController::class, 'index']);
 
 
 
+// Route::get('/Marcas', [MarcaController::class, 'index']);
 
 
-Route::get('/Marcas', [MarcaController::class, 'index']);
+Route::prefix('Categorias')->group(function () {
+    Route::get('/', [CategoriaController::class, 'index']);
+    Route::post('/', [CategoriaController::class, 'store']);
+    Route::get('/{categoria}', [CategoriaController::class, 'show']);
+    Route::put('/{categoria}', [CategoriaController::class, 'update']);
+    Route::delete('/{categoria}', [CategoriaController::class, 'destroy']);
+});
+
+Route::prefix('Marcas')->group(function () {
+    Route::get('/', [CategoriaController::class, 'index']);
+    Route::post('/', [MarcaController::class, 'store']);
+    Route::get('/create', [MarcaController::class, 'create']);
+    Route::get('/{marca}', [MarcaController::class, 'show']);
+    Route::get('/{marca}/edit', [MarcaController::class, 'edit']);
+    Route::put('/{marca}', [MarcaController::class, 'update']);
+    Route::delete('/{marca}', [MarcaController::class, 'destroy']);
+});

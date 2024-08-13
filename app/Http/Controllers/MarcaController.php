@@ -44,7 +44,7 @@ class MarcaController extends Controller
      */
     public function create()
     {
-        //
+        // Aquí puedes devolver una vista o datos necesarios para crear una nueva Marca
     }
 
     /**
@@ -52,7 +52,18 @@ class MarcaController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        // Valida los datos de entrada
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        // Crea una nueva Marca en la base de datos
+        $marca = Marca::create([
+            'nombre' => $request->input('nombre'),
+        ]);
+
+        // Retorna la respuesta con los datos de la Marca creada
+        return response()->json($marca, 201);
     }
 
     /**
@@ -60,7 +71,8 @@ class MarcaController extends Controller
      */
     public function show(Marca $marca)
     {
-        //
+        // Devuelve los datos de la Marca solicitada
+        return response()->json($marca);
     }
 
     /**
@@ -68,7 +80,7 @@ class MarcaController extends Controller
      */
     public function edit(Marca $marca)
     {
-        //
+        // Aquí puedes devolver una vista o datos necesarios para editar una Marca
     }
 
     /**
@@ -76,7 +88,18 @@ class MarcaController extends Controller
      */
     public function update(Request $request, Marca $marca)
     {
-        //
+        // Valida los datos de entrada
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+        ]);
+
+        // Actualiza los datos de la Marca en la base de datos
+        $marca->update([
+            'nombre' => $request->input('nombre'),
+        ]);
+
+        // Retorna la respuesta con los datos de la Marca actualizada
+        return response()->json($marca);
     }
 
     /**
@@ -84,6 +107,10 @@ class MarcaController extends Controller
      */
     public function destroy(Marca $marca)
     {
-        //
+        // Elimina la Marca de la base de datos
+        $marca->delete();
+
+        // Retorna una respuesta indicando que la Marca ha sido eliminada
+        return response()->json(['message' => 'Marca eliminada correctamente']);
     }
 }
