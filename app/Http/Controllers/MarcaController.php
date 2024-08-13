@@ -3,7 +3,10 @@
 namespace App\Http\Controllers;
 
 use App\Models\Marca;
+use App\Models\Producto;
+
 use Illuminate\Http\Request;
+
 
 class MarcaController extends Controller
 {
@@ -12,8 +15,28 @@ class MarcaController extends Controller
      */
     public function index()
     {
-        $marca = Marca::all();
-        return response()->json(['marcas' => $marca]);
+        // Obtener todas las marcas
+        $marcas = Marca::all();
+
+        // Iterar sobre cada marca y agregar la cantidad de productos
+        $marcasConCantidad = $marcas->map(function ($marca) {
+            // Contar la cantidad de productos para la marca actual
+            $cantidadProductos = Producto::where('marca_id', $marca->id)->count();
+
+            // Agregar la cantidad de productos al objeto de la marca
+            return [
+                'id' => $marca->id,
+                'nombre' => $marca->nombre,
+                'created_at' => $marca->created_at,
+                'updated_at' => $marca->updated_at,
+                'cantidad_productos' => $cantidadProductos
+            ];
+        });
+
+        // Retornar la lista de marcas con la cantidad de productos en formato JSON
+        return response()->json([
+            'marcas' => $marcasConCantidad
+        ]);
     }
 
     /**

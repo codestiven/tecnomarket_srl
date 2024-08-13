@@ -4,6 +4,9 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\ProductoController;
+use App\Http\Controllers\MarcaController;
+use App\Http\Controllers\OfertaController;
+use App\Http\Controllers\CategoriaController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -11,4 +14,12 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::get('/aa', [ProductoController::class, 'ContadorProductos']);
+Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
+
+Route::get('/Categorias', [CategoriaController::class, 'index']);
+
+
+
+
+
+Route::get('/Marcas', [MarcaController::class, 'index']);

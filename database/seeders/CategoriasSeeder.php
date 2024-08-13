@@ -18,7 +18,9 @@ class CategoriasSeeder extends Seeder
             ['nombre' => 'Laptops'],
             ['nombre' => 'TVS'],
             ['nombre' => 'Accesorios'],
-            ['nombre' => 'Aire acondicionado'],
+            ['nombre' => 'Impresoras'],
+            ['nombre' => 'Celulares'],
+            ['nombre' => 'Tablet'],
         ];
 
         // Insertar los datos en la tabla 'categorias'

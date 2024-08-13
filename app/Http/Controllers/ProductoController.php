@@ -167,4 +167,15 @@ class ProductoController extends Controller
     {
         //
     }
+
+    public function ContadorProductos()
+    {
+        // Contar la cantidad de productos
+        $cantidadProductos = Producto::count();
+
+        // Retornar la cantidad en formato JSON
+        return response()->json([
+            'ProductosCount' => $cantidadProductos
+        ]);
+    }
 }

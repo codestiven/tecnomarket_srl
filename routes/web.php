@@ -17,6 +17,7 @@ use App\Http\Controllers\ProductoController;
 
 
 
+
 Route::get('/', function () {
     return Inertia::render('Welcome', [
         'canLogin' => Route::has('login'),

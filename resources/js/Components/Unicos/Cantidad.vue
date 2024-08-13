@@ -1,32 +1,45 @@
 <script>
-import { ref } from "vue"; // Importa ref desde Vue para crear referencias reactivas
+import { ref, onMounted } from "vue";
+import axios from "axios";
 
 export default {
   setup() {
-    // Crea una referencia reactiva llamada datos
-    const Total = ref(999);
-    // Crea una referencia reactiva para manejar errores
-    const cantidad = ref(100);
+    // Referencias reactivas para almacenar los datos
+    const total = ref(0); // Inicializa con 0
+    const categorias = ref([]);
+    const error = ref(null);
 
-    // Método para obtener datos de la API
-    const fetchData = () => {
-      axios
-        .get("URL_DE_TU_API")
-        .then((response) => {
-          datos.value = response.data; // Guarda los datos recibidos en la referencia datos
-        })
-        .catch((err) => {
-          error.value = err; // Captura errores si la solicitud falla
-        });
+    // Método para obtener la cantidad total de productos
+    const fetchTotal = async () => {
+      try {
+        const response = await axios.get("/api/ProductoCount");
+        total.value = response.data.ProductosCount;
+      } catch (err) {
+        error.value = `Error al obtener la cantidad total de productos: ${err.message}`;
+      }
     };
 
-    // Llama a fetchData() cuando el componente se monta en el DOM
-    fetchData();
+    // Método para obtener las categorías y la cantidad de productos
+    const fetchCategorias = async () => {
+      try {
+        const response = await axios.get("/api/Categorias");
+        categorias.value = response.data.categorias; // Ajusta la estructura de la respuesta
+      } catch (err) {
+        error.value = `Error al obtener las categorías: ${err.message}`;
+      }
+    };
 
-    // Retorna los datos y métodos que deseas exponer en el componente
+    // Llama a los métodos cuando el componente se monta en el DOM
+    onMounted(() => {
+      fetchTotal();
+      fetchCategorias();
+    });
+
+    // Retorna las referencias y métodos que deseas exponer en el componente
     return {
-      Total,
-      cantidad,
+      total,
+      categorias,
+      error
     };
   },
 };
@@ -35,23 +48,22 @@ export default {
 <template>
   <div class="contenedor">
     <div class="contenedor_cantidad">
-      <h3>{{ Total }} Productos</h3>
+      <h3>{{ total }} Productos</h3>
     </div>
 
-    <div class="contenedor productos">
+    <div v-if="error" class="error">
+      <p>{{ error }}</p>
+    </div>
+
+    <div class="contenedor productos" v-if="!error">
       <h1>Productos</h1>
       <div class="cartas">
-        <div class="carta">
-          <h1>Laptos</h1>
-          <p>{{ cantidad }}</p>
+        <div v-for="categoria in categorias" :key="categoria.id" class="carta">
+          <div class="carta_titulo">
+            <h1>{{ categoria.nombre }}</h1>
+          </div>
+          <p>{{ categoria.cantidad_productos }}</p>
         </div>
-
-        <div class="carta">
-          <h1>Laptos</h1>
-          <p>{{ cantidad }}</p>
-        </div>
-
-
       </div>
     </div>
   </div>
@@ -63,8 +75,6 @@ export default {
   height: 100%;
   display: flex;
   flex-direction: column;
-
-
 }
 
 .contenedor .contenedor_cantidad {
@@ -83,13 +93,12 @@ export default {
   padding: 25px;
 }
 
-.contenedor .productos > h1{
+.contenedor .productos > h1 {
   padding: 00px 10px 20px 0px;
   font-size: 25px;
   color: rgb(37, 37, 37);
   text-align: start;
   font-weight: bold;
-
 }
 
 .contenedor .productos > h1::after {
@@ -102,34 +111,36 @@ export default {
   border-radius: 100px;
 }
 
-
-.contenedor .productos .carta{
+.contenedor .productos .carta {
   width: 100%;
   display: flex;
   justify-content: space-between;
-  align-items: center;
+  align-items: center; /* Centra verticalmente los elementos dentro de la tarjeta */
   padding: 0px 10px 10px 0px;
   font-size: 20px;
   color: rgb(53, 53, 53);
   text-align: start;
-
-
+  margin-bottom: 15px;
 }
 
-.contenedor .productos .carta p{
+.contenedor .productos .carta_titulo {
+  flex: 1; /* Permite que el título tome el espacio disponible */
+  overflow-wrap: break-word; /* Ajusta el texto largo */
+  word-break: break-word; /* Ajusta el texto largo */
+
+  
+}
+
+.contenedor .productos .carta h1 {
+  margin: 0;
+}
+
+.contenedor .productos .carta p {
   background-color: #c2c2c2;
   color: #585858;
-
   border-radius: 100px;
-  width: 20%;
+  width: 30%;
   text-align: center;
   font-weight: bold;
-  width: 30%;
-
-
-
 }
-
-
-
 </style>
