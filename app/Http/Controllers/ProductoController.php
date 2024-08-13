@@ -24,9 +24,6 @@ class ProductoController extends Controller
 
         // Devolver la respuesta JSON con todos los productos actualizados
         return response()->json(['productos' => $productos]);
-
-        
-        
     }
 
     public function Filtro(Request $request)
@@ -63,10 +60,12 @@ class ProductoController extends Controller
     }
 
 
-    public function search(Request $request, $buscar = null)
+    public function search(/*Request $request,*/$buscar = null)
     {
         if ($buscar != "*") {
-            $resultados = Producto::where('nombre', 'like', '%' . $buscar . '%')->get();
+            $resultados = Producto::where('nombre', 'like', '%' . $buscar . '%')
+                ->orWhere('descripcion', 'like', '%' . $buscar . '%')
+                ->get();
         } else {
             $resultados = Producto::inRandomOrder()->get();
         }
@@ -76,9 +75,13 @@ class ProductoController extends Controller
         }
 
         return Inertia::render('Productos/Buscar', [
-            'productos' => $resultados
+            'productos' => $resultados,
+            'buscado' => $buscar
         ]);
+
+        // return response()->json(['resultados' => $resultados]);
     }
+
 
 
     /**

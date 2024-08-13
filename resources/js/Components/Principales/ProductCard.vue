@@ -3,51 +3,31 @@ import { Link } from "@inertiajs/vue3";
 import { defineProps, defineEmits } from "vue";
 
 const props = defineProps({
-  id: {
-    type: Number,
-    default: 26,
-  },
-
-  productName: {
-    type: String,
-    default:
-      'ffDell Inspiron 16 Plus 7630 16" 2.5K (2560x1600) Core™ i7-13620H 1TB SSD 16GB W11 NVIDIA® RTX 3050 6GB SILVER',
-  },
-  descripcion: {
-    type: String,
-    default:
-      "Dell Inspiron 16 Plus 7630 16' 2.5K (2560x1600) CoreTM i7-13620H 1TB SSD 16GB W11 NVIDIA® RTX 3050 6GB SILVER",
-  },
-  price: {
-    type: Number,
-    default: 20000,
-  },
-  id_categoria: {
-    type: Number,
-    default: 1,
-  },
-  id_marca: {
-    type: Number,
-    default: 1,
-  },
-  id_oferta: {
-    type: Number,
-    default: 1,
-  },
-    imageUrl: {
-    type: String,
-    default: "/images/laptos.png",
+  product: {
+    type: Object,
+    default: () => ({
+      id: 2,
+      nombre: "MacBook Pro 16",
+      descripcion: "Laptop de alto rendimiento para profesionales.",
+      precio: "2500.00",
+      categoria_id: 1,
+      marca_id: 1,
+      oferta_id: null,
+      image: "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png",
+      created_at: null,
+      updated_at: null,
+    }),
   },
 });
 
 const emits = defineEmits(["addToCart", "likeProduct"]);
 
 const handleAddToCart = () => {
-  emits("addToCart");
+  emits("addToCart", product);
 };
 
 const handleLikeProduct = () => {
-  emits("likeProduct");
+  emits("likeProduct", product);
 };
 </script>
 
@@ -69,15 +49,17 @@ const handleLikeProduct = () => {
           </svg>
         </button>
       </div>
-      <Link :href="`/Productos/${id}`"> <img :src="imageUrl" alt="Product Image" class="imageUrl"/> </Link>
+      <Link :href="`/Productos/${product.id}`">
+        <img :src="product.image" alt="Product Image" class="imageUrl" />
+      </Link>
     </div>
 
     <div class="contenido">
       <h1 class="nombre">
-        <Link :href="`/Productos/${id}`">{{ productName }}</Link>
+        <Link :href="`/Productos/${product.id}`">{{ product.nombre }}</Link>
       </h1>
       <div class="precio">
-        <h3>RD$ {{ price.toLocaleString() }}</h3>
+        <h3>RD$ {{ Number(product.precio).toLocaleString() }}</h3>
       </div>
     </div>
 
@@ -93,6 +75,7 @@ const handleLikeProduct = () => {
     </div>
   </div>
 </template>
+
 
 <style scoped>
 .cartas {
