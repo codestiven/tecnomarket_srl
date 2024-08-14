@@ -44,8 +44,11 @@ Route::prefix('Marcas')->group(function () {
 
 
 
-Route::middleware('auth:sanctum')->group(function () {
+
+
+Route::middleware('auth')->group(function () {
     Route::post('/guardados', [GuardadoController::class, 'store']);
     Route::delete('/guardados/{producto_id}', [GuardadoController::class, 'destroy']);
     Route::get('/guardados', [GuardadoController::class, 'index']);
 });
+

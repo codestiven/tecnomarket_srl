@@ -12,7 +12,7 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\ProductoController;
-
+use App\Http\Controllers\MessageController;
 
 
 
@@ -45,7 +45,7 @@ Route::get('/Contacto', function () {
 
 
 
-use App\Http\Controllers\MessageController;
+
 
 Route::post('/contact', [MessageController::class, 'store']);
 

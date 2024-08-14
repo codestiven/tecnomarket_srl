@@ -264,7 +264,7 @@ function handleImageError() {
 }
 
 .placeholder {
-  width: 75%;
+  width: 80%;
 
   display: grid;
   /* grid-template-rows: repeat(12, 1fr); */
@@ -331,9 +331,9 @@ function handleImageError() {
 .placeholder .contenido {
   margin: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  grid-auto-rows: 450px;
-  gap: 15px;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  grid-auto-rows: 400px;
+  gap: 10px;
   justify-content: center;
   max-height: 500px;
   overflow-y: scroll;

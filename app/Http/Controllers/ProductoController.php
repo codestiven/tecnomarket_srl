@@ -60,14 +60,17 @@ class ProductoController extends Controller
     }
 
 
-    public function search(/*Request $request,*/$buscar = null)
+    public function search($buscar = null)
     {
         if ($buscar != "*") {
-            $resultados = Producto::where('nombre', 'like', '%' . $buscar . '%')
-                ->orWhere('descripcion', 'like', '%' . $buscar . '%')
-                ->get();
+            $resultados = Producto::with(['categoria', 'marca', 'oferta']) // Cargar relaciones
+            ->where('nombre', 'like', '%' . $buscar . '%')
+            ->orWhere('descripcion', 'like', '%' . $buscar . '%')
+            ->get();
         } else {
-            $resultados = Producto::inRandomOrder()->get();
+            $resultados = Producto::with(['categoria', 'marca', 'oferta']) // Cargar relaciones
+            ->inRandomOrder()
+                ->get();
         }
 
         foreach ($resultados as $resultado) {
@@ -79,7 +82,10 @@ class ProductoController extends Controller
             'buscado' => $buscar
         ]);
 
-        // return response()->json(['resultados' => $resultados]);
+
+        // return response()->json([
+        //     'resultados' => $resultados
+        // ]);
     }
 
 

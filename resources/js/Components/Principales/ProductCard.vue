@@ -6,7 +6,7 @@ const props = defineProps({
   product: {
     type: Object,
     default: () => ({
-      id: 2,
+      id: 16,
       nombre: "MacBook Pro 16",
       descripcion: "Laptop de alto rendimiento para profesionales.",
       precio: "2500.00",
@@ -14,25 +14,40 @@ const props = defineProps({
       marca_id: 1,
       oferta_id: null,
       image: "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png",
+      stock: 77,
       created_at: null,
       updated_at: null,
+      categoria: {
+        id: 1,
+        nombre: "Laptops",
+        created_at: null,
+        updated_at: null
+      },
+      marca: {
+        id: 1,
+        nombre: "Apple",
+        created_at: "2024-08-14T16:00:40.000000Z",
+        updated_at: "2024-08-14T16:00:40.000000Z"
+      },
+      oferta: {} // Aquí puedes definir la estructura esperada si hay datos relevantes para las ofertas.
     }),
   },
+
 });
 
-const emits = defineEmits(["addToCart", "likeProduct"]);
+
 
 const handleAddToCart = () => {
-  emits("addToCart", product);
+  alert("Añadir al carrito" + props.product.id);
 };
 
 const handleLikeProduct = () => {
-  emits("likeProduct", product);
+  alert("Me Gusta " + props.product.id);
 };
 </script>
 
 <template>
-  <div class="cartas">
+  <!-- <div class="cartas">
     <div class="imagen">
       <div class="me_gusta">
         <button @click="handleLikeProduct">
@@ -73,138 +88,353 @@ const handleLikeProduct = () => {
         </svg>
       </button>
     </div>
+  </div> -->
+
+  <div class="card">
+    <div class="up">
+      <div class="up_image">
+        <div class="oferta" :class="{ 'invisible': !product.oferta }"> <i class="fa-solid fa-percent"></i>
+          <span>Oferta</span>
+        </div>
+        <button @click="handleLikeProduct" class="gusta"> 12 <i class="fa-regular fa-heart"></i></button>
+      </div>
+      <div class="image">
+        <Link :href="`/Productos/${product.id}`">
+        <img :src="product.image" alt="Product Image" class="imageUrl" />
+        </Link>
+      </div>
+    </div>
+
+    <div class="center">
+      <div class="name">
+        <div class="nombre">
+
+          <h1>
+            <Link :href="`/Productos/${product.id}`">{{ product.nombre }}</Link>
+          </h1>
+        </div> <span>( {{ product.stock }} )</span>
+      </div>
+      <div class="marcation">
+        <span>{{ product.marca.nombre }} - {{ product.categoria.nombre }}</span>
+      </div>
+      <div class="price">
+        <h1>RD$ {{ Number(product.precio).toLocaleString() }}</h1> <span>RD$ 50,000.00</span>
+      </div>
+    </div>
+    <div class="down">
+
+      <button class="agregar"> <i class="fa-solid fa-cart-shopping"></i> Agregar a carrito</button>
+      <button class="comprar"> <i class="fa-solid fa-basket-shopping"></i> comprar</button>
+    </div>
   </div>
+
+
+
+
+
+
+
 </template>
 
 
+
 <style scoped>
-.cartas {
-  background-color: #fff;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.card {
+
+  height: 400px;
+  background-color: #F9F9F9;
   padding: 10px;
+  border-radius: 15px;
   overflow: hidden;
-  border-radius: 20px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  height: 100%;
+
+  display: grid;
+  grid-template-rows: repeat(12, 1fr);
+
+  /* gap: 10px;  */
+
 }
 
-.cartas:hover {
-  transform: scale(1.05);
+.card>div {
+  overflow: hidden;
 }
 
-.imagen {
+/* up ---------------------------------------------------------------------------------------- */
+
+.card .up {
+  grid-row: span 6;
+
+  /* background-color: rgb(34, 3, 3); */
   position: relative;
-  flex: 2;
-  overflow: hidden;
+
 }
-.imagen:hover .imageUrl{
-  transform: scale(1.3) !important;
-  opacity: 1 !important;
-}
-.me_gusta {
+
+.card .up .up_image {
+  width: 100%;
+  height: 60px;
+
+  align-items: center;
+  /* background-color: #0b88e762; */
   position: absolute;
-  top: 0;
-  right: 0;
-  width: 100%;
+  z-index: 1000;
+
   display: flex;
-  justify-content: flex-end;
+  justify-content: space-between;
+
   padding: 10px;
-  z-index: 5;
+
 }
 
-.imagen img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  border-radius: 20px;
-}
-
-.contenido {
-  padding: 10px;
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-
-.contenido h1 {
-  margin-top: 10px;
-  text-align: center;
-  font-size: 17px; /* Texto adaptativo */
-  font-weight: 700;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  /* white-space: nowrap; */
-}
-
-.contenido h1:hover{
-  color: var(--primary-color);
-  list-style: inside;
-}
-
-.precio {
-  display: flex;
-  justify-content: center;
-}
-
-.precio h3 {
-  display: flex;
-  justify-content: center;
-  font-size: 2.5vw; /* Texto adaptativo */
+.card .up .up_image .gusta {
+  font-size: 20px;
   font-weight: bold;
-  text-align: center;
-  color: rgb(36, 36, 36);
-  font-family: 'Helvetica Bold';
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
-.boton {
-  margin-top: 10px;
-  display: flex;
-  justify-content: center;
-  flex: 0;
-}
-
-.boton button {
+  color: rgb(20, 20, 20);
+  transition: color 0.3s;
+  cursor: pointer;
   display: flex;
   align-items: center;
-  gap: 5px;
-  padding: 10px 20px;
-  background-color: var(--complementario-color);
+  gap: 7px;
+  transition: 250ms;
+  
+}
+
+.card .up .up_image .gusta:hover {
+  color: rgb(30, 116, 214);
+  transform: scale(1.3);
+}
+
+.card .up .up_image .gusta:active {
+  color: rgb(30, 116, 214);
+  transform: scale(1);
+}
+
+
+.card .up .up_image .gusta i{
+  font-size: 28px;
+
+}
+
+.card .up .up_image .oferta {
+  width: 60%;
+  font-size: 20px;
+  font-weight: bold;
   color: white;
-  border: none;
+  background-color: #F36262;
+  padding: 5px 10px;
   border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
+
+}
+
+.card .up .up_image .oferta i {
+  font-size: 25px;
+
+}
+
+
+
+
+
+.card .up .image {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+
+}
+
+.card .up .image img {
+
+  width: 360px;
+  object-fit: cover;
   cursor: pointer;
-  transform: translate(0, 100px);
-}
+  border-radius: 8px;
 
-.boton button:hover {
-  background-color: var(--primary-color);
-  box-shadow: 0px 0px 30px 10px  rgba(41, 141, 255, 0.75);
-  transform: scale(1.1);
-}
-
-.cartas:hover .boton button {
-
-    transform: translate(0, 0);
-}
-
-.boton button svg {
-  fill: rgb(255, 255, 255);
-  transform: scale(0.9);
-}
-
-@media (max-width: 1024px) {
-  .cartas .boton button {
-
-    transform: translate(0, 0);
-}
 
 }
 
+/* center ---------------------------------------------------------------------------------------- */
 
+.card .center {
+  grid-row: span 4;
+  /* background-color: lightblue; */
+  display: flex;
+  flex-direction: column;
+  /* justify-content: center; */
+  padding: 5px;
+}
+
+/* name -------------------------- */
+
+.card .center .name {
+  display: flex;
+  gap: 3%;
+  align-items: center;
+
+}
+
+.card .center .name .nombre {
+  max-width: 100%;
+  /* height:30px ; */
+  display: flex;
+
+  /* background-color: aqua; */
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+
+}
+
+.card .center .name .nombre h1 {
+  font-size: 22px;
+  font-weight: bold;
+  color: #3D3D3D;
+
+
+}
+
+.card .center .name .nombre h1:hover {
+  font-weight: bold;
+  color: #295f92;
+
+
+
+}
+.card .center .name span {
+  font-size: 16px;
+  font-weight: bold;
+  color: #8d8d8dd5;
+}
+
+/*marcation -------------------------- */
+
+.marcation {
+  text-align: start;
+  font-size: 14px;
+  font-weight: bold;
+  color: #8D8D8D;
+
+}
+
+/*precio -------------------------- */
+
+.price {
+  display: flex;
+  align-items: end;
+  gap: 2%;
+
+
+
+}
+
+.price h1 {
+  font-size: 27px;
+  font-weight: bold;
+  white-space: nowrap;
+  color: #393939;
+
+}
+
+.price span {
+  font-size: 15px;
+  font-weight: 600;
+  text-decoration: line-through;
+  color: #7D7D7D;
+
+
+}
+
+
+/* down ---------------------------------------------------------------------------------------- */
+
+
+
+.card .down {
+  grid-row: span 2;
+  /* Ocupa 2 columnas */
+  /* background-color: lightgreen; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 5%;
+}
+
+.card .down button {
+  /* background-color: red; */
+  border-radius: 13px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  gap: 5%;
+  padding: 10px;
+
+  width: 130px;
+  height: 50px;
+
+  font-weight: bold;
+
+  font-size: 17px;
+}
+
+.card .down button:hover {
+
+  transform: scale(1.2);
+  
+
+}
+
+.card .down button:active {
+  background-color: #0be7b7;
+  color: #fff;
+  transform: scale(1);
+}
+.card .down button:active .fa-solid {
+  color: #ECECEC;
+
+}
+
+.card .down button .fa-solid {
+  font-size: 20px;
+
+}
+
+.agregar {
+  color: #7B7B7B;
+  background-color: #ECECEC;
+
+}
+
+
+.agregar:hover {
+
+  background-color: #d3d3d3;
+}
+.agregar .fa-solid {
+  color: #7B7B7B;
+}
+
+
+
+.comprar {
+  color: white;
+  background-color: #0B86E7;
+
+}
+
+.comprar:hover {
+
+  background-color: #0b63e7;
+}
 </style>
