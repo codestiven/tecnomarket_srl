@@ -19,6 +19,7 @@ class Producto extends Model
         'marca_id',
         'oferta_id',
         'image',
+        'stock '
     ];
 
     public function categoria()

@@ -17,6 +17,7 @@ class CreateProductosTable extends Migration
             $table->unsignedBigInteger('marca_id');
             $table->unsignedBigInteger('oferta_id')->nullable();
             $table->string('image')->nullable();
+            $table->integer('stock')->default(1);
             $table->timestamps();
 
             // Claves foráneas

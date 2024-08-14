@@ -22,6 +22,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 1, // Apple
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Dell XPS 13',
@@ -31,6 +32,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 2, // Dell
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'HP Spectre x360',
@@ -40,6 +42,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 3, // HP
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Lenovo ThinkPad X1 Carbon',
@@ -49,6 +52,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 4, // Lenovo
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Acer Aspire 5',
@@ -58,6 +62,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 5, // Acer
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Asus ROG Zephyrus',
@@ -67,6 +72,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 6, // Asus
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Microsoft Surface Laptop 4',
@@ -76,6 +82,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 7, // Microsoft
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Samsung QLED TV 55"',
@@ -85,6 +92,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 8, // Samsung
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'LG OLED TV 65"',
@@ -94,6 +102,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 9, // LG
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Razer BlackWidow',
@@ -103,6 +112,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 10, // Razer
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Alienware Gaming Mouse',
@@ -112,6 +122,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 11, // Alienware
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Samsung Wind-Free AC 1.5 Ton',
@@ -121,6 +132,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 8, // Samsung
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'LG Dual Inverter AC 1 Ton',
@@ -130,6 +142,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 9, // LG
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'MSI Optix Curved Monitor',
@@ -139,6 +152,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 9, // MSI
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
             [
                 'nombre' => 'Acer Predator Monitor',
@@ -148,6 +162,7 @@ class ProductosSeeder extends Seeder
                 'marca_id' => 5, // Acer
                 'image' => 'https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png',
                 'oferta_id' => null,
+                'stock' => rand(10, 100), // Stock aleatorio
             ],
         ]);
     }
