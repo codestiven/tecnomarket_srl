@@ -5,7 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\GuardadoController;
-use App\Http\Controllers\GuardadoController;
+
 
 // Controladores
 use App\Http\Controllers\ProfileController;
