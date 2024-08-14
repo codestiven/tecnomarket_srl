@@ -41,9 +41,52 @@ const handleAddToCart = () => {
   alert("Añadir al carrito" + props.product.id);
 };
 
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
 const handleLikeProduct = () => {
-  alert("Me Gusta " + props.product.id);
+  const productoId = props.product.id;
+
+  // Intenta guardar el producto
+  axios.post('/guardados', {
+    producto_id: productoId
+  })
+    .then(response => {
+      // Si la respuesta es que el producto ya estaba guardado, elimina el guardado
+      if (response.status === 400) {
+        return axios.delete(`/guardados/${productoId}`);
+      }
+      // Si el producto fue guardado correctamente, muestra un mensaje
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Producto guardado correctamente'
+      });
+    })
+    .catch(error => {
+      if (error.response && error.response.status === 400) {
+        // Maneja la eliminación del producto si ya estaba guardado
+        return axios.delete(`/guardados/${productoId}`)
+          .then(() => Swal.fire({
+            icon: 'success',
+            title: 'Éxito',
+            text: 'Producto eliminado de guardados'
+          }))
+          .catch(deleteError => Swal.fire({
+            icon: 'error',
+            title: 'Error',
+            text: 'Error al eliminar el producto: ' + (deleteError.response?.data.message || 'Error inesperado')
+          }));
+      } else {
+        Swal.fire({
+          icon: 'error',
+          title: 'Error',
+          text: 'Error: ' + (error.response?.data.message || 'Error inesperado')
+        });
+      }
+    });
 };
+
 </script>
 
 <template>

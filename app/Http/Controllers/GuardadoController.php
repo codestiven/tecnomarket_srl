@@ -4,6 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Models\Guardado;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
+use Illuminate\Support\Facades\Storage;
 
 class GuardadoController extends Controller
 {
@@ -13,7 +16,7 @@ class GuardadoController extends Controller
             'producto_id' => 'required|exists:productos,id',
         ]);
 
-        $user = $request->user(); // Obtiene el usuario autenticado
+        $user = Auth::user(); // Obtiene el usuario autenticado
         $producto_id = $request->input('producto_id');
 
         // Verifica si el producto ya está guardado por el usuario
@@ -35,7 +38,7 @@ class GuardadoController extends Controller
 
     public function destroy($producto_id)
     {
-        $user = auth()->user();
+        $user = Auth::user();
 
         $guardado = Guardado::where('user_id', $user->id)
             ->where('producto_id', $producto_id)
@@ -50,11 +53,42 @@ class GuardadoController extends Controller
         return response()->json(['message' => 'Producto eliminado de guardados'], 200);
     }
 
+
+
+
+
     public function index()
     {
-        $user = auth()->user();
-        $guardados = $user->guardados()->with('producto')->get();
+        $user = Auth::user();
 
-        return response()->json($guardados);
+        // Verifica si el usuario está autenticado
+        if (!$user) {
+            return redirect()->route('login'); // Redirige al login si no está autenticado
+        }
+
+        // Obtener todos los productos guardados por el usuario autenticado
+        $guardados = Guardado::with('producto')
+            ->where('user_id', $user->id)
+            ->get();
+
+        // Verifica si el usuario no tiene productos guardados
+        if ($guardados->isEmpty()) {
+            // Puedes decidir si quieres manejar esto de alguna manera en la vista
+        }
+
+        // Modificar las URLs de las imágenes para usar el almacenamiento
+        foreach ($guardados as $guardado) {
+            if ($guardado->producto->image) {
+                $guardado->producto->image = Storage::url($guardado->producto->image);
+            }
+        }
+
+        // Pasar los datos a Inertia
+        return Inertia::render('Guardados', [
+            'guardados' => $guardados
+        ]);
     }
+
+
+
 }
