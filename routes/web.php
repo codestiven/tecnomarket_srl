@@ -4,6 +4,7 @@
 use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
+use App\Http\Controllers\GuardadoController;
 
 // Controladores
 use App\Http\Controllers\ProfileController;
@@ -91,5 +92,18 @@ Route::middleware('auth')->group(function () {
 Route::get('/test', function () {
     return Inertia::render('Sobre_Nosotros');
 });
+
+
+
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/guardados', [GuardadoController::class, 'index'])->name('guardados.index');
+    Route::post('/guardados', [GuardadoController::class, 'store'])->name('guardados.store');
+    Route::delete('/guardados/{producto_id}', [GuardadoController::class, 'destroy'])->name('guardados.destroy');
+});
+
+
 
 require __DIR__.'/auth.php';
