@@ -140,15 +140,21 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
+
         $producto->image = Storage::url($producto->image);
 
-        // return response()->json(['producto' => $producto]);
+        // Cargar los detalles del producto asociado
+        $detallesProducto = $producto->detallesProducto;
 
-
+        // Enviar tanto el producto como sus detalles a la vista
         return Inertia::render('Productos/producto', [
-            'producto' => $producto
+            'producto' => $producto,
+            'detallesProducto' => $detallesProducto
         ]);
+
+        // return response()->json(['producto' => $detallesProducto]);
     }
+
 
     /**
      * Show the form for editing the specified resource.

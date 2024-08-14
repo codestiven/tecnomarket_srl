@@ -17,6 +17,7 @@ class DatabaseSeeder extends Seeder
             CategoriasSeeder::class,
             MarcasSeeder::class,
             ProductosSeeder::class,
+            DetallesProductosSeeder::class,
         ]);
 
         // Crear un usuario de prueba
