@@ -21,6 +21,8 @@ class DetallesProducto extends Model
         'sistema_operativo',
         'procesador',
         'ram',
+        'almacenamiento',
+        'tipo_de_almacenamiento',
         'tarjeta_grafica',
         'consumo_energetico',
     ];

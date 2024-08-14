@@ -11,169 +11,199 @@ class DetallesProductosSeeder extends Seeder
     {
         DB::table('detalles_productos')->insert([
             [
-                'producto_id' => 1, // ID de MacBook Pro 16
+                'producto_id' => 1,
                 'color' => 'Plata',
-                'peso' => 2.0, // Cambiado a decimal
+                'peso' => 2.0,
                 'pantalla' => '16 pulgadas',
                 'sistema_operativo' => 'macOS',
                 'procesador' => 'Intel Core i9',
-                'ram' => 32, // Cambiado a integer
+                'ram' => 32,
+                'almacenamiento' => 1024,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'AMD Radeon Pro 5500M',
-                'consumo_energetico' => 100, // Cambiado a integer
+                'consumo_energetico' => 100,
             ],
             [
-                'producto_id' => 2, // ID de Dell XPS 13
+                'producto_id' => 2,
                 'color' => 'Negro',
-                'peso' => 1.2, // Cambiado a decimal
+                'peso' => 1.2,
                 'pantalla' => '13.3 pulgadas',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'Intel Core i7',
-                'ram' => 16, // Cambiado a integer
+                'ram' => 16,
+                'almacenamiento' => 512,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'Intel Iris Plus',
-                'consumo_energetico' => 65, // Cambiado a integer
+                'consumo_energetico' => 65,
             ],
             [
-                'producto_id' => 3, // ID de HP Spectre x360
+                'producto_id' => 3,
                 'color' => 'Dorado',
-                'peso' => 1.3, // Cambiado a decimal
+                'peso' => 1.3,
                 'pantalla' => '13.3 pulgadas táctil',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'Intel Core i7',
-                'ram' => 16, // Cambiado a integer
+                'ram' => 16,
+                'almacenamiento' => 512,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'Intel Iris Plus',
-                'consumo_energetico' => 65, // Cambiado a integer
+                'consumo_energetico' => 65,
             ],
             [
-                'producto_id' => 4, // ID de Lenovo ThinkPad X1 Carbon
+                'producto_id' => 4,
                 'color' => 'Negro',
-                'peso' => 1.1, // Cambiado a decimal
+                'peso' => 1.1,
                 'pantalla' => '14 pulgadas',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'Intel Core i7',
-                'ram' => 16, // Cambiado a integer
+                'ram' => 16,
+                'almacenamiento' => 512,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'Intel UHD Graphics',
-                'consumo_energetico' => 50, // Cambiado a integer
+                'consumo_energetico' => 50,
             ],
             [
-                'producto_id' => 5, // ID de Acer Aspire 5
+                'producto_id' => 5,
                 'color' => 'Plata',
-                'peso' => 1.8, // Cambiado a decimal
+                'peso' => 1.8,
                 'pantalla' => '15.6 pulgadas',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'AMD Ryzen 5',
-                'ram' => 8, // Cambiado a integer
+                'ram' => 8,
+                'almacenamiento' => 256,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'NVIDIA GeForce MX350',
-                'consumo_energetico' => 70, // Cambiado a integer
+                'consumo_energetico' => 70,
             ],
             [
-                'producto_id' => 6, // ID de Asus ROG Zephyrus
+                'producto_id' => 6,
                 'color' => 'Negro',
-                'peso' => 2.2, // Cambiado a decimal
+                'peso' => 2.2,
                 'pantalla' => '15.6 pulgadas',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'Intel Core i7',
-                'ram' => 16, // Cambiado a integer
+                'ram' => 16,
+                'almacenamiento' => 512,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'NVIDIA GeForce GTX 1660 Ti',
-                'consumo_energetico' => 120, // Cambiado a integer
+                'consumo_energetico' => 120,
             ],
             [
-                'producto_id' => 7, // ID de Microsoft Surface Laptop 4
+                'producto_id' => 7,
                 'color' => 'Platino',
-                'peso' => 1.3, // Cambiado a decimal
+                'peso' => 1.3,
                 'pantalla' => '13.5 pulgadas táctil',
                 'sistema_operativo' => 'Windows 10',
                 'procesador' => 'AMD Ryzen 7',
-                'ram' => 16, // Cambiado a integer
+                'ram' => 16,
+                'almacenamiento' => 512,
+                'tipo_de_almacenamiento' => 'SSD',
                 'tarjeta_grafica' => 'Radeon Vega 9',
-                'consumo_energetico' => 65, // Cambiado a integer
+                'consumo_energetico' => 65,
             ],
             [
-                'producto_id' => 8, // ID de Samsung QLED TV 55"
+                'producto_id' => 8,
                 'color' => 'Negro',
-                'peso' => 17.5, // Cambiado a decimal
+                'peso' => 17.5,
                 'pantalla' => '55 pulgadas',
                 'sistema_operativo' => 'Tizen OS',
                 'procesador' => 'Quantum Processor 4K',
-                'ram' => 2, // Cambiado a integer
+                'ram' => 2,
+                'almacenamiento' => null, // No aplica
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => 'Mali-G71',
-                'consumo_energetico' => 110, // Cambiado a integer
+                'consumo_energetico' => 110,
             ],
             [
-                'producto_id' => 9, // ID de LG OLED TV 65"
+                'producto_id' => 9,
                 'color' => 'Negro',
-                'peso' => 25, // Cambiado a decimal
+                'peso' => 25,
                 'pantalla' => '65 pulgadas',
                 'sistema_operativo' => 'webOS',
                 'procesador' => 'Alpha 9 Gen 3 AI Processor 4K',
-                'ram' => 4, // Cambiado a integer
+                'ram' => 4,
+                'almacenamiento' => null, // No aplica
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => 'Mali-G52',
-                'consumo_energetico' => 140, // Cambiado a integer
+                'consumo_energetico' => 140,
             ],
             [
-                'producto_id' => 10, // ID de Razer BlackWidow
+                'producto_id' => 10,
                 'color' => 'Negro',
-                'peso' => 1.2, // Cambiado a decimal
+                'peso' => 1.2,
                 'pantalla' => null,
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 5, // Cambiado a integer
+                'consumo_energetico' => 5,
             ],
             [
-                'producto_id' => 11, // ID de Alienware Gaming Mouse
+                'producto_id' => 11,
                 'color' => 'Negro',
-                'peso' => 0.2, // Cambiado a decimal
+                'peso' => 0.2,
                 'pantalla' => null,
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 3, // Cambiado a integer
+                'consumo_energetico' => 3,
             ],
             [
-                'producto_id' => 12, // ID de Samsung Wind-Free AC 1.5 Ton
+                'producto_id' => 12,
                 'color' => 'Blanco',
-                'peso' => 15, // Cambiado a decimal
+                'peso' => 15,
                 'pantalla' => null,
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 150, // Cambiado a integer
+                'consumo_energetico' => 150,
             ],
             [
-                'producto_id' => 13, // ID de LG Dual Inverter AC 1 Ton
+                'producto_id' => 13,
                 'color' => 'Blanco',
-                'peso' => 12, // Cambiado a decimal
+                'peso' => 12,
                 'pantalla' => null,
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 130, // Cambiado a integer
+                'consumo_energetico' => 130,
             ],
             [
-                'producto_id' => 14, // ID de MSI Optix Curved Monitor
+                'producto_id' => 14,
                 'color' => 'Negro',
-                'peso' => 6.5, // Cambiado a decimal
+                'peso' => 6.5,
                 'pantalla' => '27 pulgadas curvo',
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 45, // Cambiado a integer
+                'consumo_energetico' => 45,
             ],
             [
-                'producto_id' => 15, // ID de Acer Predator Monitor
+                'producto_id' => 15,
                 'color' => 'Negro',
-                'peso' => 8, // Cambiado a decimal
-                'pantalla' => '32 pulgadas',
+                'peso' => 7.2,
+                'pantalla' => '27 pulgadas curvo',
                 'sistema_operativo' => null,
                 'procesador' => null,
                 'ram' => null,
+                'almacenamiento' => null,
+                'tipo_de_almacenamiento' => null,
                 'tarjeta_grafica' => null,
-                'consumo_energetico' => 50, // Cambiado a integer
+                'consumo_energetico' => 48,
             ],
         ]);
     }

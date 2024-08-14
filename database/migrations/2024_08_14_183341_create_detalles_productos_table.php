@@ -15,13 +15,14 @@ class CreateDetallesProductosTable extends Migration
             $table->string('pantalla')->nullable();
             $table->string('sistema_operativo')->nullable();
             $table->string('procesador')->nullable();
-            $table->integer('ram')->nullable(); // Cambiado a integer
-            $table->integer('consumo_energetico')->nullable(); // Cambiado a integer
+            $table->integer('ram')->nullable();
+            $table->integer('almacenamiento')->nullable(); // Nuevo campo de almacenamiento
+            $table->enum('tipo_de_almacenamiento', ['SSD', 'HDD'])->nullable(); // Campo tipo_de_almacenamiento con valores 'HDD' y 'SSD'
+            $table->integer('consumo_energetico')->nullable();
             $table->string('tarjeta_grafica')->nullable();
 
             // Relación con la tabla productos con cascada de eliminación
             $table->foreign('producto_id')->references('id')->on('productos')->onDelete('cascade');
-
         });
     }
 

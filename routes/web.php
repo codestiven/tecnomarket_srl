@@ -103,6 +103,9 @@ Route::middleware('auth')->group(function () {
     Route::get('/guardados', [GuardadoController::class, 'index'])->name('guardados.index');
     Route::post('/guardados', [GuardadoController::class, 'store'])->name('guardados.store');
     Route::delete('/guardados/{producto_id}', [GuardadoController::class, 'destroy'])->name('guardados.destroy');
+
+    // Nueva ruta para ver los "me gustas" de un producto
+    Route::get('/guardados/likes/{producto_id}', [GuardadoController::class, 'showLikes'])->name('guardados.likes');
 });
 
 

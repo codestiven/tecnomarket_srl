@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Producto;
 
 class GuardadoController extends Controller
 {
@@ -88,6 +89,24 @@ class GuardadoController extends Controller
             'guardados' => $guardados
         ]);
     }
+
+    public function showLikes($producto_id)
+    {
+        // Verifica si el producto existe
+        $producto = Producto::find($producto_id);
+        if (!$producto) {
+            return response()->json(['message' => 'Producto no encontrado'], 404);
+        }
+
+        // Cuenta la cantidad de usuarios que han guardado el producto
+        $likesCount = Guardado::where('producto_id', $producto_id)->count();
+
+        // Devuelve la cantidad en formato JSON
+        return response()->json(['likes_count' => $likesCount]);
+    }
+
+
+
 
 
 
