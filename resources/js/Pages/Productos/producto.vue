@@ -221,11 +221,11 @@ onMounted(() => {
 
   /* Color claro para contraste */
 
-  height: 100vh;
+  /* height: 100vh; */
   display: flex;
   flex-direction: column;
 
-  overflow-y: scroll;
+  /* overflow-y: scroll; */
 
   
 }
