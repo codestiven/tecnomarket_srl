@@ -1,6 +1,9 @@
 <script setup>
 import { Link } from "@inertiajs/vue3";
-import { defineProps, defineEmits } from "vue";
+import { defineProps } from "vue";
+import { ref, onMounted } from 'vue';
+import axios from 'axios';
+import Swal from 'sweetalert2';
 
 const props = defineProps({
   product: {
@@ -32,46 +35,65 @@ const props = defineProps({
       oferta: {} // Aquí puedes definir la estructura esperada si hay datos relevantes para las ofertas.
     }),
   },
-
 });
 
+const isSaved = ref(false); // Variable para almacenar si el producto ya está guardado
+const likesCount = ref(0); // Variable para almacenar la cantidad de "me gustas"
 
-
-const handleAddToCart = () => {
-  alert("Añadir al carrito" + props.product.id);
+const fetchLikesCount = async (productoId) => {
+  try {
+    const response = await axios.get(`/guardados/likes/${productoId}`);
+    likesCount.value = response.data.likes_count;
+  } catch (error) {
+    console.error("Error fetching likes count:", error);
+  }
 };
 
-import axios from 'axios';
-import Swal from 'sweetalert2';
+const checkIfProductIsSaved = async (productoId) => {
+  try {
+    const response = await axios.get('/guardadosjson');
+    const savedProducts = response.data;
+
+    // Verifica si el producto actual está en la lista de productos guardados
+    isSaved.value = savedProducts.some(savedProduct => savedProduct.producto_id === productoId);
+  } catch (error) {
+    console.error("Error checking if product is saved:", error);
+  }
+};
 
 const handleLikeProduct = () => {
   const productoId = props.product.id;
 
-  // Intenta guardar el producto
   axios.post('/guardados', {
     producto_id: productoId
   })
     .then(response => {
-      // Si la respuesta es que el producto ya estaba guardado, elimina el guardado
       if (response.status === 400) {
         return axios.delete(`/guardados/${productoId}`);
       }
-      // Si el producto fue guardado correctamente, muestra un mensaje
+
+      likesCount.value++;
+
       Swal.fire({
         icon: 'success',
         title: 'Éxito',
         text: 'Producto guardado correctamente'
       });
+
+      isSaved.value = true; // Marca el producto como guardado
     })
     .catch(error => {
       if (error.response && error.response.status === 400) {
-        // Maneja la eliminación del producto si ya estaba guardado
         return axios.delete(`/guardados/${productoId}`)
-          .then(() => Swal.fire({
-            icon: 'success',
-            title: 'Éxito',
-            text: 'Producto eliminado de guardados'
-          }))
+          .then(() => {
+            Swal.fire({
+              icon: 'success',
+              title: 'Éxito',
+              text: 'Producto eliminado de guardados'
+            });
+            likesCount.value--;
+            isSaved.value = false; // Marca el producto como no guardado
+          })
           .catch(deleteError => Swal.fire({
             icon: 'error',
             title: 'Error',
@@ -87,9 +109,16 @@ const handleLikeProduct = () => {
     });
 };
 
+onMounted(() => {
+  const productoId = props.product.id;
+  fetchLikesCount(productoId);
+  checkIfProductIsSaved(productoId); // Llama a la función para verificar si el producto está guardado
+});
 </script>
 
+
 <template>
+
   <!-- <div class="cartas">
     <div class="imagen">
       <div class="me_gusta">
@@ -139,7 +168,10 @@ const handleLikeProduct = () => {
         <div class="oferta" :class="{ 'invisible': !product.oferta }"> <i class="fa-solid fa-percent"></i>
           <span>Oferta</span>
         </div>
-        <button @click="handleLikeProduct" class="gusta"> 12 <i class="fa-regular fa-heart"></i></button>
+        <button @click="handleLikeProduct" class="gusta">
+          {{ likesCount }}
+          <i :class="isSaved ? 'fa-solid fa-heart' : 'fa-regular fa-heart'"></i>
+        </button>
       </div>
       <div class="image">
         <Link :href="`/Productos/${product.id}`">

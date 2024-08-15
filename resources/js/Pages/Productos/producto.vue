@@ -1,132 +1,86 @@
-<!-- resources/js/Pages/Producto/Show.vue -->
-
 <template>
 
   <Head :title="producto.nombre" />
   <Header />
 
-  <!-- <div>
-
-    <h1>{{ producto.id }}</h1>
-    <h2>{{ producto.nombre }}</h2>
-    <p>{{ producto.descripcion }}</p>
-    <p>Precio: RD${{ producto.precio }}</p>
-    <p>Categoría: {{ producto.categoria_id }}</p>
-    <p>Marca: {{ producto.marca_id }}</p>
-    <p>Oferta: {{ producto.oferta_id }}</p>
-    <p>Creado en: {{ producto.created_at }}</p>
-    <p>Actualizado en: {{ producto.updated_at }}</p>
-    <img :src="producto.image" alt="Imagen del Producto">
-
-
-    <div v-if="detallesProducto">
-      <h3>Detalles del Producto</h3>
-      <p>Color: {{ detallesProducto.color }}</p>
-      <p>Peso: {{ detallesProducto.peso }}</p>
-      <p>Pantalla: {{ detallesProducto.pantalla }}</p>
-      <p>Sistema Operativo: {{ detallesProducto.sistema_operativo }}</p>
-      <p>Procesador: {{ detallesProducto.procesador }}</p>
-      <p>RAM: {{ detallesProducto.ram }}</p>
-      <p>Tarjeta Gráfica: {{ detallesProducto.tarjeta_grafica }}</p>
-      <p>Consumo Energético: {{ detallesProducto.consumo_energetico }}W</p>
-    </div>
-    </div> -->
-
-
   <div class="contenedor">
     <div class="left">
       <div class="image">
-        <img :src="producto.image" :alt="producto.image">
+        <img :src="producto.image" :alt="producto.nombre" />
       </div>
-
-
-
-
-
     </div>
     <div class="right">
-
       <div class="principal">
         <div class="nombre">
-          <h1> {{ producto.nombre }} </h1>
+          <h1>{{ producto.nombre }}</h1>
         </div>
-
         <div class="info_nombre">
           <div>
             <h1>codigo:</h1> <span>{{ producto.id }}</span>
           </div>
           <div>
-            <h1> {{ producto.marca.nombre }}</h1>
+            <h1>{{ producto.marca ? producto.marca.nombre : 'Desconocida' }}</h1>
           </div>
         </div>
-
       </div>
 
       <div class="linea"></div>
       <div class="precio">
-        <h1> RD${{ producto.precio }}</h1> <span>500</span>
+        <h1>RD${{ producto.precio ? producto.precio : 'Desconocido' }}</h1> <span>500</span>
       </div>
       <div class="linea"></div>
       <div class="descripcion">
         <div class="titulo">
           <h1>descripcion</h1> <span> ( {{ likesCount }} me gusta)</span>
         </div>
-
-        <div class="subtitulo">{{ producto.categoria.nombre }}</div>
+        <div class="subtitulo">{{ producto.categoria ? producto.categoria.nombre : 'Desconocida' }}</div>
         <div class="fecha">Creado en: <span>{{ formattedDate }}</span></div>
 
         <div class="descripcion_contenido">
-
-          <p>{{ producto.descripcion }} </p>
-
+          <p>{{ producto.descripcion ? producto.descripcion : 'No disponible' }} </p>
           <div class="flex items-center gap-2 my-4">
             <h1 class="text-lg font-medium text-gray-700">Color</h1>
-            <span class="text-xl font-bold text-black-600">{{ detallesProducto.color }}</span>
+            <span class="text-xl font-bold text-black-600">{{ detallesProducto && detallesProducto.color ?
+              detallesProducto.color : 'Desconocido' }}</span>
           </div>
-
         </div>
 
-        <div class="linea "></div>
+        <div class="linea"></div>
 
         <div class="datos_extra">
-          <div v-if="detallesProducto.peso">
+          <div v-if="detallesProducto && detallesProducto.peso">
             <i class="fa-solid fa-weight-hanging"></i> {{ detallesProducto.peso }} kg
           </div>
-          <div v-if="detallesProducto.pantalla">
+          <div v-if="detallesProducto && detallesProducto.pantalla">
             <i class="fa-solid fa-display"></i> {{ detallesProducto.pantalla }}
           </div>
-          <div v-if="detallesProducto.sistema_operativo">
+          <div v-if="detallesProducto && detallesProducto.sistema_operativo">
             <i class="fa-solid fa-laptop-code"></i> {{ detallesProducto.sistema_operativo }}
           </div>
         </div>
 
-
         <div class="linea"></div>
 
         <div class="datos_extra">
-          <div v-if="detallesProducto.procesador">
+          <div v-if="detallesProducto && detallesProducto.procesador">
             <i class="fa-solid fa-microchip"></i> {{ detallesProducto.procesador }}
           </div>
-          <div v-if="detallesProducto.almacenamiento && detallesProducto.tipo_de_almacenamiento">
+          <div v-if="detallesProducto && detallesProducto.almacenamiento && detallesProducto.tipo_de_almacenamiento">
             <i class="fa-solid fa-hard-drive"></i> {{ detallesProducto.almacenamiento }} GB {{
-            detallesProducto.tipo_de_almacenamiento }}
+              detallesProducto.tipo_de_almacenamiento }}
           </div>
-          <div v-if="detallesProducto.ram">
+          <div v-if="detallesProducto && detallesProducto.ram">
             <i class="fa-solid fa-memory"></i> {{ detallesProducto.ram }} GB RAM
           </div>
-          <div v-if="detallesProducto.tarjeta_grafica">
-            <i class="fa-solid fa-robot"></i>
-            {{ detallesProducto.tarjeta_grafica }}
+          <div v-if="detallesProducto && detallesProducto.tarjeta_grafica">
+            <i class="fa-solid fa-robot"></i> {{ detallesProducto.tarjeta_grafica }}
           </div>
         </div>
 
-
-
-
         <div class="linea"></div>
 
         <div class="datos_extra">
-          <div v-if="detallesProducto.consumo_energetico">
+          <div v-if="detallesProducto && detallesProducto.consumo_energetico">
             <i class="fa-solid fa-bolt"></i> {{ detallesProducto.consumo_energetico }} W
           </div>
         </div>
@@ -138,12 +92,9 @@
             <button> comprar ahora</button>
           </div>
         </div>
-
-
       </div>
     </div>
   </div>
-
 
   <Footer />
 </template>
@@ -151,19 +102,46 @@
 <script setup>
 import { defineProps, ref, onMounted } from 'vue';
 import axios from 'axios';
-import { Head, Link } from "@inertiajs/vue3";
+import { Head } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
 
 const props = defineProps({
-  producto: Object,
-  detallesProducto: Object
+  producto: {
+    type: Object,
+    default: () => ({
+      id: null,
+      nombre: "",
+      descripcion: "",
+      precio: null,
+      categoria: null,
+      marca: null,
+      image: "",
+      created_at: null
+    })
+  },
+  detallesProducto: {
+    type: Object,
+    default: () => ({
+      color: 'Desconocido',
+      peso: null,
+      pantalla: null,
+      sistema_operativo: null,
+      procesador: null,
+      almacenamiento: null,
+      tipo_de_almacenamiento: null,
+      ram: null,
+      tarjeta_grafica: null,
+      consumo_energetico: null
+    })
+  }
 });
 
 const likesCount = ref(0); // Variable para almacenar la cantidad de "me gustas"
 const formattedDate = ref(""); // Variable para almacenar la fecha formateada
 
 const fetchLikesCount = async (productoId) => {
+  if (!productoId) return; // Salir si productoId es nulo
   try {
     const response = await axios.get(`/guardados/likes/${productoId}`);
     likesCount.value = response.data.likes_count;
@@ -174,6 +152,7 @@ const fetchLikesCount = async (productoId) => {
 
 // Función para formatear la fecha en formato día-mes-año
 const formatDate = (dateString) => {
+  if (!dateString) return ''; // Asegúrate de que dateString no sea nulo
   const date = new Date(dateString);
   const day = String(date.getDate()).padStart(2, '0');
   const month = String(date.getMonth() + 1).padStart(2, '0'); // Los meses empiezan en 0
@@ -190,6 +169,7 @@ onMounted(() => {
   }
 });
 </script>
+
 
 
 <style scoped>

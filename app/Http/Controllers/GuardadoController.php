@@ -34,7 +34,9 @@ class GuardadoController extends Controller
             'producto_id' => $producto_id,
         ]);
 
-        return response()->json(['message' => 'Producto guardado correctamente'], 201);
+        return response()->json([
+            'success' => true,
+        ]);
     }
 
     public function destroy($producto_id)
@@ -88,6 +90,36 @@ class GuardadoController extends Controller
         return Inertia::render('Guardados', [
             'guardados' => $guardados
         ]);
+    }
+
+    public function indexjson()
+    {
+        $user = Auth::user();
+
+        // Verifica si el usuario está autenticado
+        if (!$user) {
+            return redirect()->route('login'); // Redirige al login si no está autenticado
+        }
+
+        // Obtener todos los productos guardados por el usuario autenticado
+        $guardados = Guardado::with('producto')
+        ->where('user_id', $user->id)
+            ->get();
+
+        // Verifica si el usuario no tiene productos guardados
+        if ($guardados->isEmpty()) {
+            // Puedes decidir si quieres manejar esto de alguna manera en la vista
+        }
+
+        // Modificar las URLs de las imágenes para usar el almacenamiento
+        foreach ($guardados as $guardado) {
+            if ($guardado->producto->image) {
+                $guardado->producto->image = Storage::url($guardado->producto->image);
+            }
+        }
+
+        // Pasar los datos a Inertia
+        return response()->json($guardados);
     }
 
     public function showLikes($producto_id)
