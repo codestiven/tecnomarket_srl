@@ -106,6 +106,8 @@ Route::middleware('auth')->group(function () {
 
     // Nueva ruta para ver los "me gustas" de un producto
     Route::get('/guardados/likes/{producto_id}', [GuardadoController::class, 'showLikes'])->name('guardados.likes');
+
+    Route::get('/guardados/MyLikes', [GuardadoController::class, 'getGuardadosCount'])->name('guardados.MyLikes');
 });
 
 

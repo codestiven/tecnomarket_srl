@@ -106,7 +106,22 @@ class GuardadoController extends Controller
     }
 
 
+    public function getGuardadosCount()
+    {
+        // Obtener el usuario autenticado
+        $user = Auth::user();
 
+        // Si el usuario no está autenticado
+        if (!$user) {
+            return response()->json(['message' => 'Usuario no autenticado'], 401);
+        }
+
+        // Contar la cantidad de elementos guardados por el usuario
+        $guardadosCount = Guardado::where('user_id', $user->id)->count();
+
+        // Devuelve la cantidad en formato JSON
+        return response()->json(['guardados_count' => $guardadosCount]);
+    }
 
 
 

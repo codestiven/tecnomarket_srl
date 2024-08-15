@@ -4,6 +4,8 @@ import { Head, Link } from "@inertiajs/vue3";
 import Logo from "@/Components/ApplicationLogo.vue";
 import Busqueda from "@/Components/buscador.vue";
 import badges from "@/Components/badges.vue";
+import axios from "axios";
+import { inject } from 'vue';
 
 const props = defineProps({
   canLogin: Boolean,
@@ -12,8 +14,13 @@ const props = defineProps({
   phpVersion: String,
 });
 
+
+
 // Propiedad reactiva para el tamaño de la pantalla
 const isMobile = ref(false);
+
+// Propiedad reactiva para la cantidad de elementos guardados
+const guardadosCount = ref(0);
 
 // Función para alternar la visibilidad del menú
 function toggleMenu() {
@@ -26,12 +33,28 @@ function checkScreenSize() {
   isMobile.value = window.innerWidth < 1000; // Define tu punto de quiebre aquí (por ejemplo, 768px para móvil)
 }
 
+// Función para obtener la cantidad de elementos guardados
+async function fetchGuardadosCount() {
+  try {
+    const response = await axios.get('/guardados/MyLikes');
+    guardadosCount.value = response.data.guardados_count || 0;
+
+  } catch (error) {
+    console.error('Error al obtener la cantidad de elementos guardados:', error);
+    guardadosCount.value = 0; 
+
+  }
+}
+
 onMounted(() => {
   // Verificar el tamaño inicial de la pantalla
   checkScreenSize();
 
   // Agregar listener para verificar el tamaño de la pantalla en el cambio de tamaño de la ventana
   window.addEventListener("resize", checkScreenSize);
+
+  // Obtener la cantidad de elementos guardados al montar el componente
+  fetchGuardadosCount();
 });
 
 onBeforeUnmount(() => {
@@ -96,7 +119,7 @@ onBeforeUnmount(() => {
       <div class="Badge">
 
 
-        <badges class="badges" :badge-number="5">
+        <badges class="badges" :badge-number="guardadosCount">
           <Link :href="route('guardados.index')">
           <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
             <path
