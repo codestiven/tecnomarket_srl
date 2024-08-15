@@ -140,20 +140,21 @@ class ProductoController extends Controller
      */
     public function show(Producto $producto)
     {
+        // Cargar las relaciones asociadas con el producto
+        $producto = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])->findOrFail($producto->id);
 
+        // Obtener la URL de la imagen del producto
         $producto->image = Storage::url($producto->image);
-
-        // Cargar los detalles del producto asociado
-        $detallesProducto = $producto->detallesProducto;
 
         // Enviar tanto el producto como sus detalles a la vista
         return Inertia::render('Productos/producto', [
             'producto' => $producto,
-            'detallesProducto' => $detallesProducto
+            'detallesProducto' => $producto->detallesProducto
         ]);
 
-        // return response()->json(['producto' => $detallesProducto]);
+        // return response()->json(['producto' => $producto]);
     }
+
 
 
     /**

@@ -36,7 +36,7 @@
   <div class="contenedor">
     <div class="left">
       <div class="image">
-        <img src="https://m.media-amazon.com/images/I/61ra7K2T5nS._AC_SL1200_.jpg" alt="">
+        <img :src="producto.image" :alt="producto.image">
       </div>
 
 
@@ -56,7 +56,7 @@
             <h1>codigo:</h1> <span>{{ producto.id }}</span>
           </div>
           <div>
-            <h1>DELL</h1>
+            <h1> {{ producto.marca.nombre }}</h1>
           </div>
         </div>
 
@@ -64,7 +64,7 @@
 
       <div class="linea"></div>
       <div class="precio">
-        RD${{ producto.precio }} <span>500</span>
+        <h1> RD${{ producto.precio }}</h1> <span>500</span>
       </div>
       <div class="linea"></div>
       <div class="descripcion">
@@ -72,19 +72,18 @@
           <h1>descripcion</h1> <span> ( {{ likesCount }} me gusta)</span>
         </div>
 
-        <div>Laptop</div>
-        <div>Creado en: {{ formattedDate }}</div>
+        <div class="subtitulo">{{ producto.categoria.nombre }}</div>
+        <div class="fecha">Creado en: <span>{{ formattedDate }}</span></div>
 
         <div class="descripcion_contenido">
 
-          <p>Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the
-            industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and
-            scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into
-            electronic typesetting, remaining essentially unchanged. </p>
+          <p>{{ producto.descripcion }} </p>
 
-          <div class="flex items-center gap-2">
-            <h1 class="text-lg">color</h1> <span class="text-xl font-bold">{{ detallesProducto.color }}</span>
+          <div class="flex items-center gap-2 my-4">
+            <h1 class="text-lg font-medium text-gray-700">Color</h1>
+            <span class="text-xl font-bold text-black-600">{{ detallesProducto.color }}</span>
           </div>
+
         </div>
 
         <div class="linea "></div>
@@ -110,7 +109,7 @@
           </div>
           <div v-if="detallesProducto.almacenamiento && detallesProducto.tipo_de_almacenamiento">
             <i class="fa-solid fa-hard-drive"></i> {{ detallesProducto.almacenamiento }} GB {{
-              detallesProducto.tipo_de_almacenamiento }}
+            detallesProducto.tipo_de_almacenamiento }}
           </div>
           <div v-if="detallesProducto.ram">
             <i class="fa-solid fa-memory"></i> {{ detallesProducto.ram }} GB RAM
@@ -194,6 +193,8 @@ onMounted(() => {
 
 
 <style scoped>
+
+
 .linea {
   width: 70%;
   border-bottom: 2px solid #8f8f8f;
@@ -206,6 +207,8 @@ onMounted(() => {
   flex-wrap: wrap;
   /* Permite que los hijos se envuelvan */
   padding: 1%;
+  background-color: #ffffff;
+  
 }
 
 .contenedor>div {
@@ -215,9 +218,9 @@ onMounted(() => {
 }
 
 /* left -------------------------------------------------------------------*/
-.contenedor .left {
+/* .contenedor .left {
   background-color: aqua;
-}
+} */
 
 .contenedor .left .image img {
   width: 100%;
@@ -228,26 +231,66 @@ onMounted(() => {
 
 
 /* right ------------------------------------------------------------------*/
+
+/* .contenedor .right * {
+  margin-bottom: 5px;
+} */
+
 .contenedor .right {
-  background-color: antiquewhite;
+  /* Color de fondo */
+
+  /* Color claro para contraste */
+
   height: 100vh;
   display: flex;
   flex-direction: column;
 
   overflow-y: scroll;
+
+  
 }
 
-.contenedor .right * {
-  margin-bottom: 5px;
+
+.contenedor .right::-webkit-scrollbar {
+  width: 12px;
+
 }
+
+.contenedor .right::-webkit-scrollbar-track {
+  background: #f1f1f1;
+
+  border-radius: 10px;
+
+}
+
+.contenedor .right::-webkit-scrollbar-thumb {
+  background: #1E90FF;
+
+  border-radius: 10px;
+
+  border: 2px solid #f1f1f1;
+
+}
+
+.contenedor .right::-webkit-scrollbar-thumb:hover {
+  background: #0b7dda;
+
+}
+
+.contenedor .right::-webkit-scrollbar-thumb:active {
+  background: #065a9e;
+
+}
+
 
 /* .contenedor .right .principal {} */
 
 .contenedor .right .principal .nombre {
-  font-size: 1.8rem;
-  margin-bottom: 20px;
+  font-size: 40px;
+  font-weight: bold;
 
-  font-weight: 700;
+
+
 }
 
 
@@ -262,63 +305,108 @@ onMounted(() => {
   flex-direction: row;
   gap: 10px;
 
+  font-size: 20px;
+
+}
+
+.contenedor .right .principal .info_nombre>div span {
+
+  color: #8f8f8f;
+
 }
 
 .contenedor .right .principal .info_nombre>div h1 {
 
-  font-weight: 700;
+  font-weight: bold;
+}
+
+.contenedor .right .precio  {
+  display: flex;
+align-items: center;
+  gap: 10px;
+}
+
+.contenedor .right .precio h1{
+  font-size: 65px;
+  font-weight: bold;
+  color: #0B86E7;
+}
+
+.contenedor .right .precio span {
+  font-size: 30px;
+  font-weight: lighter;
+  text-decoration: line-through;
 }
 
 
 .descripcion .titulo {
   display: flex;
   align-items: center;
-  text-align: center;
   gap: 10px;
+  margin-bottom: 5px;
 
 }
 
 .descripcion .titulo h1 {
   font-size: 1.8rem;
-  margin-bottom: 20px;
+
   font-weight: 700;
 }
 
+.descripcion .titulo span{
+  font-size: 1.2rem;
+  font-weight: 400;
+  color: #8f8f8f;
+}
+
+.descripcion .subtitulo{
+  font-size: 30px;
+  font-weight:lighter;
+  margin-bottom: 5px;
+  color: #505050;
+}
+
+.fecha{
+  font-size: 20px;
+  font-weight:bold;
+  color: #969696;
+  margin-bottom: 10px;
+}
+
+.fecha span {
+
+  font-weight: lighter;
+
+}
+
+.descripcion_contenido {
+
+
+  font-size: 20px;
+  line-height: 1.5;
+  color: #333;
+  max-width: 100%;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  margin-bottom: 10px;
+
+}
 .datos_extra {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
   width: 50%;
   gap: 16px;
+  margin: 20px 0;
+}
+
+.datos_extra div{
+  font-size: 22px;
   /* Espacio entre los elementos */
 }
 
-/* Estilo adicional para los elementos */
 
 
 
-
-
-
-
-
-.buttons {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  /* Ajusta el valor según el espacio que quieras entre los elementos verticales */
-}
-
-button.agregar {
-  width: 100%;
-  padding: 10px;
-  background-color: #007bff;
-  /* Cambia el color según tu preferencia */
-  color: #fff;
-  border: none;
-  border-radius: 4px;
-  font-size: 16px;
-  cursor: pointer;
-}
 
 .buttons {
   /* padding: 10px; */
@@ -335,9 +423,10 @@ button.agregar {
   /* Cambia el color según tu preferencia */
   color: #fff;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 400px;
+  font-size: 20px;
   cursor: pointer;
+    height: 55px;
 }
 
 .buttons>div {
@@ -345,18 +434,29 @@ button.agregar {
   gap: 10px;
   /* Ajusta el valor según el espacio que quieras entre los botones horizontales */
 }
+.buttons button:hover{
+  transform: scale(1.05);
+  font-weight: bold;
+}
+
+.buttons button:active {
+  transform: scale(0.9);
+  font-weight: bold;
+}
+
 
 .buttons>div button {
   flex: 1;
   /* Hace que los botones dentro del div ocupen igual espacio */
   padding: 10px;
   border: none;
-  border-radius: 4px;
-  font-size: 16px;
+  border-radius: 400px;
+  font-size: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
   justify-content: center;
+  height: 55px;
 }
 
 .buttons>div button i {
@@ -365,7 +465,8 @@ button.agregar {
 }
 
 .buttons>div button:first-child {
-  background-color: #25D366;
+  background: rgb(154, 231, 11);
+    background: linear-gradient(45deg, rgba(154, 231, 11, 1) 0%, rgba(11, 231, 44, 1) 72%);
   /* Color de fondo para el botón de WhatsApp */
   color: #fff;
 }
@@ -394,5 +495,12 @@ button.agregar {
     flex: 1;
     /* Hace que cada botón ocupe el 100% del ancho en pantallas pequeñas */
   }
+
+  .right *{
+    text-align: center;
+    margin: auto;
+  }
 }
+
+
 </style>
