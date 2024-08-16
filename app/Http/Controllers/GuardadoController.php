@@ -60,7 +60,7 @@ class GuardadoController extends Controller
 
 
 
-    public function index()
+    public function index(Request $request)
     {
         $user = Auth::user();
 
@@ -69,18 +69,22 @@ class GuardadoController extends Controller
             return redirect()->route('login'); // Redirige al login si no está autenticado
         }
 
+        // Obtener el término de búsqueda del request
+        $buscar = $request->input('buscar', '');
+
         // Obtener todos los productos guardados por el usuario autenticado
-        $guardados = Guardado::with('producto')
-            ->where('user_id', $user->id)
+        $guardados = Guardado::with(['producto.categoria', 'producto.marca', 'producto.oferta'])
+        ->where('user_id', $user->id)
             ->get();
 
-        // Verifica si el usuario no tiene productos guardados
-        if ($guardados->isEmpty()) {
-            // Puedes decidir si quieres manejar esto de alguna manera en la vista
-        }
+        // Filtrar los productos guardados según el término de búsqueda
+        $resultados = $guardados->filter(function ($guardado) use ($buscar) {
+            $producto = $guardado->producto;
+            return stripos($producto->nombre, $buscar) !== false || stripos($producto->descripcion, $buscar) !== false;
+        });
 
         // Modificar las URLs de las imágenes para usar el almacenamiento
-        foreach ($guardados as $guardado) {
+        foreach ($resultados as $guardado) {
             if ($guardado->producto->image) {
                 $guardado->producto->image = Storage::url($guardado->producto->image);
             }
@@ -88,7 +92,7 @@ class GuardadoController extends Controller
 
         // Pasar los datos a Inertia
         return Inertia::render('Guardados', [
-            'guardados' => $guardados
+            'guardados' => $resultados
         ]);
     }
 
