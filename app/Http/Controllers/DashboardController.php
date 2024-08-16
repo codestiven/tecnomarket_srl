@@ -10,7 +10,7 @@ class DashboardController extends Controller
 {
     public function index()
     {
-        // Redirige a la ruta 'Productos'
+        // return Inertia::render('Dashboard');
         return Redirect::route('Productos');
     }
 }
