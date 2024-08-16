@@ -16,7 +16,7 @@ use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SuggestionController;
-
+use App\Http\Controllers\DashboardController;
 
 Route::get('/api/suggestions', [SuggestionController::class, 'index']);
 
@@ -32,9 +32,12 @@ Route::get('/', function () {
     ]);
 })->name('home');
 
-Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+
+
+Route::get('/dashboard', [DashboardController::class, 'index'])
+    ->middleware(['auth', 'verified'])
+    ->name('dashboard');
+
 
 
 
