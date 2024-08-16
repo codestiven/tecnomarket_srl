@@ -26,6 +26,7 @@
         "lodash": "^4.17.21",
         "remixicon": "^4.3.0",
         "sweetalert2": "^11.12.4",
-        "swiper": "^11.1.4"
+        "swiper": "^11.1.4",
+        "vue-autosuggest": "^2.2.0"
     }
 }

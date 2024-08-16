@@ -15,7 +15,10 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MessageController;
+use App\Http\Controllers\SuggestionController;
 
+
+Route::get('/api/suggestions', [SuggestionController::class, 'index']);
 
 
 
