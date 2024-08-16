@@ -71,7 +71,9 @@ Route::get('/Ofertas', function () {
     return Inertia::render('Ofertas');
 })->name('Ofertas');
 
-
+Route::get('/Help', function () {
+    return Inertia::render('Help');
+})->name('Help');
 
 Route::get('/Productos/Crear', function () {
     return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado

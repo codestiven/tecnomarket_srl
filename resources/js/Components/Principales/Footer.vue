@@ -50,7 +50,7 @@
                                 <Link :href="route('Ofertas')" class="hover:underline text-white">Ofertas</Link>
                             </li>
                             <li class="mb-4">
-                                <Link :href="route('Ofertas')" class="hover:underline text-white">ayuda</Link>
+                                <Link :href="route('Help')" class="hover:underline text-white">ayuda</Link>
                             </li>
 
 
