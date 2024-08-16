@@ -17,7 +17,7 @@ return new class extends Migration
             $table->integer('descuento');
             $table->date('fecha_inicio');
             $table->date('fecha_final');
-            $table->decimal('nuevo_precio', 10, 2);
+            $table->decimal('precio_anterior', 10, 2);
             $table->timestamps();
         });
     }

@@ -103,7 +103,7 @@ const handleLikeProduct = () => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'Error: ' + (error.response?.data.message || 'Error inesperado')
+          text: 'El usuario no ese autenticado'
         });
       }
     });

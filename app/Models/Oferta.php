@@ -16,7 +16,7 @@ class Oferta extends Model
         'descuento',
         'fecha_inicio',
         'fecha_final',
-        'nuevo_precio',
+        'precio_anterior',
     ];
 
     // No hay relaciones en este ejemplo
