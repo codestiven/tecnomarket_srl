@@ -17,6 +17,11 @@ const submit = () => {
         onFinish: () => form.reset('password'),
     });
 };
+
+// Función para ir hacia atrás en el historial del navegador
+const goBack = () => {
+    window.history.back();
+};
 </script>
 
 <template>
@@ -24,7 +29,14 @@ const submit = () => {
     <Head title="Iniciar sesión" />
 
     <div
-        class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 via-blue-500 to-cyan-400">
+        class="min-h-screen flex flex-col justify-center items-center bg-gradient-to-r from-blue-900 via-blue-500 to-cyan-400 relative">
+
+        <!-- Botón "Volver" en la esquina superior izquierda -->
+        <button @click="goBack"
+            class="absolute top-4 left-4 bg-red-500 text-white hover:bg-red-600 rounded-lg p-2 shadow-md transition-colors">
+            ← Volver
+        </button>
+
         <div class="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
             <div class="flex justify-center mb-8">
                 <img src="images/logo.png" alt="Logo" class="h-24 w-auto" />

@@ -17,14 +17,14 @@ class CreateProvinciasTable extends Migration
             $table->timestamps();
         });
 
-        // Insertar las provincias y el Distrito Nacional
+        // Insertar las provincias y el Distrito Nacional, con San Cristóbal primero
         $provincias = [
+            'San Cristóbal',
             'Distrito Nacional',
             'Azua',
             'Baoruco',
             'Barahona',
             'Dajabón',
-            'Distrito Nacional',
             'Duarte',
             'El Seibo',
             'Elías Piña',
@@ -42,7 +42,6 @@ class CreateProvinciasTable extends Migration
             'Peravia',
             'Puerto Plata',
             'Samaná',
-            'San Cristóbal',
             'San José de Ocoa',
             'San Juan',
             'San Pedro de Macorís',

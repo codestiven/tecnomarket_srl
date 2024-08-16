@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use App\Models\Provincia; // Asegúrate de importar el modelo Provincia
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -16,15 +17,17 @@ use Inertia\Response;
 class RegisteredUserController extends Controller
 {
     /**
-     * Display the registration view.
+     * Muestra la vista de registro.
      */
-    public function create(): Response
+    public function create()
     {
-        return Inertia::render('Auth/Register');
+        $provincias = Provincia::all();
+        return Inertia::render('Auth/Register', [
+            'provincias' => $provincias,
+        ]);
     }
-
     /**
-     * Handle an incoming registration request.
+     * Maneja una solicitud de registro entrante.
      *
      * @throws \Illuminate\Validation\ValidationException
      */
@@ -32,14 +35,22 @@ class RegisteredUserController extends Controller
     {
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|string|lowercase|email|max:255|unique:'.User::class,
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|lowercase|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
+            'address' => 'nullable|string|max:255',
+            'province_id' => 'nullable|exists:provincias,id',
+            'phone' => 'nullable|string|max:15',
         ]);
 
         $user = User::create([
             'name' => $request->name,
+            'lastname' => $request->lastname,
             'email' => $request->email,
             'password' => Hash::make($request->password),
+            'address' => $request->address,
+            'province_id' => $request->province_id, // Corregido a 'province_id'
+            'phone' => $request->phone, // Corregido a 'phone'
         ]);
 
         event(new Registered($user));

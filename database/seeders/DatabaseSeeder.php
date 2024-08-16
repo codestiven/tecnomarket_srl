@@ -22,9 +22,14 @@ class DatabaseSeeder extends Seeder
 
         // Crear un usuario de prueba
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
-            'password' => Hash::make('password123'), 
+            'name' => 'Stiven',
+            'lastname' => 'De la rosa',
+            'email' => 'codestiven@gmail.com',
+            'password' => Hash::make('password123'),
+            'address' => 'Some Address', // Correct column name
+            'province_id' => 13,
+            'phone' => '8296536510',
         ]);
+
     }
 }
