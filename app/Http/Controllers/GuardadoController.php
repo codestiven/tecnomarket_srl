@@ -169,6 +169,9 @@ class GuardadoController extends Controller
 
         $productos = $guardados->map(function ($guardado) {
             $producto = Producto::with(['categoria', 'marca', 'oferta'])->find($guardado->producto_id);
+            if ($producto) {
+             $producto->image = Storage::url($producto->image);
+            }
             return [
                 'producto' => $producto ? $producto : null,
                 'cantidad' => $guardado->cantidad,
