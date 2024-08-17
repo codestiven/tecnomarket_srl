@@ -1,154 +1,113 @@
 <template>
   <div class="destacados">
-    <div class="Cartas" ref="cartasContainer">
+    <div v-if="productos.length > 0" class="Cartas" ref="cartasContainer">
       <transition-group name="fade-slide">
-        <Card
-          v-for="(product, index) in visibleProducts"
-          :key="product.id"
-          :imageUrl="product.imageUrl"
-          :productName="product.productName"
-          :price="product.price"
-        />
+        <Card v-for="(producto, index) in visibleProducts" :key="producto.id" :product="producto" />
       </transition-group>
     </div>
 
-    <div class="boton">
-      <Boton @click="handleClick">{{ verMas ? "Ver menos" : "Ver más" }}  <svg class="w-4 h-4" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><!--!Font Awesome Free 6.5.2 by @fontawesome - https://fontawesome.com License - https://fontawesome.com/license/free Copyright 2024 Fonticons, Inc.--><path d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z"/></svg></Boton>
+    <div v-else class="mensaje-pronto">
+      <p>¡Habrá pronto!</p>
+    </div>
+
+    <div v-if="productos.length > 0" class="boton">
+      <Boton @click="handleClick">
+        {{ verMas ? "Ver menos" : "Ver más" }}
+        <svg :class="[verMas ? 'rotado' : '', 'w-4', 'h-4']" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+          <path
+            d="M233.4 406.6c12.5 12.5 32.8 12.5 45.3 0l192-192c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L256 338.7 86.6 169.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3l192 192z" />
+        </svg>
+      </Boton>
     </div>
   </div>
 </template>
 
+
 <script setup>
 import { ref, onMounted } from "vue";
+import axios from "axios";
 import Card from "@/Components/Principales/ProductCard.vue";
 import Boton from "@/Components/Boton_principar.vue";
 
 const verMas = ref(false);
 const cartasContainer = ref(null);
 
-const productos = ref([
-  {
-    id: 1,
-    // imageUrl: "ruta/imagen1.jpg",
-    productName: "Producto 1",
-    price: 1000,
-  },
-  {
-    id: 2,
-    // imageUrl: "ruta/imagen2.jpg",
-    productName: "Producto 2",
-    price: 1500,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-    {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-    {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-    {
-    id: 3,
-    // imageUrl: "ruta/imagen3.jpg",
-    productName: "Producto 3",
-    price: 800,
-  },
-  // Agrega más productos según sea necesario
-]);
-
+const productos = ref([]);
 const visibleProducts = ref([]);
 
-// Función para manejar el botón "Ver más"
 const handleClick = () => {
   verMas.value = !verMas.value;
 
   if (verMas.value) {
     mostrarTodosLosProductos();
   } else {
-    mostrarSoloTresProductos();
+    mostrarSoloProductosLimitados();
   }
 };
 
-// Función para mostrar todos los productos
 const mostrarTodosLosProductos = () => {
-  visibleProducts.value = productos.value.slice(); // Mostrar todos los productos
+  visibleProducts.value = productos.value.slice();
 };
 
-// Función para mostrar solo los tres primeros productos
-const mostrarSoloTresProductos = () => {
-  visibleProducts.value = productos.value.slice(0, 8); // Mostrar solo los tres primeros productos
-  // Scroll hacia arriba para mostrar el inicio de los productos
+const mostrarSoloProductosLimitados = () => {
+  visibleProducts.value = productos.value.slice(0, 8);
   if (cartasContainer.value) {
     cartasContainer.value.scrollTop = 0;
   }
 };
 
-// Al montar el componente, mostrar solo los tres primeros productos inicialmente
+const cargarProductos = async () => {
+  try {
+    const response = await axios.get("/api/Productoliked");
+    productos.value = response.data.map(item => item.producto);
+    mostrarSoloProductosLimitados();
+  } catch (error) {
+    console.error("Error al cargar los productos:", error);
+  }
+};
+
 onMounted(() => {
-  mostrarSoloTresProductos();
+  cargarProductos();
 });
 </script>
 
 <style scoped>
-
-*{
-    transition: 0.5S;
+* {
+  transition: 0.5s;
 }
+
 .destacados {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  /* background-color: #fff; */
   padding: 0px 40px;
 }
 
 .Cartas {
   margin: 20px;
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  grid-template-columns: repeat(4, 2fr);
   gap: 50px;
   justify-content: center;
+}
+
+@media (max-width: 1150px) {
+  .Cartas {
+    grid-template-columns: repeat(2, 2fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .Cartas {
+    grid-template-columns: repeat(1, 2fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .Cartas {
+    grid-template-columns: 1fr;
+  }
 }
 
 .boton {
@@ -158,13 +117,50 @@ onMounted(() => {
   align-items: center;
 }
 
+.rotado {
+  transform: rotate(180deg);
+  transition: transform 0.5s ease;
+}
+
+.mensaje-pronto {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+  text-align: center;
+  font-size: 2rem;
+  /* Tamaño del texto grande */
+  font-weight: bold;
+  color: #1e90ff;
+  /* Color del texto azul */
+  background-color: #bebebe;
+  width: 100%;
+  height: 180px;
+  /* Fondo gris claro */
+  padding: 20px;
+  border-radius: 10px;
+  /* Bordes redondeados */
+  transition: background-color 0.3s ease, color 0.3s ease;
+  /* Transiciones para hover */
+}
+
+.mensaje-pronto:hover {
+  background-color: #e0e0e0;
+  /* Fondo gris oscuro al pasar el cursor */
+  color: #4169e1;
+  /* Texto azul oscuro al pasar el cursor */
+}
+
 .fade-slide-enter-active,
 .fade-slide-leave-active {
   transition: opacity 0.5s, transform 0.5s;
 }
+
 .fade-slide-enter,
 .fade-slide-leave-to {
   opacity: 0;
   transform: translateY(20px);
 }
 </style>
+

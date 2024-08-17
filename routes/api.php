@@ -7,6 +7,7 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\GuardadoController;
 
 
 Route::get('/user', function (Request $request) {
@@ -18,6 +19,7 @@ Route::get('/user', function (Request $request) {
 Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
 
 
+Route::get('/Productoliked', [GuardadoController::class, 'getGuardados']);
 
 
 // Route::get('/Marcas', [MarcaController::class, 'index']);

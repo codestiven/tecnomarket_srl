@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Producto;
+use Illuminate\Support\Facades\DB;
 
 class GuardadoController extends Controller
 {
@@ -159,6 +160,22 @@ class GuardadoController extends Controller
         return response()->json(['guardados_count' => $guardadosCount]);
     }
 
+    public function getGuardados()
+    {
+        $guardados = Guardado::select('producto_id', DB::raw('count(distinct user_id) as cantidad'))
+            ->groupBy('producto_id')
+            ->orderBy('cantidad', 'desc')
+            ->get();
 
+        $productos = $guardados->map(function ($guardado) {
+            $producto = Producto::with(['categoria', 'marca', 'oferta'])->find($guardado->producto_id);
+            return [
+                'producto' => $producto ? $producto : null,
+                'cantidad' => $guardado->cantidad,
+            ];
+        });
+
+        return response()->json($productos);
+    }
 
 }
