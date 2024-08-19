@@ -18,6 +18,13 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardController;
 
+
+
+
+
+
+
+
 Route::get('/api/suggestions', [SuggestionController::class, 'index']);
 
 
@@ -57,16 +64,6 @@ Route::get('/Contacto', function () {
 
 Route::post('/contact', [MessageController::class, 'store']);
 
-
-
-
-
-
-// productos ----------------------------------------------------------
-Route::get('/Productos', function () {
-    return Inertia::render('Productos/Index');
-})->name('Productos');
-
 Route::get('/Ofertas', function () {
     return Inertia::render('Ofertas');
 })->name('Ofertas');
@@ -74,6 +71,14 @@ Route::get('/Ofertas', function () {
 Route::get('/Help', function () {
     return Inertia::render('Help');
 })->name('Help');
+
+
+
+
+// productos ----------------------------------------------------------
+Route::get('/Productos', [ProductoController::class, 'Productos'])->name('Productos');
+
+
 
 Route::get('/Productos/Crear', function () {
     return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
@@ -83,7 +88,7 @@ Route::post('/productos/create', [ProductoController::class, 'create'])->name('p
 
 Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 
-
+Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']);
 
 //seach
 

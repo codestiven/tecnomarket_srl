@@ -7,6 +7,8 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Categoria;
+use App\Models\Marca;
 
 class ProductoController extends Controller
 {
@@ -191,4 +193,60 @@ class ProductoController extends Controller
             'ProductosCount' => $cantidadProductos
         ]);
     }
+// http://tecnomarket_srl.test/productos/filtrar?categoria_id=1&marca_id=1&en_oferta=sin_ofertas
+    public function filtrarProductos(Request $request)
+    {
+        // Obtener los parámetros de la URL
+        $categoria_id = $request->query('categoria_id');
+        $marca_id = $request->query('marca_id');
+        $en_oferta = $request->query('en_oferta'); // Valores esperados: "todos", "solo_ofertas", "sin_ofertas"
+
+        // Iniciar la consulta de productos con las relaciones cargadas
+        $productos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto']);
+
+        // Aplicar filtro por categoria_id si está presente
+        if ($categoria_id !== null) {
+            $productos->where('categoria_id', $categoria_id);
+        }
+
+        // Aplicar filtro por marca_id si está presente
+        if ($marca_id !== null) {
+            $productos->where('marca_id', $marca_id);
+        }
+
+        // Aplicar filtro por oferta si está presente
+        if ($en_oferta !== null) {
+            if ($en_oferta === 'solo_ofertas') {
+                $productos->whereNotNull('oferta_id');
+            } elseif ($en_oferta === 'sin_ofertas') {
+                $productos->whereNull('oferta_id');
+            }
+        }
+
+        // Ejecutar la consulta y obtener los resultados
+        $productos = $productos->get();
+
+        // Añadir la URL completa de la imagen a cada producto
+        foreach ($productos as $producto) {
+            $producto->image = Storage::url($producto->image);
+        }
+
+        // Retornar los productos filtrados como JSON
+        return response()->json(['productos' => $productos]);
+    }
+
+    public function Productos(Request $request)
+    {
+        // Obtener las categorías y marcas desde la base de datos
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+
+        // Renderizar la vista de Inertia y pasar las categorías y marcas como props
+        return Inertia::render('Productos/Index', [
+            'categorias' => $categorias,
+            'marcas' => $marcas,
+        ]);
+    }
+
+
 }

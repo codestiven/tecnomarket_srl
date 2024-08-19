@@ -1,35 +1,66 @@
 <script setup>
+import { ref, watch } from 'vue';
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
 import Cantidad from "@/Components/Unicos/Cantidad.vue";
 import ProductCard from "@/Components/Principales/ProductCard.vue";
+import axios from 'axios';
 
-// import Filtro from "@/Components/Unicos/Filtro.vue";
-
-defineProps({
-  canLogin: {
-    type: Boolean,
-  },
-  canRegister: {
-    type: Boolean,
-  },
-  laravelVersion: {
-    type: String,
-    required: true,
-  },
-  phpVersion: {
-    type: String,
-    required: true,
-  },
+// Definir los props que recibes desde el controlador
+const props = defineProps({
+  categorias: Array,
+  marcas: Array
 });
 
-function handleImageError() {
-  document.getElementById("screenshot-container")?.classList.add("!hidden");
-  document.getElementById("docs-card")?.classList.add("!row-span-1");
-  document.getElementById("docs-card-content")?.classList.add("!flex-row");
-  document.getElementById("background")?.classList.add("!hidden");
-}
+// Estado para los filtros
+const filtros = ref({
+  categoria_id: '',
+  marca_id: '',
+  en_oferta: ''
+});
+
+const productos = ref([]);
+
+// Función para filtrar productos
+const filtrarProductos = async () => {
+  try {
+    const response = await axios.get('/productos/filtrar', {
+      params: filtros.value
+    });
+    productos.value = response.data.productos;  
+    console.log(productos.value);
+  } catch (error) {
+    console.error('Error al filtrar los productos:', error);
+  }
+};
+
+// Función para manejar el cambio en los select y actualizar filtros
+const actualizarFiltros = (event) => {
+  const { id, value } = event.target;
+  filtros.value[id] = value;
+
+  // Actualizar la URL con los parámetros de filtro
+  const queryString = new URLSearchParams(filtros.value).toString();
+  history.replaceState(null, '', `?${queryString}`);
+
+  // Filtrar productos
+  filtrarProductos();
+};
+
+// Verificar los parámetros en la URL al cargar la página
+const init = () => {
+  const params = new URLSearchParams(window.location.search);
+  filtros.value.categoria_id = params.get('categoria_id') || '';
+  filtros.value.marca_id = params.get('marca_id') || '';
+  filtros.value.en_oferta = params.get('en_oferta') || '';
+
+  // Cargar productos iniciales
+  filtrarProductos();
+};
+
+// Llamar a la función init para inicializar filtros
+init();
 </script>
 
 <template>
@@ -45,214 +76,48 @@ function handleImageError() {
     <div class="placeholder">
       <div class="filtros">
         <div class="left">
-          <select id="countries" class="filtro">
-            <option selected>Todos</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select id="categoria_id" class="filtro" @change="actualizarFiltros">
+            <option selected value="">Todas las Categorías</option>
+            <option v-for="categoria in props.categorias" :key="categoria.id" :value="categoria.id">
+              {{ categoria.nombre }}
+            </option>
           </select>
 
-          <select id="countries" class="">
-            <option selected>Todos</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select id="marca_id" class="" @change="actualizarFiltros">
+            <option selected value="">Todas las Marcas</option>
+            <option v-for="marca in props.marcas" :key="marca.id" :value="marca.id">
+              {{ marca.nombre }}
+            </option>
           </select>
 
-          <select id="countries" class="">
-            <option selected>Todos</option>
-            <option value="US">United States</option>
-            <option value="CA">Canada</option>
-            <option value="FR">France</option>
-            <option value="DE">Germany</option>
+          <select id="en_oferta" class="" @change="actualizarFiltros">
+            <option selected value="">Todos</option>
+            <option value="solo_ofertas">Solo en Oferta</option>
+            <option value="sin_ofertas">Sin Ofertas</option>
           </select>
         </div>
         <div class="right">
-          <h1>Odenar por :</h1>
-
-          <button><img src="/images/lista.png" alt="" /></button>
-
-          <button><img src="/images/red.png" alt="" /></button>
+          <h1>Ordenar por :</h1>
+          <button><img src="/images/lista.png" alt="Lista" /></button>
+          <button><img src="/images/red.png" alt="Red" /></button>
         </div>
       </div>
       <div class="contenido">
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard
+          v-for="producto in productos"
+          :key="producto.id"
+          :product="producto"
+        />
       </div>
       <div class="pagination">
-        <div class="flex items-center gap-4">
-          <button
-            disabled
-            class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              aria-hidden="true"
-              class="w-4 h-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"
-              ></path>
-            </svg>
-            Anterior
-          </button>
-          <div class="flex items-center gap-2">
-            <button
-              class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg bg-gray-900 text-center align-middle font-sans text-xs font-medium uppercase text-white shadow-md shadow-gray-900/10 transition-all hover:shadow-lg hover:shadow-gray-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              <span
-                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              >
-                1
-              </span>
-            </button>
-            <button
-              class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              <span
-                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              >
-                2
-              </span>
-            </button>
-            <button
-              class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              <span
-                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              >
-                3
-              </span>
-            </button>
-            <button
-              class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              <span
-                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              >
-                4
-              </span>
-            </button>
-            <button
-              class="relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase text-gray-900 transition-all hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-              type="button"
-            >
-              <span
-                class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2"
-              >
-                5
-              </span>
-            </button>
-          </div>
-          <button
-            class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-gray-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-gray-900/10 active:bg-gray-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
-            type="button"
-          >
-            Siguientes
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke-width="2"
-              stroke="currentColor"
-              aria-hidden="true"
-              class="w-4 h-4"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"
-              ></path>
-            </svg>
-          </button>
-        </div>
+        <!-- Aquí puedes agregar la lógica para la paginación si la necesitas -->
       </div>
     </div>
   </div>
 
   <Footer />
 </template>
+
 
 <style scoped>
 .Productos {
