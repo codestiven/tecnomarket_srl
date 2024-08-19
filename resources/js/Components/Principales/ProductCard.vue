@@ -150,7 +150,7 @@ onMounted(() => {
 
           <div v-show="isNew" class="New">
             <i class="fa-solid fa-check"></i>
-            <span>Nuevo item</span>
+            <span>Nuevo</span>
           </div>
 
 
