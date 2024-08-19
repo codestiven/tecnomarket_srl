@@ -193,7 +193,8 @@ class ProductoController extends Controller
             'ProductosCount' => $cantidadProductos
         ]);
     }
-// http://tecnomarket_srl.test/productos/filtrar?categoria_id=1&marca_id=1&en_oferta=sin_ofertas
+
+    // http://tecnomarket_srl.test/productos/filtrar?categoria_id=1&marca_id=1&en_oferta=sin_ofertas
     public function filtrarProductos(Request $request)
     {
         // Obtener los parámetros de la URL
@@ -223,16 +224,16 @@ class ProductoController extends Controller
             }
         }
 
-        // Ejecutar la consulta y obtener los resultados
-        $productos = $productos->get();
+        // Ejecutar la consulta con paginación
+        $productos = $productos->paginate(30); 
 
         // Añadir la URL completa de la imagen a cada producto
         foreach ($productos as $producto) {
             $producto->image = Storage::url($producto->image);
         }
 
-        // Retornar los productos filtrados como JSON
-        return response()->json(['productos' => $productos]);
+        // Retornar los productos filtrados con paginación como JSON
+        return response()->json($productos);
     }
 
     public function Productos(Request $request)

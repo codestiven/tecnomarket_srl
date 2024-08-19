@@ -21,19 +21,26 @@ const filtros = ref({
 });
 
 const productos = ref([]);
+const links = ref([]);
+const currentPage = ref(1);
 
-// Función para filtrar productos
-const filtrarProductos = async () => {
+const totalPages = ref(1);
+
+const filtrarProductos = async (page = 1) => {
   try {
     const response = await axios.get('/productos/filtrar', {
-      params: filtros.value
+      params: { ...filtros.value, page }
     });
-    productos.value = response.data.productos;  
+    productos.value = response.data.data;
+    links.value = response.data.links;
+    currentPage.value = response.data.current_page;
+    totalPages.value = response.data.last_page; // Asume que tu API devuelve 'last_page'
     console.log(productos.value);
   } catch (error) {
     console.error('Error al filtrar los productos:', error);
   }
 };
+
 
 // Función para manejar el cambio en los select y actualizar filtros
 const actualizarFiltros = (event) => {
@@ -46,6 +53,15 @@ const actualizarFiltros = (event) => {
 
   // Filtrar productos
   filtrarProductos();
+};
+
+// Función para cambiar de página
+const cambiarPagina = (link) => {
+  if (link.url) {
+    const url = new URL(link.url);
+    const page = url.searchParams.get('page');
+    filtrarProductos(page);
+  }
 };
 
 // Verificar los parámetros en la URL al cargar la página
@@ -64,57 +80,99 @@ init();
 </script>
 
 <template>
+
   <Head title="Productos" />
 
   <Header />
 
-  <div class="Productos">
-    <div class="cantidad">
-      <Cantidad />
-    </div>
+  <main>
 
-    <div class="placeholder">
-      <div class="filtros">
-        <div class="left">
-          <select id="categoria_id" class="filtro" @change="actualizarFiltros">
-            <option selected value="">Todas las Categorías</option>
-            <option v-for="categoria in props.categorias" :key="categoria.id" :value="categoria.id">
-              {{ categoria.nombre }}
-            </option>
-          </select>
+    <div class="Productos">
+      <div class="cantidad">
+        <Cantidad />
+      </div>
 
-          <select id="marca_id" class="" @change="actualizarFiltros">
-            <option selected value="">Todas las Marcas</option>
-            <option v-for="marca in props.marcas" :key="marca.id" :value="marca.id">
-              {{ marca.nombre }}
-            </option>
-          </select>
+      <div class="placeholder">
+        <div class="filtros">
+          <div class="left">
+            <select id="categoria_id" class="filtro" @change="actualizarFiltros">
+              <option selected value="">Todas las Categorías</option>
+              <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
+                {{ categoria.nombre }}
+              </option>
+            </select>
 
-          <select id="en_oferta" class="" @change="actualizarFiltros">
-            <option selected value="">Todos</option>
-            <option value="solo_ofertas">Solo en Oferta</option>
-            <option value="sin_ofertas">Sin Ofertas</option>
-          </select>
+            <select id="marca_id" @change="actualizarFiltros">
+              <option selected value="">Todas las Marcas</option>
+              <option v-for="marca in marcas" :key="marca.id" :value="marca.id">
+                {{ marca.nombre }}
+              </option>
+            </select>
+
+            <select id="en_oferta" @change="actualizarFiltros">
+              <option selected value="">Todos</option>
+              <option value="solo_ofertas">Solo en Oferta</option>
+              <option value="sin_ofertas">Sin Ofertas</option>
+            </select>
+
+          </div>
+          <div class="right">
+            <h1>Ordenar por :</h1>
+            <button><img src="/images/lista.png" alt="" /></button>
+            <button><img src="/images/red.png" alt="" /></button>
+          </div>
         </div>
-        <div class="right">
-          <h1>Ordenar por :</h1>
-          <button><img src="/images/lista.png" alt="Lista" /></button>
-          <button><img src="/images/red.png" alt="Red" /></button>
+
+        <!-- Diseño de cuadrícula para los productos -->
+        <div class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+          <ProductCard v-for="producto in productos" :key="producto.id" :product="producto" />
         </div>
-      </div>
-      <div class="contenido">
-        <ProductCard
-          v-for="producto in productos"
-          :key="producto.id"
-          :product="producto"
-        />
-      </div>
-      <div class="pagination">
-        <!-- Aquí puedes agregar la lógica para la paginación si la necesitas -->
+
+        <!-- Paginación -->
+        <!-- Asegúrate de que el contenedor de la paginación solo se muestre si hay más de una página -->
+        <!-- Solo muestra la paginación si hay más de una página -->
+        <div v-if="links.length > 2 && totalPages > 1" class="pagination flex justify-center mt-4">
+          <div class="flex items-center gap-4">
+            <!-- Botón de "Anterior" -->
+            <button :disabled="!links[0].url" @click="cambiarPagina(links[0])"
+              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-blue-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" aria-hidden="true" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+              </svg>
+              Anterior
+            </button>
+
+            <!-- Números de páginas -->
+            <div class="flex items-center gap-2">
+              <button v-for="(link, index) in links.slice(1, -1)" :key="index" @click="cambiarPagina(link)" :class="[
+                'relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all',
+                link.active ? 'bg-blue-900 text-white shadow-md shadow-blue-900/10 hover:shadow-lg hover:shadow-blue-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none' :
+                  'text-blue-900 hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+              ]" type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  {{ link.label }}
+                </span>
+              </button>
+            </div>
+
+            <!-- Botón de "Siguiente" -->
+            <button :disabled="!links[links.length - 1].url" @click="cambiarPagina(links[links.length - 1])"
+              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-blue-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              type="button">
+              Siguiente
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
+                stroke="currentColor" aria-hidden="true" class="w-4 h-4">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
+              </svg>
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
-  </div>
-
+  </main>
   <Footer />
 </template>
 
@@ -129,7 +187,7 @@ init();
 }
 
 .placeholder {
-  width: 80%;
+  width: 84%;
 
   display: grid;
   /* grid-template-rows: repeat(12, 1fr); */
@@ -200,9 +258,10 @@ init();
   grid-auto-rows: 400px;
   gap: 10px;
   justify-content: center;
-  max-height: 500px;
+  max-height: 800px;
   overflow-y: scroll;
 }
+
 
 .placeholder .contenido::-webkit-scrollbar {
   width: 12px; /* Ajusta el ancho del scroll */
