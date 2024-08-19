@@ -22,9 +22,11 @@ const productos = ref([]);
 const links = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
+const cargando = ref(false);
 
 const filtrarProductos = async (page = 1) => {
   try {
+    cargando.value = true; // Mostrar la barra de carga
     const response = await axios.get('/productos/filtrar', {
       params: { ...filtros.value, page }
     });
@@ -34,6 +36,8 @@ const filtrarProductos = async (page = 1) => {
     totalPages.value = response.data.last_page;
   } catch (error) {
     console.error('Error al filtrar los productos:', error);
+  } finally {
+    cargando.value = false; // Ocultar la barra de carga
   }
 };
 
@@ -109,18 +113,25 @@ init();
           </div>
         </div>
 
+        <!-- Mostrar la barra de carga -->
+        <div v-if="cargando" class="flex justify-center items-center mt-16">
+          <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent border-solid rounded-full animate-spin">
+          </div>
+        </div>
+
         <!-- Mostrar un mensaje si no hay productos -->
-        <div v-if="productos.length === 0" class="text-center mt-16">
+        <div v-if="!cargando && productos.length === 0" class="text-center mt-16">
           <h1 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h1>
         </div>
 
         <!-- Diseño de cuadrícula para los productos -->
-        <div v-else class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div v-if="!cargando && productos.length > 0"
+          class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <ProductCard v-for="producto in productos" :key="producto.id" :product="producto" />
         </div>
 
         <!-- Paginación -->
-        <div v-if="links.length > 2 && totalPages > 1" class="pagination flex justify-center mt-4">
+        <div v-if="!cargando && links.length > 2 && totalPages > 1" class="pagination flex justify-center mt-4">
           <div class="flex items-center gap-4">
             <!-- Botón de "Anterior" -->
             <button :disabled="!links[0].url" @click="cambiarPagina(links[0])"
