@@ -4,6 +4,7 @@ import { defineProps } from "vue";
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
+import { differenceInDays, parseISO } from 'date-fns'; // Importa date-fns para calcular la diferencia en días
 
 const props = defineProps({
   product: {
@@ -39,6 +40,17 @@ const props = defineProps({
 
 const isSaved = ref(false); // Variable para almacenar si el producto ya está guardado
 const likesCount = ref(0); // Variable para almacenar la cantidad de "me gustas"
+const isNew = ref(false); // Variable para indicar si el producto es nuevo
+
+// Función para calcular si el producto es nuevo
+const calculateIsNew = (createdAt) => {
+  const now = new Date();
+  const creationDate = parseISO(createdAt);
+  const daysDifference = differenceInDays(now, creationDate);
+
+  // Si el producto tiene menos de 14 días de creado, es nuevo
+  isNew.value = daysDifference <= 14;
+};
 
 const fetchLikesCount = async (productoId) => {
   try {
@@ -103,7 +115,7 @@ const handleLikeProduct = () => {
         Swal.fire({
           icon: 'error',
           title: 'Error',
-          text: 'El usuario no ese autenticado'
+          text: 'El usuario no está autenticado'
         });
       }
     });
@@ -113,60 +125,35 @@ onMounted(() => {
   const productoId = props.product.id;
   fetchLikesCount(productoId);
   checkIfProductIsSaved(productoId); // Llama a la función para verificar si el producto está guardado
+
+  if (props.product.created_at) {
+    calculateIsNew(props.product.created_at); // Llama a la función para calcular si el producto es nuevo
+  }
+
+  console.log(isNew.value);
 });
 </script>
 
 
+
 <template>
 
-  <!-- <div class="cartas">
-    <div class="imagen">
-      <div class="me_gusta">
-        <button @click="handleLikeProduct">
-          <svg
-            class="w-5 h-5"
-            aria-hidden="true"
-            xmlns="http://www.w3.org/2000/svg"
-            viewBox="0 0 512 512"
-            fill="red"
-          >
-            <path
-              d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z"
-            />
-          </svg>
-        </button>
-      </div>
-      <Link :href="`/Productos/${product.id}`">
-        <img :src="product.image" alt="Product Image" class="imageUrl" />
-      </Link>
-    </div>
-
-    <div class="contenido">
-      <h1 class="nombre">
-        <Link :href="`/Productos/${product.id}`">{{ product.nombre }}</Link>
-      </h1>
-      <div class="precio">
-        <h3>RD$ {{ Number(product.precio).toLocaleString() }}</h3>
-      </div>
-    </div>
-
-    <div class="boton">
-      <button @click="handleAddToCart">
-        Agregar al carrito
-        <svg class="w-5 h-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 576 512">
-          <path
-            d="M0 24C0 10.7 10.7 0 24 0H69.5c22 0 41.5 12.8 50.6 32h411c26.3 0 45.5 25 38.6 50.4l-41 152.3c-8.5 31.4-37 53.3-69.5 53.3H170.7l5.4 28.5c2.2 11.3 12.1 19.5 23.6 19.5H488c13.3 0 24 10.7 24 24s-10.7 24-24 24H199.7c-34.6 0-64.3-24.6-70.7-58.5L77.4 54.5c-.7-3.8-4-6.5-7.9-6.5H24C10.7 48 0 37.3 0 24zM128 464a48 48 0 1 1 96 0 48 48 0 1 1 -96 0zm336-48a48 48 0 1 1 0 96 48 48 0 1 1 0-96z"
-          />
-        </svg>
-      </button>
-    </div>
-  </div> -->
 
   <div class="card">
     <div class="up">
       <div class="up_image">
-        <div class="oferta" :class="{ 'invisible': !product.oferta }"> <i class="fa-solid fa-percent"></i>
-          <span>Oferta</span>
+        <div>
+          <div class="oferta" v-show="product.oferta">
+            <i class="fa-solid fa-percent"></i>
+            <span>Oferta</span>
+          </div>
+
+          <div v-show="isNew" class="New">
+            <i class="fa-solid fa-check"></i>
+            <span>Nuevo item</span>
+          </div>
+
+
         </div>
         <button @click="handleLikeProduct" class="gusta">
           {{ likesCount }}
@@ -265,6 +252,20 @@ onMounted(() => {
 
 }
 
+.card .up .up_image > div {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  /* align-items: center; */
+  justify-content: center;
+  
+  gap: 5px;
+  /* background-color: #0b63e7; */
+  transform: translate(0, 17px);
+
+
+}
 .card .up .up_image .gusta {
   font-size: 20px;
   font-weight: bold;
@@ -307,6 +308,20 @@ onMounted(() => {
   align-items: center;
   gap: 20px;
 
+}
+
+.card .up .up_image .New {
+    width: 60%;
+      font-size: 20px;
+
+      color: white;
+      background-color: #0f7bd4;
+      padding: 5px 10px;
+      border-radius: 5px;
+    
+      display: flex;
+      align-items: center;
+      gap: 20px;
 }
 
 .card .up .up_image .oferta i {
