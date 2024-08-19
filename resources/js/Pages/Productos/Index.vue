@@ -27,7 +27,7 @@ const cargando = ref(false);
 const filtrarProductos = async (page = 1) => {
   try {
     cargando.value = true; // Mostrar la barra de carga
-    const response = await axios.get('/productos/filtrar', {
+    const response = await axios.get('/api/productos/filtrar', {
       params: { ...filtros.value, page }
     });
     productos.value = response.data.data;

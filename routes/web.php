@@ -88,7 +88,7 @@ Route::post('/productos/create', [ProductoController::class, 'create'])->name('p
 
 Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 
-Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']);
+
 
 //seach
 

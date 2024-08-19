@@ -8,7 +8,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\GuardadoController;
-
+use App\Http\Controllers\CarouselController;
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -44,7 +44,12 @@ Route::prefix('Marcas')->group(function () {
 });
 
 
+Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']);
 
 
 
+
+Route::get('/carousels', [CarouselController::class, 'index']);
+Route::post('/carousels', [CarouselController::class, 'store']);
+Route::get('/carousels/{id}', [CarouselController::class, 'show']);
 

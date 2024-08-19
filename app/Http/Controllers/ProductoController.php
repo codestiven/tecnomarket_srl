@@ -194,7 +194,7 @@ class ProductoController extends Controller
         ]);
     }
 
-    // http://tecnomarket_srl.test/productos/filtrar?categoria_id=1&marca_id=1&en_oferta=sin_ofertas
+    // http://tecnomarket_srl.test/api/productos/filtrar?categoria_id=1&marca_id=1&en_oferta=sin_ofertas
     public function filtrarProductos(Request $request)
     {
         // Obtener los parámetros de la URL
