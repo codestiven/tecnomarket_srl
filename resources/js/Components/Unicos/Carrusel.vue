@@ -1,98 +1,238 @@
-
-
-<script setup>
-
-
-
-</script>
-
-
 <template>
-    <div id="default-carousel" class="relative w-full h-100" data-carousel="slide">
-        <!-- Carousel wrapper -->
-        <div class="relative h-full overflow-hidden rounded-lg md:h-96">
-            <!-- Item 1 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="https://imgv3.fotor.com/images/cover-photo-image/ai-generate-dragon-from-text-in-Fotor-AI-image-generator.jpg"
-                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 2 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/images/Electronica-Televisores-LG-55UQ7400PSF-435754-ndJiAzd7Uf0PgAUJ.jpg"
-                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 3 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="https://media.es.wired.com/photos/631ec3ef64fe55a038bdc9a8/4:3/w_1614,h_1211,c_limit/How-to-Choose-a-Laptop-Gear-GettyImages-1235728903.jpg"
-                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 4 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="https://cdn.mos.cms.futurecdn.net/h7RghmVhRSKgsqSpRCgiL-1200-80.jpg"
-                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 5 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="https://cdn.mos.cms.futurecdn.net/Ajc3ezCTN4FGz2vF4LpQn9-1200-80.jpg"
-                    class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-        </div>
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1"
-                data-carousel-slide-to="0"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2"
-                data-carousel-slide-to="1"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3"
-                data-carousel-slide-to="2"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4"
-                data-carousel-slide-to="3"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5"
-                data-carousel-slide-to="4"></button>
-        </div>
-        <!-- Slider controls -->
-        <button type="button"
-            class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-prev>
-            <span
-                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="M5 1 1 5l4 4" />
-                </svg>
-                <span class="sr-only">Previous</span>
-            </span>
+    <div class="header-carousel-container">
+        <!-- Swiper Component -->
+        <swiper ref="swiper" :pagination="true" :slides-per-view="1" :space-between="30" :loop="true"
+            :autoplay="autoplay" :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
+            <swiper-slide v-for="(slide, index) in slides" :key="index">
+                <div class="slide-content">
+                    <img :src="slide.image" alt="Slide Image" class="slide-image">
+                    <div class="slide-text">
+                        <h1 class="slide-title">{{ slide.title }}</h1>
+                        <p class="slide-description">{{ slide.description }}</p>
+                        <a :href="slide.link" class="view-more-link">Ver más</a>
+                    </div>
+                </div>
+            </swiper-slide>
+        </swiper>
+
+        <!-- Custom Previous Button -->
+        <button class="prev-button" @click="slidePrev">
+            <i class="fas fa-chevron-left"></i>
         </button>
-        <button type="button"
-            class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none"
-            data-carousel-next>
-            <span
-                class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-                <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true"
-                    xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                    <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                        d="m1 9 4-4-4-4" />
-                </svg>
-                <span class="sr-only">Next</span>
-            </span>
+
+        <!-- Custom Next Button -->
+        <button class="next-button" @click="slideNext">
+            <i class="fas fa-chevron-right"></i>
         </button>
     </div>
-
-
 </template>
 
+<script>
+import { ref, onMounted } from 'vue';
+import { Swiper, SwiperSlide } from 'swiper/vue';
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/autoplay';
+import 'swiper/css/pagination';
+import { Navigation, Autoplay, Pagination } from 'swiper/modules';
 
+export default {
+    components: {
+        Swiper,
+        SwiperSlide,
+    },
+    setup() {
+        const swiperInstance = ref(null);
+        const slides = ref([
+            {
+                title: 'Laptop para Desarrollo Web',
+                description: 'Una laptop perfecta para programadores, equipada con lo último en hardware y software.',
+                image: 'https://static.vecteezy.com/system/resources/thumbnails/002/960/590/small/abstract-watercolor-texture-wallpaper-background-free-vector.jpg',
+                link: '/laptops/web-development'
+            },
+            {
+                title: 'Laptop para Marketing Digital',
+                description: 'Optimizada para manejar campañas de marketing digital con alta eficiencia.',
+                image: 'https://img.freepik.com/vector-gratis/fondo-futurista-tecnologia-degradada_23-2149115236.jpg',
+                link: '/laptops/digital-marketing'
+            },
+            {
+                title: 'Laptop para Diseño Gráfico',
+                description: 'Equipado con una GPU potente, ideal para diseñadores gráficos y creadores de contenido.',
+                image: 'https://miro.medium.com/v2/resize:fit:1024/1*vxjAHkrXbGG6gOiPZgjeZA.jpeg',
+                link: '/laptops/graphic-design'
+            },
+            {
+                title: 'Laptop para Electrónica',
+                description: 'Perfecta para ingenieros electrónicos, con herramientas especializadas para desarrollo y pruebas.',
+                image: 'https://www.mikeelectronica.com/cdn/shop/articles/B-MK_02_2121x.progressive.jpg?v=1607535378',
+                link: '/laptops/electronics'
+            },
+            {
+                title: 'Laptop para Tecnología de la Información',
+                description: 'Ideal para profesionales de TI, con gran capacidad de almacenamiento y rendimiento.',
+                image: 'https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg',
+                link: '/laptops/it'
+            },
+            {
+                title: 'Laptop para Innovación Tecnológica',
+                description: 'La mejor elección para pioneros en tecnología, diseñada para soportar las últimas innovaciones.',
+                image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStpKTecT68g8XQ5mXNZInylTDXRFq039kfw7uEJjCAcP8tnHlksD5XEdNfPHAeKTP4SA0&usqp=CAU',
+                link: '/laptops/tech-innovation'
+            }
+        ]);
+
+
+
+        const onSwiper = (swiper) => {
+            swiperInstance.value = swiper;
+        };
+
+        const slideNext = () => {
+            if (swiperInstance.value) {
+                swiperInstance.value.slideNext();
+            }
+        };
+
+        const slidePrev = () => {
+            if (swiperInstance.value) {
+                swiperInstance.value.slidePrev();
+            }
+        };
+
+        const breakpoints = {
+            640: {
+                slidesPerView: 1,
+                spaceBetween: 20,
+            },
+            768: {
+                slidesPerView: 1,
+                spaceBetween: 30,
+            },
+            1024: {
+                slidesPerView: 1,
+                spaceBetween: 40,
+            },
+        };
+
+        return {
+            slideNext,
+            slidePrev,
+            onSwiper,
+            slides,
+            modules: [Navigation, Autoplay, Pagination],
+            autoplay: {
+                delay: 2500,
+                disableOnInteraction: false,
+            },
+            breakpoints,
+        };
+    },
+};
+</script>
 
 <style scoped>
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
 
-#default-carousel {
-    margin-bottom: 200px;
+.header-carousel-container {
+    position: relative;
+    width: 100%;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    overflow: hidden;
 }
 
-img{
-    height: 500px;
+.mySwiper {
+    width: 100%;
+    height: 100%;
+}
+
+.swiper-slide {
+    display: flex;
+    align-items: center;
+}
+
+.slide-content {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.slide-image {
+    width: 100%;
+    height: auto;
     object-fit: cover;
 }
 
+.slide-text {
+    position: absolute;
+    top: 50%;
+    left: 10%;
+    transform: translateY(-50%);
+    color: #fff;
+    z-index: 10;
+    max-width: 40%;
+    padding: 20px;
+    background: rgba(0, 0, 0, 0.5);
+    border-radius: 10px;
+}
+
+.slide-title {
+    font-size: 2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+}
+
+.slide-description {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+}
+
+.view-more-link {
+    font-size: 1rem;
+    color: #7d98f8;
+    text-decoration: underline;
+}
+
+.prev-button,
+.next-button {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: rgba(0, 0, 0, 0.5);
+    color: #fff;
+    border: none;
+    padding: 10px;
+    cursor: pointer;
+    z-index: 20;
+    font-size: 18px;
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.prev-button {
+    left: 10px;
+}
+
+.next-button {
+    right: 10px;
+}
+
+.prev-button:hover,
+.next-button:hover {
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+@media screen and (max-width: 768px) {
+    .slide-text {
+        display: none;
+    }
+}
 </style>

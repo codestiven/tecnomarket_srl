@@ -35,7 +35,7 @@ export default {
 
 <style scoped>
 .elemento {
-    margin: 100px 0px 50px 0px;
+    margin: 20px 0px 50px 0px;
     position: relative; /* Para posicionar el pseudo-elemento */
 }
 

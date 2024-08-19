@@ -47,7 +47,7 @@ function handleImageError() {
   <Carruser></Carruser>
   <!-- -----------------------------------------------------  productos ------------------------------------ -->
 
-  <Titulo titulo="productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
+  <Titulo titulo="Productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
 
   <div class="productos">
     <div class="Laptos p-8">

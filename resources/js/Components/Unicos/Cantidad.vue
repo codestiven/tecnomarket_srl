@@ -79,9 +79,12 @@ export default {
 
 .contenedor .contenedor_cantidad {
   padding: 0px 100px 20px 10px;
-  font-size: 25px;
+  font-size: 22px;
   color: rgb(37, 37, 37);
   text-align: start;
+  font-weight: bold;
+
+  
 }
 
 .contenedor .productos {

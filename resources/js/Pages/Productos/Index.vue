@@ -56,8 +56,11 @@ const cambiarPagina = (link) => {
     const url = new URL(link.url);
     const page = url.searchParams.get('page');
     filtrarProductos(page);
+    // Mover el scroll a la parte superior
+    window.scrollTo(0, 0);
   }
 };
+
 
 const init = () => {
   const params = new URLSearchParams(window.location.search);
@@ -86,21 +89,27 @@ init();
       <div class="placeholder">
         <div class="filtros">
           <div class="left">
-            <select id="categoria_id" class="filtro" @change="actualizarFiltros">
+            <select id="categoria_id"
+              class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              @change="actualizarFiltros">
               <option selected value="">Todas las Categorías</option>
               <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
                 {{ categoria.nombre }}
               </option>
             </select>
 
-            <select id="marca_id" @change="actualizarFiltros">
+            <select id="marca_id"
+              class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              @change="actualizarFiltros">
               <option selected value="">Todas las Marcas</option>
               <option v-for="marca in marcas" :key="marca.id" :value="marca.id">
                 {{ marca.nombre }}
               </option>
             </select>
 
-            <select id="en_oferta" @change="actualizarFiltros">
+            <select id="en_oferta"
+              class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+              @change="actualizarFiltros">
               <option selected value="">Todos</option>
               <option value="solo_ofertas">Solo en Oferta</option>
               <option value="sin_ofertas">Sin Ofertas</option>
