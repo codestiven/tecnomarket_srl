@@ -258,8 +258,8 @@ init();
   grid-auto-rows: 400px;
   gap: 10px;
   justify-content: center;
-  max-height: 800px;
-  overflow-y: scroll;
+  /* max-height: 800px;
+  overflow-y: scroll; */
 }
 
 
