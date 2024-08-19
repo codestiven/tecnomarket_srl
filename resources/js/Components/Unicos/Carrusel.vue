@@ -1,7 +1,7 @@
 <template>
     <div class="header-carousel-container">
         <!-- Swiper Component -->
-        <swiper ref="swiper" :pagination="true" :slides-per-view="1" :space-between="30" :loop="true"
+        <swiper ref="swiper" :pagination="true" :slides-per-view="1"  :loop="true"
             :autoplay="autoplay" :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
             <swiper-slide v-for="(slide, index) in slides" :key="index">
                 <div class="slide-content">
@@ -46,54 +46,15 @@ export default {
         const swiperInstance = ref(null);
         const slides = ref([]); // Inicialmente vacío
 
-        // const slides = ref([
-        //     {
-        //         title: 'Laptop para Desarrollo Web',
-        //         description: 'Una laptop perfecta para programadores, equipada con lo último en hardware y software.',
-        //         image: 'https://static.vecteezy.com/system/resources/thumbnails/002/960/590/small/abstract-watercolor-texture-wallpaper-background-free-vector.jpg',
-        //         link: '/laptops/web-development'
-        //     },
-        //     {
-        //         title: 'Laptop para Marketing Digital',
-        //         description: 'Optimizada para manejar campañas de marketing digital con alta eficiencia.',
-        //         image: 'https://img.freepik.com/vector-gratis/fondo-futurista-tecnologia-degradada_23-2149115236.jpg',
-        //         link: '/laptops/digital-marketing'
-        //     },
-        //     {
-        //         title: 'Laptop para Diseño Gráfico',
-        //         description: 'Equipado con una GPU potente, ideal para diseñadores gráficos y creadores de contenido.',
-        //         image: 'https://miro.medium.com/v2/resize:fit:1024/1*vxjAHkrXbGG6gOiPZgjeZA.jpeg',
-        //         link: '/laptops/graphic-design'
-        //     },
-        //     {
-        //         title: 'Laptop para Electrónica',
-        //         description: 'Perfecta para ingenieros electrónicos, con herramientas especializadas para desarrollo y pruebas.',
-        //         image: 'https://www.mikeelectronica.com/cdn/shop/articles/B-MK_02_2121x.progressive.jpg?v=1607535378',
-        //         link: '/laptops/electronics'
-        //     },
-        //     {
-        //         title: 'Laptop para Tecnología de la Información',
-        //         description: 'Ideal para profesionales de TI, con gran capacidad de almacenamiento y rendimiento.',
-        //         image: 'https://media.wired.com/photos/64daad6b4a854832b16fd3bc/4:3/w_1787,h_1340,c_limit/How-to-Choose-a-Laptop-August-2023-Gear.jpg',
-        //         link: '/laptops/it'
-        //     },
-        //     {
-        //         title: 'Laptop para Innovación Tecnológica',
-        //         description: 'La mejor elección para pioneros en tecnología, diseñada para soportar las últimas innovaciones.',
-        //         image: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcStpKTecT68g8XQ5mXNZInylTDXRFq039kfw7uEJjCAcP8tnHlksD5XEdNfPHAeKTP4SA0&usqp=CAU',
-        //         link: '/laptops/tech-innovation'
-        //     }
-        // ]);
-
-
         // Llamada a la API para obtener los datos del carrusel
-        const fetchSlides = async () => {
-            try {
-                const response = await axios.get('/api/carousels'); // Asegúrate de que esta ruta es correcta
-                slides.value = response.data;
-            } catch (error) {
-                console.error("Error al obtener los slides:", error);
-            }
+        const fetchSlides = () => {
+            axios.get('/api/carousels') // Asegúrate de que esta ruta es correcta
+                .then(response => {
+                    slides.value = response.data;
+                })
+                .catch(error => {
+                    console.error("Error al obtener los slides:", error);
+                });
         };
 
         onMounted(() => {
@@ -119,15 +80,15 @@ export default {
         const breakpoints = {
             640: {
                 slidesPerView: 1,
-                spaceBetween: 20,
+                // spaceBetween: 20,
             },
             768: {
                 slidesPerView: 1,
-                spaceBetween: 30,
+                // spaceBetween: 30,
             },
             1024: {
                 slidesPerView: 1,
-                spaceBetween: 40,
+                // spaceBetween: 40,
             },
         };
 
@@ -146,6 +107,7 @@ export default {
     },
 };
 </script>
+
 
 
 <style scoped>
