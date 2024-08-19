@@ -66,12 +66,17 @@ const checkIfProductIsSaved = async (productoId) => {
     const response = await axios.get('/guardadosjson');
     const savedProducts = response.data;
 
-    // Verifica si el producto actual está en la lista de productos guardados
     isSaved.value = savedProducts.some(savedProduct => savedProduct.producto_id === productoId);
   } catch (error) {
-    console.error("Error checking if product is saved:", error);
+    // Loguear el error solo una vez en modo desarrollo
+    // if (process.env.NODE_ENV === 'development') {
+    //   console.error("Error checking if product is saved:", error);
+    // }
+
+    // Mostrar un mensaje de error si es necesario o manejarlo de otra manera
   }
 };
+
 
 const handleLikeProduct = () => {
   const productoId = props.product.id;
@@ -130,7 +135,7 @@ onMounted(() => {
     calculateIsNew(props.product.created_at); // Llama a la función para calcular si el producto es nuevo
   }
 
-  console.log(isNew.value);
+
 });
 </script>
 
@@ -150,7 +155,7 @@ onMounted(() => {
 
           <div v-show="isNew" class="New">
             <i class="fa-solid fa-check"></i>
-            <span>Nuevo</span>
+            <span>Nuevo item</span>
           </div>
 
 

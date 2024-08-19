@@ -37,14 +37,22 @@ function checkScreenSize() {
 async function fetchGuardadosCount() {
   try {
     const response = await axios.get('/guardados/MyLikes');
-    guardadosCount.value = response.data.guardados_count || 0;
-
+    if (response.status === 200 && response.data && typeof response.data.guardados_count !== 'undefined') {
+      guardadosCount.value = response.data.guardados_count;
+    } else {
+      guardadosCount.value = 0;
+    }
   } catch (error) {
-    console.error('Error al obtener la cantidad de elementos guardados:', error);
-    guardadosCount.value = 0; 
-
+    if (error.response && error.response.status === 401) {
+      // Maneja la redirección o el mensaje de error aquí
+      console.error('No autorizado. Por favor, inicia sesión.');
+    } else {
+      console.error('Error al obtener la cantidad de elementos guardados:', error);
+    }
+    guardadosCount.value = 0;
   }
 }
+
 
 onMounted(() => {
   // Verificar el tamaño inicial de la pantalla
