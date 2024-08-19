@@ -7,13 +7,11 @@ import Cantidad from "@/Components/Unicos/Cantidad.vue";
 import ProductCard from "@/Components/Principales/ProductCard.vue";
 import axios from 'axios';
 
-// Definir los props que recibes desde el controlador
 const props = defineProps({
   categorias: Array,
   marcas: Array
 });
 
-// Estado para los filtros
 const filtros = ref({
   categoria_id: '',
   marca_id: '',
@@ -23,7 +21,6 @@ const filtros = ref({
 const productos = ref([]);
 const links = ref([]);
 const currentPage = ref(1);
-
 const totalPages = ref(1);
 
 const filtrarProductos = async (page = 1) => {
@@ -34,28 +31,22 @@ const filtrarProductos = async (page = 1) => {
     productos.value = response.data.data;
     links.value = response.data.links;
     currentPage.value = response.data.current_page;
-    totalPages.value = response.data.last_page; // Asume que tu API devuelve 'last_page'
-    console.log(productos.value);
+    totalPages.value = response.data.last_page;
   } catch (error) {
     console.error('Error al filtrar los productos:', error);
   }
 };
 
-
-// Función para manejar el cambio en los select y actualizar filtros
 const actualizarFiltros = (event) => {
   const { id, value } = event.target;
   filtros.value[id] = value;
 
-  // Actualizar la URL con los parámetros de filtro
   const queryString = new URLSearchParams(filtros.value).toString();
   history.replaceState(null, '', `?${queryString}`);
 
-  // Filtrar productos
   filtrarProductos();
 };
 
-// Función para cambiar de página
 const cambiarPagina = (link) => {
   if (link.url) {
     const url = new URL(link.url);
@@ -64,18 +55,15 @@ const cambiarPagina = (link) => {
   }
 };
 
-// Verificar los parámetros en la URL al cargar la página
 const init = () => {
   const params = new URLSearchParams(window.location.search);
   filtros.value.categoria_id = params.get('categoria_id') || '';
   filtros.value.marca_id = params.get('marca_id') || '';
   filtros.value.en_oferta = params.get('en_oferta') || '';
 
-  // Cargar productos iniciales
   filtrarProductos();
 };
 
-// Llamar a la función init para inicializar filtros
 init();
 </script>
 
@@ -86,7 +74,6 @@ init();
   <Header />
 
   <main>
-
     <div class="Productos">
       <div class="cantidad">
         <Cantidad />
@@ -114,7 +101,6 @@ init();
               <option value="solo_ofertas">Solo en Oferta</option>
               <option value="sin_ofertas">Sin Ofertas</option>
             </select>
-
           </div>
           <div class="right">
             <h1>Ordenar por :</h1>
@@ -123,14 +109,17 @@ init();
           </div>
         </div>
 
+        <!-- Mostrar un mensaje si no hay productos -->
+        <div v-if="productos.length === 0" class="text-center mt-16">
+          <h1 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h1>
+        </div>
+
         <!-- Diseño de cuadrícula para los productos -->
-        <div class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div v-else class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
           <ProductCard v-for="producto in productos" :key="producto.id" :product="producto" />
         </div>
 
         <!-- Paginación -->
-        <!-- Asegúrate de que el contenedor de la paginación solo se muestre si hay más de una página -->
-        <!-- Solo muestra la paginación si hay más de una página -->
         <div v-if="links.length > 2 && totalPages > 1" class="pagination flex justify-center mt-4">
           <div class="flex items-center gap-4">
             <!-- Botón de "Anterior" -->
@@ -169,10 +158,10 @@ init();
             </button>
           </div>
         </div>
-
       </div>
     </div>
   </main>
+
   <Footer />
 </template>
 

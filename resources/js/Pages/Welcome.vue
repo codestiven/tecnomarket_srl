@@ -36,6 +36,7 @@ function handleImageError() {
 </script>
 
 <template>
+
   <Head title="Inicio" />
 
   <!-- --------------------------------------------------- header ------------------------------------- -->
@@ -46,15 +47,11 @@ function handleImageError() {
   <Carruser></Carruser>
   <!-- -----------------------------------------------------  productos ------------------------------------ -->
 
-  <Titulo
-    titulo="productos"
-    subtitulo="Todos nuestros productos a solo un click de tus manos"
-
-/>
+  <Titulo titulo="productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
 
   <div class="productos">
     <div class="Laptos p-8">
-      <a href="#">
+      <a href="/Productos?categoria_id=1&marca_id=&en_oferta=">
         <div class="img">
           <img src="/images/laptos.png" alt="" />
         </div>
@@ -65,7 +62,7 @@ function handleImageError() {
     </div>
 
     <div class="TV">
-      <a href="#">
+      <a href="http://tecnomarket_srl.test/Productos?categoria_id=2&marca_id=&en_oferta=">
         <div>
           <img src="/images/TV.png" alt="" />
         </div>
@@ -75,7 +72,7 @@ function handleImageError() {
       </a>
     </div>
     <div class="accesorios">
-      <a href="#">
+      <a href="http://tecnomarket_srl.test/Productos?categoria_id=3&marca_id=&en_oferta=">
         <div>
           <img src="/images/accesorios.png" alt="" />
         </div>
@@ -118,9 +115,9 @@ function handleImageError() {
 
   <!-- -----------------------------------------------------  Ofertas ------------------------------------ -->
 
-  <Titulo titulo="Nuevas Ofertas"      :mostrarLinea="false"/>
+  <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" />
 
-<Ofertas />
+  <Ofertas />
 
   <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
 
@@ -132,18 +129,15 @@ function handleImageError() {
 
   <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
 
-  <Titulo
-    titulo="Articulos Destacado"
-    subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audifonos   otros"
-        :mostrarLinea="false"
-  />
+  <Titulo titulo="Articulos Destacado"
+    subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audifonos   otros" :mostrarLinea="false" />
 
   <Destacados />
   <!-- -----------------------------------------------------  mapa ------------------------------------ -->
 
-  <Titulo titulo="Donde nos encontramos"      :mostrarLinea="false"/>
+  <Titulo titulo="Donde nos encontramos" :mostrarLinea="false" />
 
-<Mapa/>
+  <Mapa />
 
   <!-- -----------------------------------------------------  Footer ------------------------------------ -->
 
