@@ -17,10 +17,13 @@ use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardController;
+use Illuminate\Http\Request;
 
 
 
-
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');
 
 
 
@@ -124,6 +127,26 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::get('/guardados/likes/{producto_id}', [GuardadoController::class, 'showLikes'])->name('guardados.likes');
+
+
+
+// Ruta para mostrar el formulario de edición del perfil
+Route::get('/profile/edit', [ProfileController::class, 'edit'])->name('profile.edit');
+
+// Ruta para actualizar el perfil
+Route::patch('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+
+// Ruta para eliminar la cuenta del usuario
+Route::delete('/profile/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
+
+
+
+Route::middleware('auth')->group(function () {
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::post('/profile/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::post('/profile/updateother', [ProfileController::class, 'updateother'])->name('profile.updateother');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+});
 
 
 require __DIR__.'/auth.php';

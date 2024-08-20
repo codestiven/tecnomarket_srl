@@ -5,7 +5,9 @@ import Logo from "@/Components/ApplicationLogo.vue";
 import Busqueda from "@/Components/buscador.vue";
 import badges from "@/Components/badges.vue";
 import axios from "axios";
-import { inject } from 'vue';
+import Swal from 'sweetalert2';
+
+const open = ref(false);
 
 const props = defineProps({
   canLogin: Boolean,
@@ -13,8 +15,6 @@ const props = defineProps({
   laravelVersion: String,
   phpVersion: String,
 });
-
-
 
 // Propiedad reactiva para el tamaño de la pantalla
 const isMobile = ref(false);
@@ -53,6 +53,31 @@ async function fetchGuardadosCount() {
   }
 }
 
+// Función para manejar la confirmación de cierre de sesión
+function confirmLogout(event) {
+  event.preventDefault(); // Evita el comportamiento por defecto del enlace
+
+  Swal.fire({
+    title: '¿Estás seguro?',
+    text: '¿Quieres cerrar sesión?',
+    icon: 'warning',
+    showCancelButton: true,
+    confirmButtonColor: '#3085d6',
+    cancelButtonColor: '#d33',
+    confirmButtonText: 'Sí, cerrar sesión',
+    cancelButtonText: 'Cancelar'
+  }).then((result) => {
+    if (result.isConfirmed) {
+      // Enviar una solicitud POST al endpoint de cierre de sesión
+      axios.post('/logout').then(response => {
+        // Redirige a la página de inicio o a donde desees después del cierre de sesión
+        window.location.href = '/';
+      }).catch(error => {
+        console.error('Error al cerrar sesión:', error);
+      });
+    }
+  });
+}
 
 onMounted(() => {
   // Verificar el tamaño inicial de la pantalla
@@ -83,7 +108,7 @@ onBeforeUnmount(() => {
           viewBox="0 0 20 20">
           <path
             d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5ZM9.5 4a1.5 1.5 0 1 1 0 3 1.5 1.5 0 0 1 0-3ZM12 15H8a1 1 0 0 1 0-2h1v-3H8a1 1 0 0 1 0-2h2a1 1 0 0 1 1 1v4h1a1 1 0 0 1 0 2Z" />
-        </svg>Info
+        </svg>Menú
       </h5>
       <button type="button" data-drawer-hide="drawer-example" aria-controls="drawer-example"
         class="text-gray-400 bg-transparent hover:bg-gray-200 hover:text-gray-900 rounded-lg text-sm w-8 h-8 absolute top-2.5 end-2.5 flex items-center justify-center dark:hover:bg-gray-600 dark:hover:text-white">
@@ -94,26 +119,30 @@ onBeforeUnmount(() => {
         <span class="sr-only">Close menu</span>
       </button>
 
-      <p class="mb-6 text-sm text-gray-500 dark:text-gray-400">
-        Supercharge your hiring by taking advantage of our
-        <a href="#" class="text-blue-600 underline dark:text-blue-500 hover:no-underline">limited-time sale</a>
-        for Flowbite Docs + Job Board. Unlimited access to over 190K top-ranked candidates
-        and the #1 design job board.
-      </p>
-      <div class="grid grid-cols-2 gap-4">
-        <a href="#"
-          class="px-4 py-2 text-sm font-medium text-center text-gray-900 bg-white border border-gray-200 rounded-lg focus:outline-none hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">Learn
-          more</a>
-        <a href="#"
-          class="inline-flex items-center px-4 py-2 text-sm font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Get
-          access
-          <svg class="rtl:rotate-180 w-3.5 h-3.5 ms-2" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none"
-            viewBox="0 0 14 10">
-            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-              d="M1 5h12m0 0L9 1m4 4L9 9" />
-          </svg></a>
-      </div>
+      <ul class="space-y-4">
+        <li>
+          <Link :href="route('home')"
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Inicio</Link>
+        </li>
+        <li>
+          <Link :href="route('Productos')"
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Productos</Link>
+        </li>
+        <li>
+          <Link :href="route('Ofertas')"
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Ofertas</Link>
+        </li>
+        <li>
+          <Link :href="route('SobreNosotros')"
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Sobre nosotros</Link>
+        </li>
+        <li>
+          <Link :href="route('Contacto')"
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Contacto</Link>
+        </li>
+      </ul>
     </div>
+
 
     <div class="contenido">
       <div class="Logo">
@@ -190,15 +219,35 @@ onBeforeUnmount(() => {
       </div>
 
       <div class="seccion">
-        <Link v-if="$page.props.auth.user" :href="route('dashboard')"
-          class="ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-        Productos
-        </Link>
+        <div v-if="$page.props.auth.user" class="relative inline-block text-left">
+          <button @click="open = !open"
+            class="ll flex items-center rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
+            {{ $page.props.auth.user.name }}
+            <svg class="ml-2 h-5 w-5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor"
+              aria-hidden="true">
+              <path fill-rule="evenodd"
+                d="M5.293 7.293a1 1 0 011.414 0L10 10.586l3.293-3.293a1 1 0 011.414 1.414l-4 4a1 1 0 01-1.414 0l-4-4a1 1 0 010-1.414z"
+                clip-rule="evenodd" />
+            </svg>
+          </button>
+          <div v-if="open" @mouseleave="open = false"
+            class="absolute right-0 z-10 mt-2 w-48 origin-top-right rounded-md bg-blue-600 shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <div class="py-1" role="menu" aria-orientation="vertical" aria-labelledby="options-menu">
+              <Link href="/profile" class="block px-4 py-2 text-sm text-white hover:bg-blue-700" role="menuitem">Perfil
+              </Link>
+              <Link @click="confirmLogout" class="block px-4 py-2 text-sm text-white hover:bg-blue-700" role="menuitem">
+              Cerrar
+              sesión
+
+              </Link>
+            </div>
+          </div>
+        </div>
 
         <div v-else>
           <Link :href="route('login')"
             class="ll rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:bg-[#FF2D20]/10 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white">
-          Inicio de sesion
+          Inicio de sesión
           </Link>
 
           <Link :href="route('register')"

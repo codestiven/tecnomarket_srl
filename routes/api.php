@@ -9,10 +9,12 @@ use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\GuardadoController;
 use App\Http\Controllers\CarouselController;
+use App\Http\Controllers\ProvinciaController;
 
-Route::get('/user', function (Request $request) {
-    return $request->user();
-})->middleware('auth:sanctum');
+
+
+
+
 
 
 
@@ -53,3 +55,4 @@ Route::get('/carousels', [CarouselController::class, 'index']);
 Route::post('/carousels', [CarouselController::class, 'store']);
 Route::get('/carousels/{id}', [CarouselController::class, 'show']);
 
+Route::get('/province', [ProvinciaController::class, 'index']);

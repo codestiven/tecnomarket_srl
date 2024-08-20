@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -27,17 +26,45 @@ class ProfileController extends Controller
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
+    public function update(Request $request): RedirectResponse
     {
-        $request->user()->fill($request->validated());
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'lastname' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+        ]);
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+        $user = $request->user();
+        $user->fill($request->only(['name', 'lastname', 'email']));
+
+        if ($user->isDirty('email')) {
+            $user->email_verified_at = null;
         }
 
-        $request->user()->save();
+        $user->save();
 
-        return Redirect::route('profile.edit');
+        return Redirect::route('profile.edit')->with('status', 'Perfil actualizado con éxito.');
+    }
+
+
+    /**
+     * Update the additional user profile information.
+     */
+    public function updateother(Request $request): RedirectResponse
+    {
+        $request->validate([
+            'address' => 'nullable|string|max:255',
+            'province_id' => 'nullable|exists:provincias,id',
+            'phone' => 'nullable|string|max:15',
+        ]);
+
+        $user = $request->user();
+        $user->address = $request->input('address');
+        $user->province_id = $request->input('province_id');
+        $user->phone = $request->input('phone');
+        $user->save();
+
+        return Redirect::route('profile.edit')->with('status', 'Perfil actualizado con éxito.');
     }
 
     /**
