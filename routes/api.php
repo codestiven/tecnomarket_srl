@@ -34,7 +34,7 @@ Route::prefix('Categorias')->group(function () {
 });
 
 Route::prefix('Marcas')->group(function () {
-    Route::get('/', [CategoriaController::class, 'index']);
+    Route::get('/', [MarcaController::class, 'index']);
     Route::post('/', [MarcaController::class, 'store']);
     Route::get('/create', [MarcaController::class, 'create']);
     Route::get('/{marca}', [MarcaController::class, 'show']);

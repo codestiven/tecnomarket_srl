@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Oferta; // Asegúrate de importar correctamente la clase Oferta
 
 class Producto extends Model
 {
@@ -17,9 +18,9 @@ class Producto extends Model
         'precio',
         'categoria_id',
         'marca_id',
-        'oferta_id',
         'image',
         'stock',
+        'es_oferta',  // Añadimos es_oferta a los fillable
     ];
 
     // Relación con la tabla Categorias
@@ -37,7 +38,7 @@ class Producto extends Model
     // Relación con la tabla Ofertas
     public function oferta()
     {
-        return $this->belongsTo(Oferta::class, 'oferta_id');
+        return $this->hasOne(Oferta::class, 'producto_id');
     }
 
     // Relación con la tabla DetallesProducto
@@ -46,4 +47,3 @@ class Producto extends Model
         return $this->hasOne(DetallesProducto::class, 'producto_id');
     }
 }
-

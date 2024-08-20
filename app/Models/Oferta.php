@@ -2,22 +2,14 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Oferta extends Model
 {
-    use HasFactory;
+    protected $fillable = ['producto_id', 'precio_oferta'];
 
-    protected $table = 'ofertas';
-
-    protected $fillable = [
-        'nombre',
-        'descuento',
-        'fecha_inicio',
-        'fecha_final',
-        'precio_anterior',
-    ];
-
-    // No hay relaciones en este ejemplo
+    public function producto()
+    {
+        return $this->belongsTo(Producto::class);
+    }
 }

@@ -15,15 +15,14 @@ class CreateProductosTable extends Migration
             $table->decimal('precio', 10, 2);
             $table->unsignedBigInteger('categoria_id');
             $table->unsignedBigInteger('marca_id');
-            $table->unsignedBigInteger('oferta_id')->nullable();
             $table->string('image')->nullable();
             $table->integer('stock')->default(1);
+            $table->boolean('es_oferta')->default(false);
             $table->timestamps();
 
             // Claves foráneas
             $table->foreign('categoria_id')->references('id')->on('categorias');
             $table->foreign('marca_id')->references('id')->on('marcas');
-            $table->foreign('oferta_id')->references('id')->on('ofertas')->onDelete('set null');
         });
     }
 

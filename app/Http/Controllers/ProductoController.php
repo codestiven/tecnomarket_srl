@@ -97,14 +97,14 @@ class ProductoController extends Controller
      */
     public function create(Request $request)
     {
-        // Validación de campos
         $request->validate([
-            'nombre' => 'required',
-            'descripcion' => 'required',
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string|max:1000',
             'precio' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,id',
             'marca_id' => 'required|exists:marcas,id',
-            'oferta_id' => 'nullable|exists:ofertas,id',
+            'es_oferta' => 'nullable|boolean',
+            'precio_oferta' => 'nullable|numeric|required_if:es_oferta,1',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
         ]);
 
@@ -119,15 +119,24 @@ class ProductoController extends Controller
                 'precio' => $request->precio,
                 'categoria_id' => $request->categoria_id,
                 'marca_id' => $request->marca_id,
-                'oferta_id' => $request->oferta_id,
                 'image' => $imagenPath,
+                'es_oferta' => $request->es_oferta ? true : false,
             ]);
+
+            // Crear oferta si es_oferta es verdadero
+            if ($request->es_oferta) {
+                $producto->oferta()->create([
+                    'precio_oferta' => $request->precio_oferta,
+                ]);
+            }
 
             return response()->json(['message' => 'Producto creado correctamente'], 201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al guardar el producto: ' . $e->getMessage()], 500);
         }
     }
+
+
 
     /**
      * Store a newly created resource in storage.
