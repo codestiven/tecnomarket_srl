@@ -227,14 +227,14 @@ class ProductoController extends Controller
         // Aplicar filtro por oferta si está presente
         if ($en_oferta !== null) {
             if ($en_oferta === 'solo_ofertas') {
-                $productos->whereNotNull('oferta_id');
+                $productos->where('es_oferta', 1); // Solo productos en oferta
             } elseif ($en_oferta === 'sin_ofertas') {
-                $productos->whereNull('oferta_id');
+                $productos->where('es_oferta', 0); // Solo productos que no están en oferta
             }
         }
 
         // Ejecutar la consulta con paginación
-        $productos = $productos->paginate(30); 
+        $productos = $productos->paginate(30);
 
         // Añadir la URL completa de la imagen a cada producto
         foreach ($productos as $producto) {
@@ -243,6 +243,7 @@ class ProductoController extends Controller
 
         // Retornar los productos filtrados con paginación como JSON
         return response()->json($productos);
+
     }
 
     public function Productos(Request $request)
