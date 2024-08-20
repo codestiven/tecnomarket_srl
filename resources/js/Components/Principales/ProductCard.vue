@@ -19,6 +19,7 @@ const props = defineProps({
       oferta_id: null,
       image: "https://ssl-product-images.www8-hp.com/digmedialib/prodimg/lowres/c08523987.png",
       stock: 77,
+      es_oferta: false,  // Valor por defecto agregado
       created_at: null,
       updated_at: null,
       categoria: {
@@ -148,10 +149,11 @@ onMounted(() => {
     <div class="up">
       <div class="up_image">
         <div>
-          <div class="oferta" v-show="product.oferta">
+          <div class="oferta" v-show="product.es_oferta">
             <i class="fa-solid fa-percent"></i>
             <span>Oferta</span>
           </div>
+
 
           <div v-show="isNew" class="New">
             <i class="fa-solid fa-check"></i>
@@ -184,9 +186,15 @@ onMounted(() => {
       <div class="marcation">
         <span>{{ product.marca.nombre }} - {{ product.categoria.nombre }}</span>
       </div>
-      <div class="price">
-        <h1>RD$ {{ Number(product.precio).toLocaleString() }}</h1> <span>RD$ 50,000.00</span>
+      <div class="price" v-if="!product.es_oferta">
+        <h1>RD$ {{ Number(product.precio).toLocaleString() }}</h1>
       </div>
+
+      <div class="price" v-else>
+        <h1>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</h1>
+        <span>RD$ {{ Number(product.precio).toLocaleString() }}</span>
+      </div>
+
     </div>
     <div class="down">
 
@@ -257,20 +265,21 @@ onMounted(() => {
 
 }
 
-.card .up .up_image > div {
+.card .up .up_image>div {
   width: 100%;
   height: auto;
   display: flex;
   flex-direction: column;
   /* align-items: center; */
   justify-content: center;
-  
+
   gap: 5px;
   /* background-color: #0b63e7; */
   transform: translate(0, 17px);
 
 
 }
+
 .card .up .up_image .gusta {
   font-size: 20px;
   font-weight: bold;
@@ -281,7 +290,7 @@ onMounted(() => {
   align-items: center;
   gap: 7px;
   transition: 250ms;
-  
+
 }
 
 .card .up .up_image .gusta:hover {
@@ -295,7 +304,7 @@ onMounted(() => {
 }
 
 
-.card .up .up_image .gusta i{
+.card .up .up_image .gusta i {
   font-size: 28px;
 
 }
@@ -316,17 +325,17 @@ onMounted(() => {
 }
 
 .card .up .up_image .New {
-    width: 60%;
-      font-size: 20px;
+  width: 60%;
+  font-size: 20px;
 
-      color: white;
-      background-color: #0f7bd4;
-      padding: 5px 10px;
-      border-radius: 5px;
-    
-      display: flex;
-      align-items: center;
-      gap: 20px;
+  color: white;
+  background-color: #0f7bd4;
+  padding: 5px 10px;
+  border-radius: 5px;
+
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }
 
 .card .up .up_image .oferta i {
@@ -406,6 +415,7 @@ onMounted(() => {
 
 
 }
+
 .card .center .name span {
   font-size: 16px;
   font-weight: bold;
@@ -486,7 +496,7 @@ onMounted(() => {
 .card .down button:hover {
 
   transform: scale(1.2);
-  
+
 
 }
 
@@ -495,6 +505,7 @@ onMounted(() => {
   color: #fff;
   transform: scale(1);
 }
+
 .card .down button:active .fa-solid {
   color: #ECECEC;
 
@@ -516,6 +527,7 @@ onMounted(() => {
 
   background-color: #d3d3d3;
 }
+
 .agregar .fa-solid {
   color: #7B7B7B;
 }

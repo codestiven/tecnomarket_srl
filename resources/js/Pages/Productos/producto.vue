@@ -25,9 +25,18 @@
       </div>
 
       <div class="linea"></div>
-      <div class="precio">
-        <h1>RD${{ producto.precio ? producto.precio : 'Desconocido' }}</h1> <span>500</span>
+      <!-- Mostrar solo cuando no hay oferta -->
+      <div class="precio" v-if="!producto.es_oferta">
+        <h1>RD$ {{ producto.precio ? Number(producto.precio).toLocaleString() : 'Desconocido' }}</h1>
       </div>
+
+      <!-- Mostrar solo cuando hay oferta -->
+      <div class="precio" v-else>
+        <h1>RD$ {{ producto.oferta && producto.oferta.precio_oferta ?
+          Number(producto.oferta.precio_oferta).toLocaleString() : 'Desconocido' }}</h1>
+        <span>RD$ {{ producto.precio ? Number(producto.precio).toLocaleString() : 'Desconocido' }}</span>
+      </div>
+
       <div class="linea"></div>
       <div class="descripcion">
         <div class="titulo">
@@ -67,7 +76,7 @@
           </div>
           <div v-if="detallesProducto && detallesProducto.almacenamiento && detallesProducto.tipo_de_almacenamiento">
             <i class="fa-solid fa-hard-drive"></i> {{ detallesProducto.almacenamiento }} GB {{
-              detallesProducto.tipo_de_almacenamiento }}
+            detallesProducto.tipo_de_almacenamiento }}
           </div>
           <div v-if="detallesProducto && detallesProducto.ram">
             <i class="fa-solid fa-memory"></i> {{ detallesProducto.ram }} GB RAM

@@ -92,7 +92,7 @@ init();
             <select id="categoria_id"
               class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @change="actualizarFiltros">
-              <option selected value="">Todas las Categorías</option>
+              <option selected value="">Todas Categorías</option>
               <option v-for="categoria in categorias" :key="categoria.id" :value="categoria.id">
                 {{ categoria.nombre }}
               </option>
@@ -101,7 +101,7 @@ init();
             <select id="marca_id"
               class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @change="actualizarFiltros">
-              <option selected value="">Todas las Marcas</option>
+              <option selected value="">Todas Marcas</option>
               <option v-for="marca in marcas" :key="marca.id" :value="marca.id">
                 {{ marca.nombre }}
               </option>
@@ -208,6 +208,7 @@ init();
   display: grid;
   grid-template-columns: repeat(12, 1fr); /* 12 columnas igualmente distribuidas */
   gap: 10px; /* Espacio entre los elementos */
+  padding-left: 20px
 }
 
 .filtros .left {
@@ -216,13 +217,24 @@ init();
   grid-column: span 9;
   justify-content: flex-start;
   align-items: flex-start;
-  padding-right: 40%;
+  padding-right: 25%;
   gap: 30px;
 }
-
+@media (max-width: 768px) {
+  .filtros .left {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    grid-column: span 12;
+    justify-content: flex-start;
+    align-items: flex-start;
+    padding-right: 0;
+    gap: 30px;
+  }
+}
 .filtros .left select {
-  background-color: transparent;
-  border: none;
+  /* background-color: transparent; */
+  /* border: none; */
   outline: none;
   appearance: none;
 
