@@ -144,18 +144,47 @@ init();
           <div class="flex items-center gap-4">
             <!-- Botón de "Anterior" -->
             <button :disabled="!links[0].url" @click="cambiarPagina(links[0])"
-              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-blue-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white uppercase align-middle transition-all rounded-lg select-none bg-blue-900 hover:bg-blue-800 active:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
               type="button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" aria-hidden="true" class="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
               </svg>
-              Anterior
             </button>
 
             <!-- Números de páginas -->
             <div class="flex items-center gap-2">
-              <button v-for="(link, index) in links.slice(1, -1)" :key="index" @click="cambiarPagina(link)" :class="[
+              <!-- Mostrar primer y segundo número -->
+              <button v-for="(link, index) in links.slice(1, 3)" :key="index" @click="cambiarPagina(link)" :class="[
+                'relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all',
+                link.active ? 'bg-blue-900 text-white shadow-md shadow-blue-900/10 hover:shadow-lg hover:shadow-blue-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none' :
+                  'text-blue-900 hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+              ]" type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  {{ link.label }}
+                </span>
+              </button>
+
+              <!-- Mostrar "..." si hay más páginas entre el principio y el final -->
+              <span v-if="currentPage > 3 && currentPage < totalPages - 2" class="text-blue-900">...</span>
+
+              <!-- Mostrar número de página en el medio si la página actual no es la primera o última -->
+              <button v-if="currentPage > 2 && currentPage < totalPages - 1" @click="cambiarPagina(links[currentPage])"
+                :class="[
+                  'relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all',
+                  links[currentPage].active ? 'bg-blue-900 text-white shadow-md shadow-blue-900/10 hover:shadow-lg hover:shadow-blue-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none' :
+                    'text-blue-900 hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
+                ]" type="button">
+                <span class="absolute transform -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2">
+                  {{ currentPage }}
+                </span>
+              </button>
+
+              <!-- Mostrar "..." si hay más páginas hacia el final -->
+              <span v-if="currentPage < totalPages - 3 && currentPage > 2" class="text-blue-900">...</span>
+
+              <!-- Mostrar penúltimo y último número -->
+              <button v-for="(link, index) in links.slice(-2, -1)" :key="index" @click="cambiarPagina(link)" :class="[
                 'relative h-10 max-h-[40px] w-10 max-w-[40px] select-none rounded-lg text-center align-middle font-sans text-xs font-medium uppercase transition-all',
                 link.active ? 'bg-blue-900 text-white shadow-md shadow-blue-900/10 hover:shadow-lg hover:shadow-blue-900/20 focus:opacity-[0.85] focus:shadow-none active:opacity-[0.85] active:shadow-none' :
                   'text-blue-900 hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none'
@@ -168,9 +197,8 @@ init();
 
             <!-- Botón de "Siguiente" -->
             <button :disabled="!links[links.length - 1].url" @click="cambiarPagina(links[links.length - 1])"
-              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-blue-900 uppercase align-middle transition-all rounded-lg select-none hover:bg-blue-900/10 active:bg-blue-900/20 disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none"
+              class="flex items-center gap-2 px-6 py-3 font-sans text-xs font-bold text-center text-white uppercase align-middle transition-all rounded-lg select-none bg-blue-900 hover:bg-blue-800 active:bg-blue-700 disabled:pointer-events-none disabled:opacity-50"
               type="button">
-              Siguiente
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" aria-hidden="true" class="w-4 h-4">
                 <path stroke-linecap="round" stroke-linejoin="round" d="M13.5 4.5L21 12m0 0l-7.5 7.5M21 12H3"></path>
@@ -178,8 +206,11 @@ init();
             </button>
           </div>
         </div>
+
       </div>
+
     </div>
+
   </main>
 
   <Footer />
