@@ -259,5 +259,31 @@ class ProductoController extends Controller
         ]);
     }
 
+    public function getProductsByIds(Request $request)
+    {
+        // Validar la solicitud para asegurarse de que se recibe una lista de IDs
+        $request->validate([
+            'ids' => 'required|array',
+            'ids.*' => 'integer|exists:productos,id',
+        ]);
+
+        // Obtener la lista de IDs desde la solicitud
+        $ids = $request->input('ids');
+
+        // Obtener los productos que coinciden con los IDs proporcionados y cargar las relaciones
+        $productos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
+            ->whereIn('id', $ids)
+            ->get();
+
+        // Añadir la URL completa de la imagen a cada producto
+        foreach ($productos as $producto) {
+            $producto->image = Storage::url($producto->image);
+        }
+
+        // Devolver los productos filtrados como JSON
+        return response()->json(['productos' => $productos]);
+    }
+
+
 
 }

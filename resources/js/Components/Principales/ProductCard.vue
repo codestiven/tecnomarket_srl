@@ -1,6 +1,4 @@
 <script setup>
-import { Link } from "@inertiajs/vue3";
-import { defineProps } from "vue";
 import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
@@ -42,6 +40,45 @@ const props = defineProps({
 const isSaved = ref(false); // Variable para almacenar si el producto ya está guardado
 const likesCount = ref(0); // Variable para almacenar la cantidad de "me gustas"
 const isNew = ref(false); // Variable para indicar si el producto es nuevo
+const isInCart = ref(false); // Variable para indicar si el producto está en el carrito
+
+const addToCart = (productoId) => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Verificar si el producto ya está en el carrito
+  const index = cart.indexOf(productoId);
+
+  if (index === -1) {
+    // Si no está en el carrito, agregarlo
+    cart.push(productoId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      text: 'Producto agregado al carrito correctamente'
+    });
+  } else {
+    // Si ya está en el carrito, quitarlo
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      text: 'Producto eliminado del carrito correctamente'
+    });
+  }
+
+  // Actualizar el estado de isInCart después de modificar el carrito
+  updateCartStatus(productoId);
+};
+
+// Función para actualizar el estado de isInCart
+const updateCartStatus = (productoId) => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  isInCart.value = cart.includes(productoId);
+};
 
 // Función para calcular si el producto es nuevo
 const calculateIsNew = (createdAt) => {
@@ -77,7 +114,6 @@ const checkIfProductIsSaved = async (productoId) => {
     // Mostrar un mensaje de error si es necesario o manejarlo de otra manera
   }
 };
-
 
 const handleLikeProduct = () => {
   const productoId = props.product.id;
@@ -127,6 +163,10 @@ const handleLikeProduct = () => {
     });
 };
 
+const handleAddToCart = () => {
+  addToCart(props.product.id);
+};
+
 onMounted(() => {
   const productoId = props.product.id;
   fetchLikesCount(productoId);
@@ -136,9 +176,11 @@ onMounted(() => {
     calculateIsNew(props.product.created_at); // Llama a la función para calcular si el producto es nuevo
   }
 
-
+  // Inicializar el estado de isInCart
+  updateCartStatus(productoId);
 });
 </script>
+
 
 
 
@@ -169,7 +211,7 @@ onMounted(() => {
       </div>
       <div class="image">
         <a :href="`/Productos/${product.id}`">
-        <img :src="product.image" alt="Product Image" class="imageUrl" />
+          <img :src="product.image" alt="Product Image" class="imageUrl" />
         </a>
       </div>
     </div>
@@ -198,7 +240,12 @@ onMounted(() => {
     </div>
     <div class="down">
 
-      <button class="agregar"> <i class="fa-solid fa-cart-shopping"></i> Agregar a carrito</button>
+      <button v-if="!isInCart" class="agregar" @click="handleAddToCart">
+        <i class="fa-solid fa-cart-shopping"></i> Agregar a carrito
+      </button>
+      <button v-else class="agregado" @click="handleAddToCart">
+        <i class="fa-solid fa-check"></i> Agregado
+      </button>
       <button class="comprar"> <i class="fa-solid fa-basket-shopping"></i> comprar</button>
     </div>
   </div>
@@ -521,16 +568,31 @@ onMounted(() => {
   background-color: #ECECEC;
 
 }
+.agregar .fa-solid {
+  color: #7B7B7B;
+}
 
+.agregado {
+  color: #ffffff;
+  background-color: #fc6262;
+
+}
+
+.agregado button:active{
+  color: #ffffff;
+  background-color: #8a3333;
+
+}
+
+.agregdo .fa-solid {
+  color: #ffffff;
+}
 
 .agregar:hover {
 
   background-color: #d3d3d3;
 }
 
-.agregar .fa-solid {
-  color: #7B7B7B;
-}
 
 
 

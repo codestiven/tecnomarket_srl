@@ -30,7 +30,9 @@ Route::get('/user', function (Request $request) {
 
 Route::get('/api/suggestions', [SuggestionController::class, 'index']);
 
-
+Route::get('/MyCart', function () {
+    return Inertia::render('Cart');
+})->name('Cart');
 
 
 Route::get('/', function () {
