@@ -1,5 +1,5 @@
 <script setup>
-import { ref, watch } from 'vue';
+import { ref, onMounted } from 'vue';
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
@@ -61,18 +61,25 @@ const cambiarPagina = (link) => {
   }
 };
 
-
-const init = () => {
+onMounted(() => {
   const params = new URLSearchParams(window.location.search);
   filtros.value.categoria_id = params.get('categoria_id') || '';
   filtros.value.marca_id = params.get('marca_id') || '';
   filtros.value.en_oferta = params.get('en_oferta') || '';
 
-  filtrarProductos();
-};
+  // Asignar valores a los selectores de acuerdo a los filtros
+  const categoriaSelect = document.getElementById('categoria_id');
+  const marcaSelect = document.getElementById('marca_id');
+  const ofertaSelect = document.getElementById('en_oferta');
 
-init();
+  if (categoriaSelect) categoriaSelect.value = filtros.value.categoria_id;
+  if (marcaSelect) marcaSelect.value = filtros.value.marca_id;
+  if (ofertaSelect) ofertaSelect.value = filtros.value.en_oferta;
+
+  filtrarProductos();
+});
 </script>
+
 
 <template>
 
