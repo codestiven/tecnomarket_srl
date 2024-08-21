@@ -1,4 +1,5 @@
 <script setup>
+import { ref, onMounted, onUnmounted } from 'vue';
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
@@ -6,9 +7,34 @@ import Titulo from "@/Components/Titulos.vue";
 import Carruser from "@/Components/Unicos/Carrusel.vue";
 import boton1 from "@/Components/Boton_principar.vue";
 import Mapa from "@/Components/mapa.vue";
-
+import Servicios from "@/Components/Unicos/Servicios.vue";
 import Destacados from "@/Components/Unicos/Destacados.vue";
 import Ofertas from "@/Components/Unicos/Ofertas.vue";
+
+const showButton = ref(true);
+
+function handleScroll() {
+  if (window.scrollY > 100) {
+    showButton.value = false;
+  } else {
+    showButton.value = true;
+  }
+}
+
+function scrollToPosition() {
+  window.scrollTo({
+    top: 650,
+    behavior: 'smooth'
+  });
+}
+
+onMounted(() => {
+  window.addEventListener('scroll', handleScroll);
+});
+
+onUnmounted(() => {
+  window.removeEventListener('scroll', handleScroll);
+});
 
 defineProps({
   canLogin: {
@@ -39,47 +65,60 @@ function handleImageError() {
 
   <Head title="Inicio" />
 
-  <!-- --------------------------------------------------- header ------------------------------------- -->
+  <!-- Botón animado -->
+  <transition name="fade" @before-enter="beforeEnter" @enter="enter" @leave="leave">
+    <div v-if="showButton" class="fixed bottom-4 left-1/2 transform -translate-x-1/2 z-50">
+      <div class="flex items-center justify-center">
+        <button @click="scrollToPosition"
+          class="p-4 bg-blue-600 text-white rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 transition-transform duration-300 transform hover:scale-110 animate-bounce">
+          <svg class="w-8 h-8" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+  </transition>
 
+  <!-- --------------------------------------------------- header ------------------------------------- -->
   <Header></Header>
 
   <!-- -----------------------------------------------------  carrusel ------------------------------------ -->
   <Carruser></Carruser>
-  <!-- -----------------------------------------------------  productos ------------------------------------ -->
 
+  <!-- -----------------------------------------------------  productos ------------------------------------ -->
   <Titulo titulo="Productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
 
   <div class="productos">
     <div class="Laptos p-8">
-      <a href="/Productos?categoria_id=1&marca_id=&en_oferta=">
-        <div class="img">
-          <img src="/images/laptos.png" alt="" />
-        </div>
-        <div class="texto flex justify-end items-center">
-          <h1>Laptops</h1>
-        </div>
-      </a>
+      <Link href="/Productos?categoria_id=1&marca_id=&en_oferta=">
+      <div class="img">
+        <img src="/images/laptos.png" alt="" />
+      </div>
+      <div class="texto flex justify-end items-center">
+        <h1>Laptops</h1>
+      </div>
+      </Link>
     </div>
 
     <div class="TV">
-      <a href="http://tecnomarket_srl.test/Productos?categoria_id=2&marca_id=&en_oferta=">
-        <div>
-          <img src="/images/TV.png" alt="" />
-        </div>
-        <div class="texto flex justify-end items-center">
-          <h1>TVs</h1>
-        </div>
-      </a>
+      <Link href="http://tecnomarket_srl.test/Productos?categoria_id=2&marca_id=&en_oferta=">
+      <div>
+        <img src="/images/TV.png" alt="" />
+      </div>
+      <div class="texto flex justify-end items-center">
+        <h1>TVs</h1>
+      </div>
+      </Link>
     </div>
     <div class="accesorios">
-      <a href="http://tecnomarket_srl.test/Productos?categoria_id=3&marca_id=&en_oferta=">
-        <div>
-          <img src="/images/accesorios.png" alt="" />
-        </div>
-        <div class="texto flex justify-end items-center">
-          <h1>Aaccesorios</h1>
-        </div>
-      </a>
+      <Link href="http://tecnomarket_srl.test/Productos?categoria_id=3&marca_id=&en_oferta=">
+      <div>
+        <img src="/images/accesorios.png" alt="" />
+      </div>
+      <div class="texto flex justify-end items-center">
+        <h1>Accesorios</h1>
+      </div>
+      </Link>
     </div>
     <div class="otros flex flex-col md:flex-row items-start">
       <!-- Div con la imagen -->
@@ -96,31 +135,21 @@ function handleImageError() {
           unknown printer took a galley of type and scrambled it to make a type specimen
           book.
         </p>
-        <boton1>Ver mas</boton1>
+        <boton1>
+          <Link href="">Ver más</Link>
+        </boton1>
       </div>
-
-      <!-- Div con la imagen -->
     </div>
   </div>
 
   <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
+  <Servicios />
 
-  <Titulo titulo="Servicios" />
-
-  <div class="Servicios">
-    <div class="div1"></div>
-    <div class="div2"></div>
-    <div class="div3"></div>
-  </div>
-
-  <!-- -----------------------------------------------------  Ofertas ------------------------------------ -->
-
+  <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
   <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" />
-
   <Ofertas />
 
   <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
-
   <div class="motivacion">
     <div class="overlay">
       <h1>Estamos aquí para ti</h1>
@@ -128,21 +157,22 @@ function handleImageError() {
   </div>
 
   <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
-
-  <Titulo titulo="Articulos Destacado"
-    subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audifonos   otros" :mostrarLinea="false" />
-
+  <Titulo titulo="Artículos Destacados"
+    subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audífonos   otros" :mostrarLinea="false" />
   <Destacados />
+
   <!-- -----------------------------------------------------  mapa ------------------------------------ -->
-
   <Titulo titulo="Donde nos encontramos" :mostrarLinea="false" />
-
   <Mapa />
 
   <!-- -----------------------------------------------------  Footer ------------------------------------ -->
-
   <Footer></Footer>
 </template>
+
+
+
+
+
 
 <style scoped>
 /* productos   -----------------------------------------*/
@@ -153,6 +183,67 @@ function handleImageError() {
   grid-column-gap: 50px;
   grid-row-gap: 50px;
   padding: 0px 120px;
+}
+
+/* Animación de rebote */
+@keyframes bounce {
+
+  0%,
+  20%,
+  50%,
+  80%,
+  100% {
+    transform: translateY(0);
+  }
+
+  40% {
+    transform: translateY(-20px);
+  }
+
+  60% {
+    transform: translateY(-10px);
+  }
+}
+
+.animate-bounce {
+  animation: bounce 2s infinite;
+}
+
+/* Animaciones de entrada y salida */
+.fade-enter-active,
+.fade-leave-active {
+  transition: opacity 0.5s ease;
+
+}
+
+.fade-enter,
+.fade-leave-to {
+  opacity: 0;
+}
+
+/* Efecto de rebote en el botón */
+@keyframes bounceIn {
+  0% {
+    transform: scale(0.5);
+
+    opacity: 0;
+  }
+
+  50% {
+    transform: scale(1.2);
+
+    opacity: 1;
+  }
+
+  100% {
+
+
+    opacity: 1;
+  }
+}
+
+.fade-enter-active {
+  animation: bounceIn 0.5s ease-out;
 }
 
 .productos > div {
@@ -262,38 +353,6 @@ function handleImageError() {
     overflow: hidden; /* Resetear las áreas grid */
   }
 }
-
-/* Servicios   -----------------------------------------*/
-.Servicios {
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  grid-template-rows: 1fr;
-  grid-column-gap: 60px;
-  grid-row-gap: 30px;
-  padding: 0px 120px 0px 120px;
-}
-
-.Servicios * {
-  background-color: rgba(80, 80, 80, 0.8);
-  text-align: center;
-  padding: 20px;
-  font-size: 30px;
-  height: 250px;
-  border-radius: 40px;
-}
-
-.Servicios .div1 {
-  grid-area: 1 / 1 / 2 / 3;
-}
-
-.Servicios .div2 {
-  grid-area: 1 / 3 / 2 / 4;
-}
-
-.Servicios .div3 {
-  grid-area: 1 / 4 / 2 / 5;
-}
-
 
 
 /* Motivacion   -----------------------------------------*/
