@@ -152,7 +152,7 @@ onMounted(() => {
             class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Productos</Link>
         </li>
         <li>
-          <Link :href="route('Ofertas')"
+          <Link href="/Productos?categoria_id=&marca_id=&en_oferta=solo_ofertas"
             class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Ofertas</Link>
         </li>
         <li>
@@ -227,7 +227,7 @@ onMounted(() => {
                   <Link :href="route('Productos')"> Productos </Link>
                 </li>
                 <li>
-                  <Link :href="route('Ofertas')"> Ofertas </Link>
+                  <Link href="/Productos?categoria_id=&marca_id=&en_oferta=solo_ofertas"> Ofertas </Link>
                 </li>
 
 

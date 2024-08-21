@@ -80,7 +80,6 @@ onMounted(() => {
 });
 </script>
 
-
 <template>
 
   <Head title="Productos" />

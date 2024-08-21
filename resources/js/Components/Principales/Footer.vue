@@ -47,7 +47,8 @@
                                 <Link :href="route('Productos')" class="hover:underline text-white">Productos</Link>
                             </li>
                             <li class="mb-4">
-                                <Link :href="route('Ofertas')" class="hover:underline text-white">Ofertas</Link>
+                                <Link href="/Productos?categoria_id=&marca_id=&en_oferta=solo_ofertas"
+                                    class="hover:underline text-white">Ofertas</Link>
                             </li>
                             <li class="mb-4">
                                 <Link :href="route('Help')" class="hover:underline text-white">ayuda</Link>
