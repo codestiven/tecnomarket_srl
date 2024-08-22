@@ -8,106 +8,97 @@ import boton1 from "@/Components/Boton_principar.vue";
 import Destacados from "@/Components/Unicos/Destacados.vue";
 import Ofertas from "@/Components/Unicos/Ofertas.vue";
 import Mapa from "@/Components/mapa.vue";
+import WhatsappButton from "@/Components/WhatsappButton.vue";
 </script>
 
 <template>
+
   <Head title="Sobre Nosotros" />
 
   <Header />
 
+  <WhatsappButton></WhatsappButton> 
+  
   <div class="img_principio">
-    <img
-      src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-      alt=""
-    />
-  </div>
-
-  <div class="contenido_sobre_nosotros">
-    <Titulo titulo="Quienes Somos" />
-
-    <div class="quieneSomos md:flex">
-      <div class="md:w-1/2 flex justify-center items-center">
-        <img
-          src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-          alt=""
-        />
-      </div>
-      <div class="md:w-1/2 flex justify-center p-5 texto_simple">
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.
-        </p>
-      </div>
+    <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
     </div>
 
-    <Titulo titulo="Compromiso" />
+    <div class="contenido_sobre_nosotros">
+      <Titulo titulo="Quienes Somos" />
 
-    <div class="quieneSomos md:flex">
-      <div class="md:w-1/2 flex justify-center p-5 texto_simple">
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.
-        </p>
+      <div class="quieneSomos md:flex">
+        <div class="md:w-1/2 flex justify-center items-center">
+          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+        </div>
+        <div class="md:w-1/2 flex justify-center p-5 texto_simple">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen
+            book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages, and more
+            recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.
+          </p>
+        </div>
       </div>
 
-      <div class="md:w-1/2 flex justify-center items-center">
-        <img
-          src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-          alt=""
-        />
-      </div>
-    </div>
+      <Titulo titulo="Compromiso" />
 
-    <div class="quieneSomos md:flex">
-      <div
-        class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Mision"
-      >
-        <h1>Mision</h1>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.
-        </p>
+      <div class="quieneSomos md:flex">
+        <div class="md:w-1/2 flex justify-center p-5 texto_simple">
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen
+            book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages, and more
+            recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.
+          </p>
+        </div>
+
+        <div class="md:w-1/2 flex justify-center items-center">
+          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+        </div>
       </div>
 
-      <div
-        class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Vision"
-      >
-        <h1>Vision</h1>
-        <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.
-        </p>
+      <div class="quieneSomos md:flex">
+        <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Mision">
+          <h1>Mision</h1>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen
+            book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages, and more
+            recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.
+          </p>
+        </div>
+
+        <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Vision">
+          <h1>Vision</h1>
+          <p>
+            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
+            unknown printer took a galley of type and scrambled it to make a type specimen
+            book. It has survived not only five centuries, but also the leap into electronic
+            typesetting, remaining essentially unchanged. It was popularised in the 1960s
+            with the release of Letraset sheets containing Lorem Ipsum passages, and more
+            recently with desktop publishing software like Aldus PageMaker including
+            versions of Lorem Ipsum.
+          </p>
+        </div>
       </div>
-    </div>
 
-    <div class="Cliente">
-    <Titulo titulo="Servicio al Cliente" />
+      <div class="Cliente">
+        <Titulo titulo="Servicio al Cliente" />
 
-    <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
+        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
           Ipsum has been the industry's standard dummy text ever since the 1500s, when an
           unknown printer took a galley of type and scrambled it to make a type specimen
           book. It has survived not only five centuries, but also the leap into electronic
@@ -115,13 +106,13 @@ import Mapa from "@/Components/mapa.vue";
           with the release of Letraset sheets containing Lorem Ipsum passages, and more
           recently with desktop publishing software like Aldus PageMaker including
           versions of Lorem Ipsum.</p>
-    
-    
-    </div>
 
-    <Mapa />
-  </div>
-  <Footer />
+
+      </div>
+
+      <Mapa />
+    </div>
+    <Footer />
 </template>
 
 <style scoped>

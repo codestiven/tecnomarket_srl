@@ -10,6 +10,8 @@ import Mapa from "@/Components/mapa.vue";
 import Servicios from "@/Components/Unicos/Servicios.vue";
 import Destacados from "@/Components/Unicos/Destacados.vue";
 import Ofertas from "@/Components/Unicos/Ofertas.vue";
+import WhatsappButton from "@/Components/WhatsappButton.vue";
+
 
 const showButton = ref(true);
 
@@ -62,6 +64,7 @@ function handleImageError() {
 </script>
 
 <template>
+  <WhatsappButton />
 
   <Head title="Inicio" />
 
