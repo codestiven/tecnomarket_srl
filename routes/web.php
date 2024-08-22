@@ -70,7 +70,8 @@ Route::get('/Contacto', function () {
 Route::post('/contact', [MessageController::class, 'store']);
 
 Route::get('/Ofertas', function () {
-    return Inertia::render('Ofertas');
+    // return Inertia::render('Ofertas');
+    return redirect('/Productos?categoria_id=&en_oferta=solo_ofertas&marca_id=');
 })->name('Ofertas');
 
 Route::get('/Help', function () {

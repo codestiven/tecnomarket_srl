@@ -50,6 +50,7 @@ Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']
 Route::post('/productos/por-ids', [ProductoController::class, 'getProductsByIds']);
 
 
+Route::get('productos/ofertas', [ProductoController::class, 'obtenerProductosEnOferta']);
 
 
 

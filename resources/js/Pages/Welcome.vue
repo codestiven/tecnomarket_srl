@@ -146,7 +146,7 @@ function handleImageError() {
   <Servicios />
 
   <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
-  <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" />
+  <!-- <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" /> -->
   <Ofertas />
 
   <!-- -----------------------------------------------------  motivacion ------------------------------------ -->

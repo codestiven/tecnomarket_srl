@@ -162,15 +162,18 @@ class GuardadoController extends Controller
 
     public function getGuardados()
     {
+        // Obtener los productos guardados con la cantidad de guardados
         $guardados = Guardado::select('producto_id', DB::raw('count(distinct user_id) as cantidad'))
             ->groupBy('producto_id')
             ->orderBy('cantidad', 'desc')
+            ->limit(20)
             ->get();
 
+        // Obtener los productos correspondientes
         $productos = $guardados->map(function ($guardado) {
             $producto = Producto::with(['categoria', 'marca', 'oferta'])->find($guardado->producto_id);
             if ($producto) {
-             $producto->image = Storage::url($producto->image);
+                $producto->image = Storage::url($producto->image);
             }
             return [
                 'producto' => $producto ? $producto : null,
@@ -178,7 +181,27 @@ class GuardadoController extends Controller
             ];
         });
 
+        // Si hay menos de 20 productos, completar con otros productos
+        if ($productos->count() < 20) {
+            $restoProductos = Producto::with(['categoria', 'marca', 'oferta'])
+                ->whereNotIn('id', $guardados->pluck('producto_id'))
+                ->limit(20 - $productos->count())
+                ->get();
+
+            $restoProductos = $restoProductos->map(function ($producto) {
+                $producto->image = Storage::url($producto->image);
+                return [
+                    'producto' => $producto,
+                    'cantidad' => 0, // No están guardados, por lo que la cantidad es 0
+                ];
+            });
+
+            // Combinar los productos guardados con los productos restantes
+            $productos = $productos->merge($restoProductos);
+        }
+
         return response()->json($productos);
     }
+
 
 }

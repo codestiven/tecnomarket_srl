@@ -284,6 +284,35 @@ class ProductoController extends Controller
         return response()->json(['productos' => $productos]);
     }
 
+    public function obtenerProductosEnOferta()
+    {
+
+        // Obtener los productos en oferta, priorizándolos
+        $productosEnOferta = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
+        ->where('es_oferta', 1)
+        ->limit(10)
+            ->get();
+
+        // Si no hemos alcanzado los 10 productos, completar con productos que no están en oferta
+        if ($productosEnOferta->count() < 10) {
+            $restoProductos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
+            ->where('es_oferta', 0)
+            ->limit(10 - $productosEnOferta->count())
+                ->get();
+
+            // Combinar los productos en oferta con los productos no en oferta
+            $productosEnOferta = $productosEnOferta->merge($restoProductos);
+        }
+
+        // Añadir la URL completa de la imagen a cada producto
+        foreach ($productosEnOferta as $producto) {
+            $producto->image = Storage::url($producto->image);
+        }
+
+        // Retornar los 10 productos como máximo, priorizando los que están en oferta
+        return response()->json( $productosEnOferta);
+    }
+
 
 
 }
