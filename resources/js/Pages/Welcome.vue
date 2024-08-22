@@ -133,13 +133,12 @@ function handleImageError() {
       <div class="md:w-1/2 tt">
         <h1 class="text-3xl font-bold mb-4">Otros</h1>
         <p>
-          Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book.
+          Descubre nuestra variedad de laptops, TVs y accesorios de calidad. Encuentra los mejores productos
+          tecnológicos en República Dominicana. ¡No olvides explorar nuestra sección de 'Otros' para ofertas exclusivas!
+          Calidad y precio insuperables, justo aquí. ¡Compra hoy mismo!
         </p>
         <boton1>
-          <Link href="">Ver más</Link>
+          <Link href="/Productos?categoria_id=&marca_id=&en_oferta=">Ver más</Link>
         </boton1>
       </div>
     </div>
