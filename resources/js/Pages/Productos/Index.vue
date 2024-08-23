@@ -5,6 +5,7 @@ import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
 import Cantidad from "@/Components/Unicos/Cantidad.vue";
 import ProductCard from "@/Components/Principales/ProductCard.vue";
+import ProductCard2 from "@/Components/Principales/ProductCard2.vue";
 import axios from 'axios';
 
 const props = defineProps({
@@ -23,6 +24,8 @@ const links = ref([]);
 const currentPage = ref(1);
 const totalPages = ref(1);
 const cargando = ref(false);
+const activeButton = ref('grid'); // Establece 'grid' como el valor predeterminado
+
 
 const filtrarProductos = async (page = 1) => {
   try {
@@ -78,6 +81,10 @@ onMounted(() => {
 
   filtrarProductos();
 });
+
+const setActiveButton = (buttonType) => {
+  activeButton.value = buttonType;
+};
 </script>
 
 <template>
@@ -123,8 +130,14 @@ onMounted(() => {
           </div>
           <div class="right">
             <h1>Ordenar por :</h1>
-            <button><img src="/images/lista.png" alt="" /></button>
-            <button><img src="/images/red.png" alt="" /></button>
+            <div>
+              <button :class="{ active: activeButton === 'list' }" @click="setActiveButton('list')">
+                <img src="/images/lista.png" alt="Lista" />
+              </button>
+              <button :class="{ active: activeButton === 'grid' }" @click="setActiveButton('grid')">
+                <img src="/images/red.png" alt="Grid" />
+              </button>
+            </div>
           </div>
         </div>
 
@@ -140,10 +153,15 @@ onMounted(() => {
         </div>
 
         <!-- Diseño de cuadrícula para los productos -->
-        <div v-if="!cargando && productos.length > 0"
-          class="contenido grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <div v-if="!cargando && productos.length > 0 && activeButton === 'grid'" class="contenido">
           <ProductCard v-for="producto in productos" :key="producto.id" :product="producto" />
         </div>
+
+        <div v-if="!cargando && productos.length > 0 && activeButton === 'list'" class="vertical">
+          <ProductCard2 v-for="producto in productos" :key="producto.id" :product="producto" />
+        </div>
+
+
 
         <!-- Paginación -->
         <div v-if="!cargando && links.length > 2 && totalPages > 1" class="pagination flex justify-center mt-4">
@@ -157,6 +175,11 @@ onMounted(() => {
                 <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
               </svg>
             </button>
+
+
+
+
+
 
             <!-- Números de páginas -->
             <div class="flex items-center gap-2">
@@ -268,12 +291,12 @@ onMounted(() => {
   }
 }
 .filtros .left select {
-  /* background-color: transparent; */
-  /* border: none; */
+
   outline: none;
   appearance: none;
 
   font-size: 20px;
+
 }
 
 .filtros .right {
@@ -287,26 +310,36 @@ onMounted(() => {
 }
 
 .filtros .right button {
-  width: 40px;
+  width: 50px;
   background-color: #e2e2e2;
-  padding: 5px;
-  border-radius: 7px;
+  padding: 12px;
   border: none;
   cursor: pointer;
+  border: 1px solid #c4c4c4;
+  opacity: 0.4;
+
 }
 
 .filtros .right button:hover {
-  transform: scale(1.3);
+  transform: scale(1.1);
 }
 
 .filtros .right button:active {
   background-color: #a0a0a0;
+
+}
+
+.filtros .right button.active {
+  background-color: #aaaaaa;
+  opacity: 1;
+  box-shadow: 0px 0px 10px rgba(0,0,0,0.2);
+  /* Cambia este color según tu diseño */
+
 }
 
 .filtros .right button img {
   width: 100%;
 }
-
 .placeholder .contenido {
   margin: 20px;
   display: grid;
@@ -318,6 +351,14 @@ onMounted(() => {
   overflow-y: scroll; */
 }
 
+
+.vertical {
+  margin: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+}
 
 .placeholder .contenido::-webkit-scrollbar {
   width: 12px; /* Ajusta el ancho del scroll */
@@ -386,4 +427,7 @@ onMounted(() => {
   justify-content: center;
   margin-top: 30px;
 }
+
+
+
 </style>
