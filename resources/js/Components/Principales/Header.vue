@@ -161,7 +161,7 @@ onMounted(() => {
         </li>
         <li>
           <Link :href="route('Contacto')"
-            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Contacto</Link>
+            class="text-gray-900 dark:text-gray-400 hover:text-blue-700 dark:hover:text-white">Contáctanos</Link>
         </li>
       </ul>
     </div>
@@ -235,7 +235,7 @@ onMounted(() => {
                   <Link :href="route('SobreNosotros')"> Sobre nosotros </Link>
                 </li>
                 <li>
-                  <Link :href="route('Contacto')"> Contacto </Link>
+                  <Link :href="route('Contacto')"> Contáctanos </Link>
                 </li>
               </ul>
             </div>

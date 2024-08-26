@@ -152,4 +152,13 @@ Route::middleware('auth')->group(function () {
 });
 
 
+
+
+
+
+Route::get('/admin', function () {
+    return Inertia::render('Admin/Index');
+});
+
+
 require __DIR__.'/auth.php';

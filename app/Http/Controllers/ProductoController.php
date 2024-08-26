@@ -106,6 +106,17 @@ class ProductoController extends Controller
             'es_oferta' => 'nullable|boolean',
             'precio_oferta' => 'nullable|numeric|required_if:es_oferta,1',
             'imagen' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            // Añadir validaciones para detalles de producto
+            'color' => 'nullable|string|max:50',
+            'peso' => 'nullable|numeric',
+            'pantalla' => 'nullable|string|max:50',
+            'sistema_operativo' => 'nullable|string|max:50',
+            'procesador' => 'nullable|string|max:50',
+            'ram' => 'nullable|integer',
+            'almacenamiento' => 'nullable|integer',
+            'tipo_de_almacenamiento' => 'nullable|in:SSD,HDD',
+            'tarjeta_grafica' => 'nullable|string|max:50',
+            'consumo_energetico' => 'nullable|integer',
         ]);
 
         try {
@@ -130,11 +141,26 @@ class ProductoController extends Controller
                 ]);
             }
 
+            // Crear detalles del producto
+            $producto->detallesProducto()->create([
+                'color' => $request->color,
+                'peso' => $request->peso,
+                'pantalla' => $request->pantalla,
+                'sistema_operativo' => $request->sistema_operativo,
+                'procesador' => $request->procesador,
+                'ram' => $request->ram,
+                'almacenamiento' => $request->almacenamiento,
+                'tipo_de_almacenamiento' => $request->tipo_de_almacenamiento,
+                'tarjeta_grafica' => $request->tarjeta_grafica,
+                'consumo_energetico' => $request->consumo_energetico,
+            ]);
+
             return response()->json(['message' => 'Producto creado correctamente'], 201);
         } catch (\Exception $e) {
             return response()->json(['error' => 'Error al guardar el producto: ' . $e->getMessage()], 500);
         }
     }
+
 
 
 

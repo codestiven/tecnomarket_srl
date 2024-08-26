@@ -1,8 +1,8 @@
 <template>
   <div class="container">
     <div class="titulo">
-      <h1>Encuentra pasantías</h1>
-      <h2>Descubre las pasantías más destacadas de tu área de estudio.</h2>
+      <h1>Encuentra tu producto ideal</h1>
+      <h2>Explora las mejores ofertas en laptops y accesorios de tecnología.</h2>
     </div>
     <div class="swiper-container">
       <!-- Custom Previous Button -->
@@ -25,7 +25,7 @@
     </div>
     <div class="ver-mas">
       <button @click="irAPasantias">
-        <a href="/estudiante">Ver todas las pasantías</a>
+        <a href="/Productos">Ver todos los productos</a>
       </button>
     </div>
   </div>
