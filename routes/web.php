@@ -20,6 +20,20 @@ use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 
 
+Route::get('/', function () {
+    return Inertia::render('Welcome', [
+        'canLogin' => Route::has('login'),
+        'canRegister' => Route::has('register'),
+        'laravelVersion' => Application::VERSION,
+        'phpVersion' => PHP_VERSION,
+    ]);
+})->name('home');
+
+
+
+
+
+
 
 Route::get('/user', function (Request $request) {
     return $request->user();
@@ -35,14 +49,7 @@ Route::get('/MyCart', function () {
 })->name('Cart');
 
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-})->name('home');
+
 
 
 
@@ -90,7 +97,7 @@ Route::get('/Productos/Crear', function () {
     return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
 }) ;
 
-Route::post('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
+
 
 Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 
@@ -156,9 +163,7 @@ Route::middleware('auth')->group(function () {
 
 
 
-Route::get('/admin', function () {
-    return Inertia::render('Admin/Index');
-});
 
 
 require __DIR__.'/auth.php';
+require __DIR__ . '/admin.php';
