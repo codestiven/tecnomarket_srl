@@ -1,7 +1,7 @@
 <template>
     <div class="whatsapp-container">
         <a href="https://api.whatsapp.com/message/7KOXF7A2IYJBM1?autoload=1&app_absent=0" target="_blank"
-            rel="noopener noreferrer" class="whatsapp-button">
+            rel="noopener noreferrer" class="whatsapp-button" aria-label="Contacta con nosotros por WhatsApp">
             <i class="fa-brands fa-whatsapp whatsapp-icon"></i>
         </a>
     </div>
@@ -60,6 +60,25 @@ export default {
 
     50% {
         transform: translateY(-10px);
+    }
+}
+
+/* Media query para pantallas de tabletas y menores */
+@media (max-width: 768px) {
+    .whatsapp-button {
+        width: 15vw;
+        /* Tamaño relativo al ancho de la ventana */
+        height: 15vw;
+        /* Mantiene la proporción circular */
+        max-width: 90px;
+        /* Tamaño máximo */
+        max-height: 90px;
+        /* Tamaño máximo */
+    }
+
+    .whatsapp-icon {
+        font-size: 8vw;
+
     }
 }
 </style>
