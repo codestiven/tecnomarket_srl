@@ -38,18 +38,18 @@
 /* Fuentes */
 @font-face {
     font-family: 'Helvetica';
-    src: url('/fonts/Helvetica.ttf') format('truetype');
+    src: url('/fonts/Helvetica.woff2') format('truetype');
 }
 
 @font-face {
     font-family: 'Helvetica Light';
-    src: url('/fonts/Helvetica-Light.ttf') format('truetype');
+    src: url('/fonts/Helvetica-Light.woff2') format('truetype');
 
 }
 
 @font-face {
     font-family: 'Helvetica Bold';
-    src: url('/fonts/Helvetica-Bold.ttf') format('truetype');
+    src: url('/fonts/Helvetica-Bold.woff2') format('truetype');
 
 }
 /* Otros estilos globales */
