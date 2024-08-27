@@ -86,87 +86,90 @@ function handleImageError() {
   <Header></Header>
 
   <!-- -----------------------------------------------------  carrusel ------------------------------------ -->
-  <Carruser></Carruser>
 
-  <!-- -----------------------------------------------------  productos ------------------------------------ -->
-  <Titulo titulo="Productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
+  <main>
+    <Carruser></Carruser>
 
-  <div class="productos">
-    <div class="Laptos p-8">
-      <Link href="/Productos?categoria_id=1&marca_id=&en_oferta=">
-      <div class="img">
-        <img src="/images/laptos.png" alt="" />
+    <!-- -----------------------------------------------------  productos ------------------------------------ -->
+    <Titulo titulo="Productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
+
+    <div class="productos">
+      <div class="Laptos p-8">
+        <Link href="/Productos?categoria_id=1&marca_id=&en_oferta=">
+        <div class="img">
+          <img src="/images/laptos.png" alt="" />
+        </div>
+        <div class="texto flex justify-end items-center">
+          <h1>Laptops</h1>
+        </div>
+        </Link>
       </div>
-      <div class="texto flex justify-end items-center">
-        <h1>Laptops</h1>
+
+      <div class="TV">
+        <Link href="/Productos?categoria_id=2&marca_id=&en_oferta=">
+        <div>
+          <img src="/images/TV.png" alt="" />
+        </div>
+        <div class="texto flex justify-end items-center">
+          <h1>TVs</h1>
+        </div>
+        </Link>
       </div>
-      </Link>
+      <div class="accesorios">
+        <Link href="/Productos?categoria_id=3&marca_id=&en_oferta=">
+        <div>
+          <img src="/images/accesorios.png" alt="" />
+        </div>
+        <div class="texto flex justify-end items-center">
+          <h1>Accesorios</h1>
+        </div>
+        </Link>
+      </div>
+      <div class="otros flex flex-col md:flex-row items-start">
+        <!-- Div con la imagen -->
+        <div class="hidden md:flex md:w-1/2 justify-end item_img">
+          <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" />
+        </div>
+
+        <!-- Div con el texto -->
+        <div class="md:w-1/2 tt">
+          <h1 class="text-3xl font-bold mb-4">Otros</h1>
+          <p>
+            Descubre nuestra variedad de laptops, TVs y accesorios de calidad. Encuentra los mejores productos
+            tecnológicos en República Dominicana. ¡No olvides explorar nuestra sección de 'Otros' para ofertas
+            exclusivas!
+            Calidad y precio insuperables, justo aquí. ¡Compra hoy mismo!
+          </p>
+          <boton1>
+            <Link href="/Productos?categoria_id=&marca_id=&en_oferta=">Ver más</Link>
+          </boton1>
+        </div>
+      </div>
     </div>
 
-    <div class="TV">
-      <Link href="/Productos?categoria_id=2&marca_id=&en_oferta=">
-      <div>
-        <img src="/images/TV.png" alt="" />
-      </div>
-      <div class="texto flex justify-end items-center">
-        <h1>TVs</h1>
-      </div>
-      </Link>
-    </div>
-    <div class="accesorios">
-      <Link href="/Productos?categoria_id=3&marca_id=&en_oferta=">
-      <div>
-        <img src="/images/accesorios.png" alt="" />
-      </div>
-      <div class="texto flex justify-end items-center">
-        <h1>Accesorios</h1>
-      </div>
-      </Link>
-    </div>
-    <div class="otros flex flex-col md:flex-row items-start">
-      <!-- Div con la imagen -->
-      <div class="hidden md:flex md:w-1/2 justify-end item_img">
-        <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" />
-      </div>
+    <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
+    <Servicios />
 
-      <!-- Div con el texto -->
-      <div class="md:w-1/2 tt">
-        <h1 class="text-3xl font-bold mb-4">Otros</h1>
-        <p>
-          Descubre nuestra variedad de laptops, TVs y accesorios de calidad. Encuentra los mejores productos
-          tecnológicos en República Dominicana. ¡No olvides explorar nuestra sección de 'Otros' para ofertas exclusivas!
-          Calidad y precio insuperables, justo aquí. ¡Compra hoy mismo!
-        </p>
-        <boton1>
-          <Link href="/Productos?categoria_id=&marca_id=&en_oferta=">Ver más</Link>
-        </boton1>
+    <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
+    <!-- <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" /> -->
+    <Ofertas />
+
+    <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
+    <div class="motivacion">
+      <div class="overlay">
+        <h1>Estamos aquí para ti</h1>
       </div>
     </div>
-  </div>
 
-  <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
-  <Servicios />
+    <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
+    <Titulo titulo="Artículos Destacados"
+      subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audífonos   otros" :mostrarLinea="false" />
+    <Destacados />
 
-  <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
-  <!-- <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" /> -->
-  <Ofertas />
-
-  <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
-  <div class="motivacion">
-    <div class="overlay">
-      <h1>Estamos aquí para ti</h1>
-    </div>
-  </div>
-
-  <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
-  <Titulo titulo="Artículos Destacados"
-    subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audífonos   otros" :mostrarLinea="false" />
-  <Destacados />
-
-  <!-- -----------------------------------------------------  mapa ------------------------------------ -->
-  <Titulo titulo="Donde nos encontramos" :mostrarLinea="false" />
-  <Mapa />
-
+    <!-- -----------------------------------------------------  mapa ------------------------------------ -->
+    <Titulo titulo="Donde nos encontramos" :mostrarLinea="false" />
+    <Mapa />
+  </main>
   <!-- -----------------------------------------------------  Footer ------------------------------------ -->
   <Footer></Footer>
 </template>

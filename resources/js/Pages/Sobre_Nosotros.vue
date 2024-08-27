@@ -17,10 +17,12 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
 
   <Header />
 
-  <WhatsappButton></WhatsappButton> 
-  
-  <div class="img_principio">
-    <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+  <WhatsappButton></WhatsappButton>
+
+  <main>
+
+    <div class="img_principio">
+      <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
     </div>
 
     <div class="contenido_sobre_nosotros">
@@ -112,7 +114,8 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
 
       <Mapa />
     </div>
-    <Footer />
+  </main>
+  <Footer />
 </template>
 
 <style scoped>
