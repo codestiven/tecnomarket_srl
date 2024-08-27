@@ -56,7 +56,8 @@ Route::get('productos/ofertas', [ProductoController::class, 'obtenerProductosEnO
 
 
 Route::get('/carousels', [CarouselController::class, 'index']);
-Route::post('/carousels', [CarouselController::class, 'store']);
 Route::get('/carousels/{id}', [CarouselController::class, 'show']);
 
 Route::get('/province', [ProvinciaController::class, 'index']);
+
+

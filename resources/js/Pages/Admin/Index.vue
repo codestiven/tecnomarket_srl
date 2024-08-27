@@ -77,29 +77,27 @@
             </div>
             <div v-if="currentSection === 'carrousel'" class="overflow-y-auto">
                 <h2 class="text-2xl font-bold">Carrousel</h2>
-                <p>Aquí puedes gestionar el carrousel de imágenes.</p>
-                <!-- Aquí puedes incluir el componente del carrousel -->
-                <!-- <Carrousel></Carrousel> -->
-            </div>
-            <div v-if="currentSection === 'productos'" class="overflow-y-auto">
-                <Producto></Producto>
-            </div>
-            <div v-if="currentSection === 'usuarios'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Gestión de Usuarios</h2>
-                <p>Aquí puedes administrar los usuarios.</p>
-            </div>
-            <div v-if="currentSection === 'mensajes'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Mensajes</h2>
-                <p>Aquí puedes ver y gestionar los mensajes.</p>
-            </div>
-            <div v-if="currentSection === 'pedidos'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Gestión de Pedidos</h2>
-                <p>Aquí puedes administrar los pedidos.</p>
-            </div>
-            <div v-if="currentSection === 'salir'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Salir</h2>
-                <p>Has cerrado la sesión.</p>
-            </div>
+                <Carrouser></Carrouser>
+             </div>
+                    <div v-if="currentSection === 'productos'" class="overflow-y-auto">
+                        <Producto></Producto>
+                    </div>
+                    <div v-if="currentSection === 'usuarios'" class="overflow-y-auto">
+                        <h2 class="text-2xl font-bold">Gestión de Usuarios</h2>
+                        <p>Aquí puedes administrar los usuarios.</p>
+                    </div>
+                    <div v-if="currentSection === 'mensajes'" class="overflow-y-auto">
+                        <h2 class="text-2xl font-bold">Mensajes</h2>
+                        <p>Aquí puedes ver y gestionar los mensajes.</p>
+                    </div>
+                    <div v-if="currentSection === 'pedidos'" class="overflow-y-auto">
+                        <h2 class="text-2xl font-bold">Gestión de Pedidos</h2>
+                        <p>Aquí puedes administrar los pedidos.</p>
+                    </div>
+                    <div v-if="currentSection === 'salir'" class="overflow-y-auto">
+                        <h2 class="text-2xl font-bold">Salir</h2>
+                        <p>Has cerrado la sesión.</p>
+                    </div>
         </main>
     </div>
 </template>
@@ -107,8 +105,7 @@
 <script setup>
 import { ref } from 'vue';
 import Producto from "@/Pages/Admin/Producto.vue";
-// Importa el nuevo componente Carrousel si lo tienes
-// import Carrousel from "@/Pages/Admin/Carrousel.vue";
+import Carrouser from "@/Pages/Admin/Carrouser.vue";
 
 // Variable para controlar la sección actual
 const currentSection = ref('reportes');

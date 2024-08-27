@@ -1,15 +1,16 @@
 <template>
     <div class="header-carousel-container">
         <!-- Swiper Component -->
-        <swiper ref="swiper" :pagination="true" :slides-per-view="1"  :loop="true"
-            :autoplay="autoplay" :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
+        <swiper ref="swiper" :pagination="true" :slides-per-view="1" :loop="true" :autoplay="autoplay"
+            :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
             <swiper-slide v-for="(slide, index) in slides" :key="index">
                 <div class="slide-content">
                     <img :src="slide.image" alt="Slide Image" class="slide-image">
                     <div class="slide-text">
                         <h1 class="slide-title">{{ slide.title }}</h1>
                         <p class="slide-description">{{ slide.description }}</p>
-                        <a :href="slide.link" class="view-more-link">Ver más</a>
+                        <a v-if="slide.link" :href="slide.link" class="view-more-link">Ver más</a>
+
                     </div>
                 </div>
             </swiper-slide>
