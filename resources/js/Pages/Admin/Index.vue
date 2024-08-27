@@ -14,34 +14,46 @@
             <!-- Botones de navegación -->
             <nav class="flex-1 ">
                 <ul>
+                    <!-- Reportes primero -->
+                    <li class="mb-2">
+                        <button @click="selectSection('reportes')" :class="buttonClass('reportes')"
+                            class="w-full text-left p-2 rounded transition-all">
+                            <i class="fa-solid fa-chart-line mr-2"></i> Reportes
+                        </button>
+                    </li>
+                    <!-- Carrousel después de Reportes -->
+                    <li class="mb-2">
+                        <button @click="selectSection('carrousel')" :class="buttonClass('carrousel')"
+                            class="w-full text-left p-2 rounded transition-all">
+                            <i class="fa-solid fa-images mr-2"></i> Carrousel
+                        </button>
+                    </li>
+                    <!-- Productos después del Carrousel -->
                     <li class="mb-2">
                         <button @click="selectSection('productos')" :class="buttonClass('productos')"
                             class="w-full text-left p-2 rounded transition-all">
                             <i class="fa-solid fa-box mr-2"></i> Productos
                         </button>
                     </li>
+                    <!-- Usuarios -->
                     <li class="mb-2">
                         <button @click="selectSection('usuarios')" :class="buttonClass('usuarios')"
                             class="w-full text-left p-2 rounded transition-all">
                             <i class="fa-solid fa-user mr-2"></i> Usuarios
                         </button>
                     </li>
+                    <!-- Mensajes -->
                     <li class="mb-2">
                         <button @click="selectSection('mensajes')" :class="buttonClass('mensajes')"
                             class="w-full text-left p-2 rounded transition-all">
                             <i class="fa-solid fa-envelope mr-2"></i> Mensajes
                         </button>
                     </li>
+                    <!-- Pedidos -->
                     <li class="mb-2">
                         <button @click="selectSection('pedidos')" :class="buttonClass('pedidos')"
                             class="w-full text-left p-2 rounded transition-all">
                             <i class="fa-solid fa-shopping-cart mr-2"></i> Pedidos
-                        </button>
-                    </li>
-                    <li class="mb-2">
-                        <button @click="selectSection('reportes')" :class="buttonClass('reportes')"
-                            class="w-full text-left p-2 rounded transition-all">
-                            <i class="fa-solid fa-chart-line mr-2"></i> Reportes
                         </button>
                     </li>
                 </ul>
@@ -59,6 +71,16 @@
 
         <!-- Contenido principal -->
         <main class="flex-1 p-6 bg-gray-100">
+            <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
+                <h2 class="text-2xl font-bold">Reportes</h2>
+                <p>Aquí puedes ver los reportes del sistema.</p>
+            </div>
+            <div v-if="currentSection === 'carrousel'" class="overflow-y-auto">
+                <h2 class="text-2xl font-bold">Carrousel</h2>
+                <p>Aquí puedes gestionar el carrousel de imágenes.</p>
+                <!-- Aquí puedes incluir el componente del carrousel -->
+                <!-- <Carrousel></Carrousel> -->
+            </div>
             <div v-if="currentSection === 'productos'" class="overflow-y-auto">
                 <Producto></Producto>
             </div>
@@ -74,10 +96,6 @@
                 <h2 class="text-2xl font-bold">Gestión de Pedidos</h2>
                 <p>Aquí puedes administrar los pedidos.</p>
             </div>
-            <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Reportes</h2>
-                <p>Aquí puedes ver los reportes del sistema.</p>
-            </div>
             <div v-if="currentSection === 'salir'" class="overflow-y-auto">
                 <h2 class="text-2xl font-bold">Salir</h2>
                 <p>Has cerrado la sesión.</p>
@@ -89,9 +107,11 @@
 <script setup>
 import { ref } from 'vue';
 import Producto from "@/Pages/Admin/Producto.vue";
+// Importa el nuevo componente Carrousel si lo tienes
+// import Carrousel from "@/Pages/Admin/Carrousel.vue";
 
 // Variable para controlar la sección actual
-const currentSection = ref('productos');
+const currentSection = ref('reportes');
 
 // Función para cambiar de sección
 function selectSection(section) {

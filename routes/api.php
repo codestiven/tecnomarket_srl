@@ -47,6 +47,7 @@ Route::prefix('Marcas')->group(function () {
 
 
 Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']);
+Route::get('/productosAll', [ProductoController::class, 'index']);
 Route::post('/productos/por-ids', [ProductoController::class, 'getProductsByIds']);
 
 

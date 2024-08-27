@@ -205,19 +205,62 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Producto $producto)
-    {
-        //
+public function update(Request $request, $id)
+{
+    $validated = $request->validate([
+        'nombre' => 'required|string|max:255',
+        'descripcion' => 'required|string',
+        'precio' => 'required|numeric|min:0',
+        'categoria_id' => 'required|exists:categorias,id',
+        'marca_id' => 'required|exists:marcas,id',
+        'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+    ]);
+
+    $producto = Producto::findOrFail($id);
+    $producto->update($validated);
+
+    // Manejo del archivo de imagen si se carga
+    if ($request->hasFile('imagen')) {
+        $path = $request->file('imagen')->store('productos');
+        $producto->update(['image' => $path]);
     }
+
+    return response()->json(['message' => 'Producto actualizado con éxito']);
+}
+
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy($id)
     {
-        //
+        $producto = Producto::findOrFail($id);
+
+        // Eliminar la imagen del almacenamiento
+        if (Storage::exists($producto->image)) {
+            Storage::delete($producto->image);
+        }
+
+        // Eliminar el producto
+        $producto->delete();
+
+        return response()->json(['message' => 'Producto eliminado correctamente'], 200);
     }
 
+    /**
+     * Display a listing of all products.
+     */
+    public function productosAll()
+    {
+        $productos = Producto::all();
+
+        // Iterar sobre cada producto para obtener la URL completa de la imagen
+        foreach ($productos as $producto) {
+            $producto->image = Storage::url($producto->image);
+        }
+
+        return response()->json(['productos' => $productos]);
+    }
     public function ContadorProductos()
     {
         // Contar la cantidad de productos
