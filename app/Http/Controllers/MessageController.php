@@ -9,6 +9,17 @@ use Illuminate\Support\Facades\Mail;
 
 class MessageController extends Controller
 {
+
+
+    public function index()
+    {
+
+        $messages = Message::all();
+
+
+        return response()->json($messages, 200);
+    }
+
     public function store(Request $request)
     {
         // Validar los datos
@@ -45,5 +56,20 @@ class MessageController extends Controller
         // Como alternativa, puedes implementar tu propia lógica o usar un servicio externo
         // En este ejemplo, simplemente retornaremos true para continuar
         return true;
+    }
+
+    public function destroy($id)
+    {
+        // Buscar el mensaje por ID
+        $message = Message::find($id);
+
+        if (!$message) {
+            return response()->json(['error' => 'Mensaje no encontrado.'], 404);
+        }
+
+        // Eliminar el mensaje
+        $message->delete();
+
+        return response()->json(['success' => 'Mensaje eliminado correctamente.'], 200);
     }
 }

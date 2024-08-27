@@ -12,7 +12,7 @@
             </div>
 
             <!-- Botones de navegación -->
-            <nav class="flex-1 ">
+            <nav class="flex-1">
                 <ul>
                     <!-- Reportes primero -->
                     <li class="mb-2">
@@ -70,13 +70,18 @@
         </aside>
 
         <!-- Contenido principal -->
-        <main class="flex-1 p-6 bg-gray-100">
+        <main class="flex-1 p-3 bg-gray-100">
+            <!-- Cuadro gris con el título de la sección -->
+            <div class="bg-gray-300 text-gray-800 p-4 mb-4 rounded">
+                <h2 class="text-xl font-bold">{{ getSectionTitle(currentSection) }}</h2>
+            </div>
+
             <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
                 <h2 class="text-2xl font-bold">Reportes</h2>
                 <p>Aquí puedes ver los reportes del sistema.</p>
             </div>
             <div v-if="currentSection === 'carrousel'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Carrousel</h2>
+
                 <Carrouser></Carrouser>
             </div>
             <div v-if="currentSection === 'productos'" class="overflow-y-auto">
@@ -86,8 +91,7 @@
                 <Users></Users>
             </div>
             <div v-if="currentSection === 'mensajes'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Mensajes</h2>
-                <p>Aquí puedes ver y gestionar los mensajes.</p>
+                <Mensages></Mensages>
             </div>
             <div v-if="currentSection === 'pedidos'" class="overflow-y-auto">
                 <h2 class="text-2xl font-bold">Gestión de Pedidos</h2>
@@ -106,6 +110,7 @@ import { ref } from 'vue';
 import Producto from "@/Pages/Admin/Producto.vue";
 import Carrouser from "@/Pages/Admin/Carrouser.vue";
 import Users from "@/Pages/Admin/Users.vue";
+import Mensages from "@/Pages/Admin/Mensages.vue";
 
 // Variable para controlar la sección actual
 const currentSection = ref('reportes');
@@ -120,6 +125,28 @@ function buttonClass(section) {
     return currentSection.value === section
         ? 'bg-blue-900 text-white transform scale-105'
         : 'bg-blue-700 text-white hover:bg-blue-600';
+}
+
+// Función para obtener el título de la sección actual
+function getSectionTitle(section) {
+    switch (section) {
+        case 'reportes':
+            return 'Reportes';
+        case 'carrousel':
+            return 'Carrousel';
+        case 'productos':
+            return 'Productos';
+        case 'usuarios':
+            return 'Usuarios';
+        case 'mensajes':
+            return 'Mensajes';
+        case 'pedidos':
+            return 'Gestión de Pedidos';
+        case 'salir':
+            return 'Salir';
+        default:
+            return '';
+    }
 }
 </script>
 
