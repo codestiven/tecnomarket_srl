@@ -4,15 +4,16 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
-use App\Models\Provincia; // Asegúrate de importar el modelo Provincia
+use App\Models\Provincia;
 use Illuminate\Auth\Events\Registered;
-use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\Rules;
 use Inertia\Inertia;
 use Inertia\Response;
+use Illuminate\Http\RedirectResponse;
 
 class RegisteredUserController extends Controller
 {
@@ -26,6 +27,7 @@ class RegisteredUserController extends Controller
             'provincias' => $provincias,
         ]);
     }
+
     /**
      * Maneja una solicitud de registro entrante.
      *
@@ -49,8 +51,8 @@ class RegisteredUserController extends Controller
             'email' => $request->email,
             'password' => Hash::make($request->password),
             'address' => $request->address,
-            'province_id' => $request->province_id, // Corregido a 'province_id'
-            'phone' => $request->phone, // Corregido a 'phone'
+            'province_id' => $request->province_id,
+            'phone' => $request->phone,
         ]);
 
         event(new Registered($user));
@@ -58,5 +60,28 @@ class RegisteredUserController extends Controller
         Auth::login($user);
 
         return redirect(route('dashboard', absolute: false));
+    }
+
+    /**
+     * Retorna un JSON con todos los usuarios registrados (sin contraseñas).
+     */
+    public function index(): JsonResponse
+    {
+        $users = User::with('provincia')->get(['id', 'name', 'lastname', 'email', 'address', 'province_id', 'phone']);
+
+        return response()->json($users);
+    }
+
+    public function show($id)
+    {
+        $user = User::with('provincia')->find($id);
+
+        if (!$user) {
+            abort(404, 'User not found');
+        }
+
+        return Inertia::render('Admin/UserDetail', [
+            'user' => $user
+        ]);
     }
 }

@@ -48,7 +48,7 @@ class User extends Authenticatable
 
     public function provincia()
     {
-        return $this->belongsTo(Provincia::class, 'provincia_id');
+        return $this->belongsTo(Provincia::class, 'province_id');
     }
 }
 
