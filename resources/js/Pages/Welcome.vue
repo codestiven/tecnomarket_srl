@@ -104,7 +104,7 @@ function handleImageError() {
     </div>
 
     <div class="TV">
-      <Link href="http://tecnomarket_srl.test/Productos?categoria_id=2&marca_id=&en_oferta=">
+      <Link href="/Productos?categoria_id=2&marca_id=&en_oferta=">
       <div>
         <img src="/images/TV.png" alt="" />
       </div>
@@ -114,7 +114,7 @@ function handleImageError() {
       </Link>
     </div>
     <div class="accesorios">
-      <Link href="http://tecnomarket_srl.test/Productos?categoria_id=3&marca_id=&en_oferta=">
+      <Link href="/Productos?categoria_id=3&marca_id=&en_oferta=">
       <div>
         <img src="/images/accesorios.png" alt="" />
       </div>

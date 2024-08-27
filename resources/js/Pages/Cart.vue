@@ -141,7 +141,7 @@ const fetchCartProducts = async () => {
     try {
         const cartIds = JSON.parse(localStorage.getItem('cart')) || [];
         if (cartIds.length > 0) {
-            const response = await axios.post('http://tecnomarket_srl.test/api/productos/por-ids', {
+            const response = await axios.post('/api/productos/por-ids', {
                 ids: cartIds
             });
 

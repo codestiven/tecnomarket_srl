@@ -341,7 +341,7 @@ public function update(Request $request, $id)
 
         // Obtener los productos que coinciden con los IDs proporcionados y cargar las relaciones
         $productos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
-            ->whereIn('id', $ids)
+        ->whereIn('id', $ids)
             ->get();
 
         // Añadir la URL completa de la imagen a cada producto
