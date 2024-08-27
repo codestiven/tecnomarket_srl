@@ -333,7 +333,7 @@ public function update(Request $request, $id)
         // Validar la solicitud para asegurarse de que se recibe una lista de IDs
         $request->validate([
             'ids' => 'required|array',
-            'ids.*' => 'integer|exists:productos,id',
+            'ids.*' => 'integer',
         ]);
 
         // Obtener la lista de IDs desde la solicitud
@@ -352,6 +352,7 @@ public function update(Request $request, $id)
         // Devolver los productos filtrados como JSON
         return response()->json(['productos' => $productos]);
     }
+
 
     public function obtenerProductosEnOferta()
     {
