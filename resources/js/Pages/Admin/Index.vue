@@ -35,6 +35,20 @@
                             <i class="fa-solid fa-box mr-2"></i> Productos
                         </button>
                     </li>
+                    <!-- Catálogo -->
+                    <li class="mb-2">
+                        <button @click="selectSection('catalogo')" :class="buttonClass('catalogo')"
+                            class="w-full text-left p-2 rounded transition-all">
+                            <i class="fa-solid fa-book mr-2"></i> Catálogo
+                        </button>
+                    </li>
+                    <!-- Marcas -->
+                    <li class="mb-2">
+                        <button @click="selectSection('marcas')" :class="buttonClass('marcas')"
+                            class="w-full text-left p-2 rounded transition-all">
+                            <i class="fa-solid fa-tag mr-2"></i> Marcas
+                        </button>
+                    </li>
                     <!-- Usuarios -->
                     <li class="mb-2">
                         <button @click="selectSection('usuarios')" :class="buttonClass('usuarios')"
@@ -77,15 +91,19 @@
             </div>
 
             <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Reportes</h2>
-                <p>Aquí puedes ver los reportes del sistema.</p>
+                <Reportes></Reportes>
             </div>
             <div v-if="currentSection === 'carrousel'" class="overflow-y-auto">
-
                 <Carrouser></Carrouser>
             </div>
             <div v-if="currentSection === 'productos'" class="overflow-y-auto">
                 <Producto></Producto>
+            </div>
+            <div v-if="currentSection === 'catalogo'" class="overflow-y-auto">
+                <Catalogo></Catalogo>
+            </div>
+            <div v-if="currentSection === 'marcas'" class="overflow-y-auto">
+                <Marcas></Marcas>
             </div>
             <div v-if="currentSection === 'usuarios'" class="overflow-y-auto">
                 <Users></Users>
@@ -94,8 +112,7 @@
                 <Mensages></Mensages>
             </div>
             <div v-if="currentSection === 'pedidos'" class="overflow-y-auto">
-                <h2 class="text-2xl font-bold">Gestión de Pedidos</h2>
-                <p>Aquí puedes administrar los pedidos.</p>
+                <Pedidos></Pedidos>
             </div>
             <div v-if="currentSection === 'salir'" class="overflow-y-auto">
                 <h2 class="text-2xl font-bold">Salir</h2>
@@ -111,6 +128,10 @@ import Producto from "@/Pages/Admin/Producto.vue";
 import Carrouser from "@/Pages/Admin/Carrouser.vue";
 import Users from "@/Pages/Admin/Users.vue";
 import Mensages from "@/Pages/Admin/Mensages.vue";
+import Reportes from "@/Pages/Admin/Reportes.vue";
+import Marcas from "@/Pages/Admin/Marcas.vue";
+import Catalogo from "@/Pages/Admin/Catalogo.vue";
+import Pedidos from "@/Pages/Admin/Pedidos.vue";
 
 // Variable para controlar la sección actual
 const currentSection = ref('reportes');
@@ -136,6 +157,10 @@ function getSectionTitle(section) {
             return 'Carrousel';
         case 'productos':
             return 'Productos';
+        case 'catalogo':
+            return 'Catálogo';
+        case 'marcas':
+            return 'Marcas';
         case 'usuarios':
             return 'Usuarios';
         case 'mensajes':
