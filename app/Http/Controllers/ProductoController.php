@@ -17,49 +17,20 @@ class ProductoController extends Controller
      */
     public function index()
     {
-        $productos = Producto::all();
 
-        // Iterar sobre cada producto para obtener la URL completa de la imagen
+        $productos = Producto::orderBy('created_at', 'desc')->get();
+
+
         foreach ($productos as $producto) {
             $producto->image = Storage::url($producto->image);
         }
 
-        // Devolver la respuesta JSON con todos los productos actualizados
+
         return response()->json(['productos' => $productos]);
     }
 
-    public function Filtro(Request $request)
-    {
 
-        //http://tecnomarket_srl.test/pp?categoria_id=1&marca_id=1
-        // Obtener los parámetros de la URL
-        $categoria_id = $request->query('categoria_id');
-        $marca_id = $request->query('marca_id');
 
-        // Iniciar la consulta de productos
-        $productos = Producto::query();
-
-        // Aplicar filtro por categoria_id si está presente
-        if ($categoria_id !== null) {
-            $productos->where('categoria_id', $categoria_id);
-        }
-
-        // Aplicar filtro por marca_id si está presente
-        if ($marca_id !== null) {
-            $productos->where('marca_id', $marca_id);
-        }
-
-        // Obtener todos los productos si no se especifican filtros
-        if ($categoria_id === null && $marca_id === null) {
-            $productos->get();
-        }
-
-        // Ejecutar la consulta y obtener los resultados
-        $productos = $productos->get();
-
-        // Retornar los productos como JSON
-        return response()->json(['productos' => $productos]);
-    }
 
 
     public function search($buscar = null)
@@ -280,40 +251,43 @@ public function update(Request $request, $id)
         $marca_id = $request->query('marca_id');
         $en_oferta = $request->query('en_oferta'); // Valores esperados: "todos", "solo_ofertas", "sin_ofertas"
 
-        // Iniciar la consulta de productos con las relaciones cargadas
+
         $productos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto']);
 
-        // Aplicar filtro por categoria_id si está presente
+
         if ($categoria_id !== null) {
             $productos->where('categoria_id', $categoria_id);
         }
 
-        // Aplicar filtro por marca_id si está presente
+
         if ($marca_id !== null) {
             $productos->where('marca_id', $marca_id);
         }
 
-        // Aplicar filtro por oferta si está presente
+
         if ($en_oferta !== null) {
             if ($en_oferta === 'solo_ofertas') {
-                $productos->where('es_oferta', 1); // Solo productos en oferta
+                $productos->where('es_oferta', 1);
             } elseif ($en_oferta === 'sin_ofertas') {
-                $productos->where('es_oferta', 0); // Solo productos que no están en oferta
+                $productos->where('es_oferta', 0);
             }
         }
 
-        // Ejecutar la consulta con paginación
+
+        $productos->orderBy('created_at', 'desc');
+
+
         $productos = $productos->paginate(30);
 
-        // Añadir la URL completa de la imagen a cada producto
+
         foreach ($productos as $producto) {
             $producto->image = Storage::url($producto->image);
         }
 
-        // Retornar los productos filtrados con paginación como JSON
-        return response()->json($productos);
 
+        return response()->json($productos);
     }
+
 
     public function Productos(Request $request)
     {
