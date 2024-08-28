@@ -242,6 +242,7 @@ onMounted(() => {
           </div>
         </div>
       </div>
+      
 
       <div class="seccion">
         <div v-if="$page.props.auth.user" class="relative inline-block text-left">

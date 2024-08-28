@@ -1,5 +1,5 @@
 <template>
-    <div class="container mx-auto p-6 min-h-screen flex flex-col">
+    <div class="container mx-auto p-6  flex flex-col">
         <h1 class="text-2xl font-bold mb-4">Gestionar Carrusel</h1>
 
         <form @submit.prevent="saveCarousel" class="mb-6 bg-white p-4 rounded shadow-md">

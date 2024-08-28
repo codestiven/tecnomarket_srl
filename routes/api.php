@@ -35,15 +35,7 @@ Route::prefix('Categorias')->group(function () {
     Route::delete('/{categoria}', [CategoriaController::class, 'destroy']);
 });
 
-Route::prefix('Marcas')->group(function () {
-    Route::get('/', [MarcaController::class, 'index']);
-    Route::post('/', [MarcaController::class, 'store']);
-    Route::get('/create', [MarcaController::class, 'create']);
-    Route::get('/{marca}', [MarcaController::class, 'show']);
-    Route::get('/{marca}/edit', [MarcaController::class, 'edit']);
-    Route::put('/{marca}', [MarcaController::class, 'update']);
-    Route::delete('/{marca}', [MarcaController::class, 'destroy']);
-});
+
 
 
 Route::get('/productos/filtrar', [ProductoController::class, 'filtrarProductos']);
