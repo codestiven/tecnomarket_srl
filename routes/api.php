@@ -45,6 +45,13 @@ Route::post('/productos/por-ids', [ProductoController::class, 'getProductsByIds'
 
 Route::get('productos/ofertas', [ProductoController::class, 'obtenerProductosEnOferta']);
 
+Route::prefix('Marcas')->group(function () {
+    Route::get('/', [MarcaController::class, 'index']);
+    Route::get('/create', [MarcaController::class, 'create']);
+    Route::get('/{marca}', [MarcaController::class, 'show']);
+    Route::get('/{marca}/edit', [MarcaController::class, 'edit']);
+
+});
 
 
 Route::get('/carousels', [CarouselController::class, 'index']);
