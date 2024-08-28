@@ -1,13 +1,166 @@
 <template>
-    <div class="p-4">
-        <h1 class="text-xl font-bold">Marcas</h1>
+    <div class="container mx-auto py-8 px-4">
+        <h2 class="text-3xl font-bold mb-6 text-center">Gestión de Marcas</h2>
+
+        <!-- Formulario para agregar/editar marca -->
+        <div class="bg-white shadow-md rounded-lg p-6 mb-8">
+            <h3 class="text-xl font-semibold mb-4 text-gray-700">{{ isEditMode ? 'Editar Marca' : 'Agregar Nueva Marca'
+                }}</h3>
+            <form @submit.prevent="submitForm" class="flex items-center">
+                <input type="text" v-model="form.nombre" placeholder="Nombre de la marca"
+                    class="flex-1 border border-gray-300 p-2 rounded-lg mr-4 focus:outline-none focus:ring-2 focus:ring-blue-500"
+                    required>
+                <button type="submit"
+                    class="bg-blue-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-blue-600 transition duration-200">
+                    {{ isEditMode ? 'Actualizar' : 'Agregar' }}
+                </button>
+                <button v-if="isEditMode" @click="resetForm"
+                    class="ml-4 bg-gray-500 text-white px-4 py-2 rounded-lg shadow-md hover:bg-gray-600 transition duration-200">
+                    Cancelar
+                </button>
+            </form>
+        </div>
+
+        <!-- Tabla para mostrar las marcas -->
+        <div class="bg-white shadow-md rounded-lg overflow-hidden">
+            <table class="min-w-full">
+                <thead class="bg-gray-50">
+                    <tr>
+                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">ID
+                        </th>
+                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Nombre</th>
+                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Cantidad de Productos</th>
+                        <th class="py-3 px-6 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
+                            Acciones</th>
+                    </tr>
+                </thead>
+                <tbody class="bg-white divide-y divide-gray-200">
+                    <tr v-for="marca in marcas" :key="marca.id">
+                        <td class="py-4 px-6">{{ marca.id }}</td>
+                        <td class="py-4 px-6">{{ marca.nombre }}</td>
+                        <td class="py-4 px-6">{{ marca.cantidad_productos }}</td>
+                        <td class="py-4 px-6">
+                            <button @click="editarMarca(marca)"
+                                class="bg-yellow-400 text-white px-3 py-1 rounded-lg shadow-md hover:bg-yellow-500 transition duration-200 mr-2">
+                                Editar
+                            </button>
+                            <button @click="confirmarEliminar(marca.id)"
+                                class="bg-red-500 text-white px-3 py-1 rounded-lg shadow-md hover:bg-red-600 transition duration-200">
+                                Eliminar
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </template>
 
-<script setup>
-// Puedes añadir lógica aquí si es necesario
+<script>
+import axios from 'axios';
+import Swal from 'sweetalert2';
+
+export default {
+    data() {
+        return {
+            marcas: [],
+            form: {
+                id: null,
+                nombre: '',
+            },
+            isEditMode: false,
+        };
+    },
+    mounted() {
+        this.cargarMarcas();
+    },
+    methods: {
+        async cargarMarcas() {
+            try {
+                const response = await axios.get('/marcas');
+                this.marcas = response.data.marcas;
+            } catch (error) {
+                console.error('Error al cargar marcas:', error);
+            }
+        },
+        async submitForm() {
+            try {
+                if (this.isEditMode) {
+                    await axios.put(`/marcas/${this.form.id}`, this.form);
+                    Swal.fire('Actualizado!', 'La marca ha sido actualizada correctamente.', 'success');
+                } else {
+                    await axios.post('/marcas', this.form);
+                    Swal.fire('Agregado!', 'La marca ha sido agregada correctamente.', 'success');
+                }
+                this.cargarMarcas();
+                this.resetForm();
+            } catch (error) {
+                console.error('Error al guardar marca:', error);
+                Swal.fire('Error!', 'Hubo un problema al guardar la marca.', 'error');
+            }
+        },
+        editarMarca(marca) {
+            this.form = { ...marca };
+            this.isEditMode = true;
+        },
+        confirmarEliminar(id) {
+            Swal.fire({
+                title: '¿Estás seguro?',
+                text: "¡No podrás revertir esto!",
+                icon: 'warning',
+                showCancelButton: true,
+                confirmButtonColor: '#3085d6',
+                cancelButtonColor: '#d33',
+                confirmButtonText: 'Sí, eliminarlo!'
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    this.eliminarMarca(id);
+                }
+            });
+        },
+        async eliminarMarca(id) {
+            try {
+                await axios.delete(`/marcas/${id}`);
+                this.cargarMarcas();
+                Swal.fire('Eliminado!', 'La marca ha sido eliminada.', 'success');
+            } catch (error) {
+                console.error('Error al eliminar marca:', error);
+                Swal.fire('Error!', 'Hubo un problema al eliminar la marca.', 'error');
+            }
+        },
+        resetForm() {
+            this.form = { id: null, nombre: '' };
+            this.isEditMode = false;
+        },
+    },
+};
 </script>
 
 <style scoped>
-/* Puedes añadir estilos aquí si es necesario */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th,
+td {
+    text-align: left;
+    padding: 8px;
+    border-bottom: 1px solid #ddd;
+}
+
+button {
+    border: none;
+    cursor: pointer;
+}
+
+.bg-blue-500:hover,
+.bg-red-500:hover,
+.bg-yellow-400:hover,
+.bg-gray-500:hover {
+    opacity: 0.8;
+}
 </style>
