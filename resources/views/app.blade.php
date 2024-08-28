@@ -11,7 +11,7 @@
     <!-- <link rel="preconnect" href="https://fonts.bunny.net">
         <link href="https://fonts.bunny.net/css?family=figtree:400,500,600&display=swap" rel="stylesheet" /> -->
 
-    <link rel="icon" href="{{ asset('images/logo.png') }}" type="image/x-icon">
+    <link rel="icon" href="{{ asset('images/TECNOMARKET SRL.ico') }}" type="image/x-icon">
 
 
 
