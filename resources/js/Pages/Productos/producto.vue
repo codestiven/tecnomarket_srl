@@ -95,10 +95,12 @@
         </div>
 
         <div class="buttons">
-          <button class="agregar">añadir a carrito</button>
+          <button class="agregar" @click="handleAddToCart">
+            {{ isInCart ? 'Añadido' : 'Añadir a carrito' }}
+          </button>
           <div>
-            <button> <i class="fa-brands fa-whatsapp"></i> whatsapp</button>
-            <button> comprar ahora</button>
+            <button @click="whatsappAction"> <i class="fa-brands fa-whatsapp"></i> whatsapp</button>
+            <button @click="accountAction"> comprar ahora</button>
           </div>
         </div>
       </div>
@@ -114,6 +116,8 @@ import axios from 'axios';
 import { Head } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
+import Swal from 'sweetalert2';
+
 
 const props = defineProps({
   producto: {
@@ -146,6 +150,8 @@ const props = defineProps({
   }
 });
 
+
+const isInCart = ref(false);
 const likesCount = ref(0); // Variable para almacenar la cantidad de "me gustas"
 const formattedDate = ref(""); // Variable para almacenar la fecha formateada
 
@@ -169,6 +175,134 @@ const formatDate = (dateString) => {
   return `${day}/${month}/${year}`;
 };
 
+
+const addToCart = (productoId) => {
+  let cart = JSON.parse(localStorage.getItem('cart')) || [];
+
+  // Verificar si el producto ya está en el carrito
+  const index = cart.indexOf(productoId);
+
+  if (index === -1) {
+    // Si no está en el carrito, agregarlo
+    cart.push(productoId);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      text: 'Producto agregado al carrito correctamente'
+    });
+  } else {
+    // Si ya está en el carrito, quitarlo
+    cart.splice(index, 1);
+    localStorage.setItem('cart', JSON.stringify(cart));
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      text: 'Producto eliminado del carrito correctamente'
+    });
+  }
+
+  // Actualizar el estado de isInCart después de modificar el carrito
+  updateCartStatus(productoId);
+};
+
+const updateCartStatus = (productoId) => {
+  const cart = JSON.parse(localStorage.getItem('cart')) || [];
+  isInCart.value = cart.includes(productoId);
+};
+
+
+const whatsappAction = () => {
+  // Obtén los detalles del producto
+  const productName = props.producto.nombre;
+  const productCategory = props.producto.categoria.nombre;
+  const productPrice = props.producto.precio;
+
+  // Construye el mensaje con formato en negrita
+  const message = `Saludos, estoy interesado en comprar un/una *${productCategory}* con el producto llamado *${productName}* con el precio de RD$ ${productPrice}. ¿Está disponible?`;
+
+  // Construye la URL de WhatsApp
+  const phoneNumber = '18098719279'; // Número de teléfono de la empresa (incluye el prefijo internacional)
+  const encodedMessage = encodeURIComponent(message);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  // Abre el enlace en una nueva ventana
+  window.open(url, '_blank');
+
+  // Muestra una alerta usando SweetAlert2 y cierra el popup
+  Swal.fire({
+    title: 'Producto Comprado',
+    text: `El producto comprado es ${productName}`,
+    icon: 'info',
+    confirmButtonText: 'Ok'
+  }).then(() => {
+    Swal.close(); // Cierra el popup de SweetAlert2 después de hacer clic en el botón 'Ok'
+  });
+};
+
+
+
+const accountAction = async () => {
+  try {
+
+    const response = await axios.post('/pedidos', {
+      producto_id: props.producto.id
+    });
+
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      html: 'El producto comprado es <strong>' + props.producto.nombre + '</strong>',
+      footer: 'Nos pondremos en contacto contigo pronto.',
+      willClose: () => {
+        Inertia.visit('/'); // Redirige a la página de inicio usando Inertia.js
+      }
+    });
+
+
+    // Limpiar el estado guardado en localStorage
+    localStorage.removeItem('pendingOrder');
+
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Guardar la información del pedido en localStorage
+      localStorage.setItem('pendingOrder', JSON.stringify({
+        producto_id: props.producto.id
+      }));
+
+      // Redirigir al usuario a la página de registro
+      window.location.href = '/register'; // Cambia a la ruta de registro adecuada
+    } else if (error.response && error.response.status === 400) {
+      // Error en la creación del pedido
+      Swal.fire({
+        icon: 'warning',
+        title: 'Advertencia',
+        text: 'Ya has comprado este producto anteriormente.',
+        footer: 'Nos pondremos en contacto con contigo pronto.'
+      });
+    } else {
+      // Otros errores
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al crear el pedido.',
+      });
+    }
+  }
+};
+
+
+
+
+
+
+
+
+
+
 onMounted(() => {
   if (props.producto && props.producto.id) {
     fetchLikesCount(props.producto.id);
@@ -177,6 +311,18 @@ onMounted(() => {
     formattedDate.value = formatDate(props.producto.created_at);
   }
 });
+
+
+
+
+
+
+
+const handleAddToCart = () => {
+  addToCart(props.producto.id);
+};
+
+
 </script>
 
 

@@ -216,9 +216,33 @@ const handlePurchase = () => {
 };
 
 const whatsappAction = () => {
-  alert("El producto comprado es " + props.product.id);
-  Swal.close(); // Cierra el popup
+  // Obtén los detalles del producto
+  const productName = props.product.nombre;
+  const productCategory = props.product.categoria.nombre;
+  const productPrice = props.product.precio;
+
+  // Construye el mensaje con formato en negrita
+  const message = `Saludos, estoy interesado en comprar un/una *${productCategory}* con el producto llamado *${productName}* con el precio de RD$ ${productPrice}. ¿Está disponible?`;
+
+  // Construye la URL de WhatsApp
+  const phoneNumber = '18098719279'; // Número de teléfono de la empresa (incluye el prefijo internacional)
+  const encodedMessage = encodeURIComponent(message);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  // Abre el enlace en una nueva ventana
+  window.open(url, '_blank');
+
+  // Muestra una alerta usando SweetAlert2 y cierra el popup
+  Swal.fire({
+    title: 'Producto Comprado',
+    text: `El producto comprado es ${productName}`,
+    icon: 'info',
+    confirmButtonText: 'Ok'
+  }).then(() => {
+    Swal.close(); // Cierra el popup de SweetAlert2 después de hacer clic en el botón 'Ok'
+  });
 };
+
 
 const accountAction = async () => {
   try {

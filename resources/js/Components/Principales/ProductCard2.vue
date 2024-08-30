@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { differenceInDays, parseISO } from 'date-fns'; // Importa date-fns para calcular la diferencia en días
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
   product: {
@@ -167,6 +168,163 @@ const handleAddToCart = () => {
   addToCart(props.product.id);
 };
 
+const handlePurchase = () => {
+  localStorage.removeItem('pendingOrder');
+  Swal.fire({
+    html: `
+      <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="comprar-popup-container relative bg-white rounded-lg shadow-lg w-full max-w-xl h-96 flex flex-col items-center justify-center p-4">
+          <!-- Título, fuera de la caja principal -->
+          <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas Realizar la comprar?</h2>
+
+          <!-- Contenedor de opciones -->
+          <div class="comprar-options-container w-full h-full flex overflow-hidden">
+            <!-- Opción de WhatsApp -->
+            <div id="whatsappOption" class="comprar-popup-option comprar-whatsapp-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+              <i class="fa-brands fa-whatsapp text-6xl comprar-icon comprar-whatsapp-icon transition duration-300"></i>
+              <span class="text-2xl mt-4 font-bold comprar-whatsapp-text transition duration-300">WhatsApp</span>
+            </div>
+
+            <!-- Opción de Usar Cuenta -->
+            <div id="accountOption" class="comprar-popup-option comprar-account-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+              <i class="fa-solid fa-user text-6xl comprar-icon comprar-account-icon transition duration-300"></i>
+              <span class="text-2xl mt-4 font-bold comprar-account-text transition duration-300">Usar Cuenta</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+    showConfirmButton: false,
+    width: '100%',
+    padding: '0',
+    background: 'transparent',
+    customClass: {
+      popup: 'my-custom-popup-class'
+    },
+    didOpen: () => {
+      const background = document.getElementById('comprarBackground');
+      background.addEventListener('click', (event) => {
+        if (event.target === background) {
+          Swal.close(); // Cierra el popup
+        }
+      });
+
+      document.getElementById('whatsappOption').addEventListener('click', whatsappAction);
+      document.getElementById('accountOption').addEventListener('click', accountAction);
+    }
+  });
+};
+
+const whatsappAction = () => {
+  // Obtén los detalles del producto
+  const productName = props.product.nombre;
+  const productCategory = props.product.categoria.nombre;
+  const productPrice = props.product.precio;
+
+  // Construye el mensaje con formato en negrita
+  const message = `Saludos, estoy interesado en comprar un/una *${productCategory}* con el producto llamado *${productName}* con el precio de RD$ ${productPrice}. ¿Está disponible?`;
+
+  // Construye la URL de WhatsApp
+  const phoneNumber = '18098719279'; // Número de teléfono de la empresa (incluye el prefijo internacional)
+  const encodedMessage = encodeURIComponent(message);
+  const url = `https://wa.me/${phoneNumber}?text=${encodedMessage}`;
+
+  // Abre el enlace en una nueva ventana
+  window.open(url, '_blank');
+
+  // Muestra una alerta usando SweetAlert2 y cierra el popup
+  Swal.fire({
+    title: 'Producto Comprado',
+    text: `El producto comprado es ${productName}`,
+    icon: 'info',
+    confirmButtonText: 'Ok'
+  }).then(() => {
+    Swal.close(); // Cierra el popup de SweetAlert2 después de hacer clic en el botón 'Ok'
+  });
+};
+
+
+const accountAction = async () => {
+  try {
+
+    const response = await axios.post('/pedidos', {
+      producto_id: props.product.id
+    });
+
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      html: 'El producto comprado es <strong>' + props.product.nombre + '</strong>',
+      footer: 'Nos pondremos en contacto contigo pronto.',
+      willClose: () => {
+        Inertia.visit('/'); // Redirige a la página de inicio usando Inertia.js
+      }
+    });
+
+
+    // Limpiar el estado guardado en localStorage
+    localStorage.removeItem('pendingOrder');
+
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Guardar la información del pedido en localStorage
+      localStorage.setItem('pendingOrder', JSON.stringify({
+        producto_id: props.product.id
+      }));
+
+      // Redirigir al usuario a la página de registro
+      window.location.href = '/register'; // Cambia a la ruta de registro adecuada
+    } else if (error.response && error.response.status === 400) {
+      // Error en la creación del pedido
+      Swal.fire({
+        icon: 'warning',
+        title: 'Advertencia',
+        text: 'Ya has comprado este producto anteriormente.',
+        footer: 'Nos pondremos en contacto con contigo pronto.'
+      });
+    } else {
+      // Otros errores
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al crear el pedido.',
+      });
+    }
+  }
+};
+
+// Llamar a la función para comprobar si hay un pedido pendiente después del registro
+const processPendingOrder = async () => {
+  const pendingOrder = localStorage.getItem('pendingOrder');
+  if (pendingOrder) {
+    try {
+      const orderData = JSON.parse(pendingOrder);
+      const response = await axios.post('/pedidos', orderData);
+      // Mostrar mensaje de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Tu pedido ha sido creado después de registrarte.',
+      });
+
+      // Limpiar el estado guardado en localStorage
+      localStorage.removeItem('pendingOrder');
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        footer: 'Nos pondremos en contacto con contigo pronto.'
+      });
+
+      localStorage.removeItem('pendingOrder');
+    }
+  }
+};
+
+// Llamar a la función para procesar el pedido pendiente al cargar la página
+processPendingOrder();
 onMounted(() => {
   const productoId = props.product.id;
   fetchLikesCount(productoId);
@@ -225,7 +383,8 @@ onMounted(() => {
         <h1 v-if="!product.es_oferta">RD$ {{ Number(product.precio).toLocaleString() }}</h1>
         <h1 v-else>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</h1>
       </div>
-      <div class="compra"> <button class="comprar"> <i class="fa-solid fa-basket-shopping"></i> comprar</button></div>
+      <div class="compra"> <button class="comprar" @click="handlePurchase"> <i class="fa-solid fa-basket-shopping"></i>
+          comprar</button></div>
 
     </div>
   </div>
