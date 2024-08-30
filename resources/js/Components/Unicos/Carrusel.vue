@@ -153,7 +153,7 @@ export default {
     left: 10%;
     transform: translateY(-50%);
     color: #fff;
-    z-index: 10;
+    z-index: 5;
     max-width: 40%;
     padding: 20px;
     background: rgba(0, 0, 0, 0.5);
@@ -187,7 +187,7 @@ export default {
     border: none;
     padding: 10px;
     cursor: pointer;
-    z-index: 20;
+    z-index: 5;
     font-size: 18px;
     border-radius: 50%;
     width: 40px;

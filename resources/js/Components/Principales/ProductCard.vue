@@ -167,6 +167,62 @@ const handleAddToCart = () => {
   addToCart(props.product.id);
 };
 
+const handlePurchase = () => {
+  Swal.fire({
+    html: `
+      <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div class="comprar-popup-container relative bg-white rounded-lg shadow-lg w-full max-w-xl h-96 flex flex-col items-center justify-center p-4">
+          <!-- Título, fuera de la caja principal -->
+          <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas comprar?</h2>
+
+          <!-- Contenedor de opciones -->
+          <div class="comprar-options-container w-full h-full flex overflow-hidden">
+            <!-- Opción de WhatsApp -->
+            <div id="whatsappOption" class="comprar-popup-option comprar-whatsapp-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+              <i class="fa-brands fa-whatsapp text-6xl comprar-icon comprar-whatsapp-icon transition duration-300"></i>
+              <span class="text-2xl mt-4 font-bold comprar-whatsapp-text transition duration-300">WhatsApp</span>
+            </div>
+
+            <!-- Opción de Usar Cuenta -->
+            <div id="accountOption" class="comprar-popup-option comprar-account-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+              <i class="fa-solid fa-user text-6xl comprar-icon comprar-account-icon transition duration-300"></i>
+              <span class="text-2xl mt-4 font-bold comprar-account-text transition duration-300">Usar Cuenta</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    `,
+    showConfirmButton: false,
+    width: '100%',
+    padding: '0',
+    background: 'transparent',
+    customClass: {
+      popup: 'my-custom-popup-class'
+    },
+    didOpen: () => {
+      const background = document.getElementById('comprarBackground');
+      background.addEventListener('click', (event) => {
+        if (event.target === background) {
+          Swal.close(); // Cierra el popup
+        }
+      });
+
+      document.getElementById('whatsappOption').addEventListener('click', whatsappAction);
+      document.getElementById('accountOption').addEventListener('click', accountAction);
+    }
+  });
+};
+
+const whatsappAction = () => {
+  alert("El producto comprado es " + props.product.id);
+  Swal.close(); // Cierra el popup
+};
+
+const accountAction = () => {
+  alert("El producto comprado es " + props.product.id);
+  Swal.close(); // Cierra el popup
+};
+
 onMounted(() => {
   const productoId = props.product.id;
   fetchLikesCount(productoId);
@@ -246,7 +302,10 @@ onMounted(() => {
       <button v-else class="agregado" @click="handleAddToCart">
         <i class="fa-solid fa-check"></i> Agregado
       </button>
-      <button class="comprar"> <i class="fa-solid fa-basket-shopping"></i> comprar</button>
+      <button class="comprar" @click="handlePurchase">
+        <i class="fa-solid fa-basket-shopping"></i> comprar
+      </button>
+
     </div>
   </div>
 
@@ -261,6 +320,10 @@ onMounted(() => {
 
 
 <style scoped>
+
+
+
+
 * {
   margin: 0;
   padding: 0;
@@ -303,7 +366,7 @@ onMounted(() => {
   align-items: center;
   /* background-color: #0b88e762; */
   position: absolute;
-  z-index: 1000;
+  z-index: 4;
 
   display: flex;
   justify-content: space-between;

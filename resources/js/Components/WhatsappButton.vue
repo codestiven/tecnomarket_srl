@@ -20,7 +20,7 @@ export default {
     /* Espacio desde el borde inferior */
     right: 20px;
     /* Espacio desde el borde derecho */
-    z-index: 9999;
+    z-index: 9;
     /* Asegura que esté por encima de todos los elementos */
 }
 

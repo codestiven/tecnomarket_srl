@@ -68,7 +68,7 @@ export default {
 
 <style scoped>
 * {
-    z-index: 10;
+    z-index: 5;
 }
 
 .buscador {

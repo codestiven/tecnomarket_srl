@@ -297,7 +297,7 @@ header {
   width: 100%;
   height: auto;
   position: fixed;
-  z-index: 10000000000;
+  z-index: 8;
   margin-bottom: 100px;
 }
 

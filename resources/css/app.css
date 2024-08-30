@@ -75,3 +75,143 @@ body {
     text-align: left;
    
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/* Estilos del menú popup */
+/* Estilo general del popup */
+.comprar-fixed {
+    position: fixed;
+    inset: 0;
+    z-index: 10;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semitransparente */
+}
+
+/* Contenedor del popup */
+.comprar-popup-container {
+    width: 90%;
+    max-width: 600px;
+    height: 400px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    position: relative;
+    background-color: white;
+    border-radius: 1rem;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo del título */
+.comprar-popup-title {
+    position: absolute;
+    top: -3rem;
+    font-size: 2.5rem;
+    color: white;
+    margin: 0;
+    text-align: center;
+}
+
+/* Contenedor de opciones */
+.comprar-options-container {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    overflow: hidden;
+}
+
+/* Opción general */
+.comprar-popup-option {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex: 1;
+    margin: 0.5rem;
+    padding: 10px;
+    background-color: white;
+    border-radius: 0.75rem;
+    transition: background-color 0.3s;
+    cursor: pointer;
+}
+
+/* Icono de WhatsApp */
+.comprar-whatsapp-icon {
+    color: #25D366;
+}
+
+/* Icono de Cuenta */
+.comprar-account-icon {
+    color: #007BFF;
+}
+
+/* Texto de WhatsApp */
+.comprar-whatsapp-text {
+    color: #25D366;
+}
+
+/* Texto de Cuenta */
+.comprar-account-text {
+    color: #007BFF;
+}
+
+/* Hover de opciones */
+.comprar-popup-option:hover {
+    background-color: #f0f0f0;
+}
+
+.comprar-whatsapp-option:hover {
+    background: linear-gradient(35deg, rgba(157, 211, 37, 1) 13%, rgba(37, 211, 102, 1) 100%);
+}
+
+.comprar-account-option:hover {
+    background: linear-gradient(35deg, rgba(0, 5, 255, 1) 0%, rgba(0, 219, 255, 1) 100%);
+}
+
+.comprar-whatsapp-option:hover .comprar-whatsapp-icon,
+.comprar-whatsapp-option:hover .comprar-whatsapp-text {
+    color: white;
+}
+
+.comprar-account-option:hover .comprar-account-icon,
+.comprar-account-option:hover .comprar-account-text {
+    color: white;
+}
+
+.comprar-popup-option .comprar-icon,
+.comprar-popup-option span {
+    transition: color 0.3s ease;
+}
+
+/* Estilo responsivo para dispositivos móviles */
+@media (max-width: 768px) {
+    .comprar-popup-container {
+        flex-direction: column;
+        height: auto;
+    }
+
+    .comprar-popup-option {
+        width: 100%;
+        height: 100px;
+    }
+
+    .comprar-popup-title {
+        font-size: 2rem;
+    }
+}
