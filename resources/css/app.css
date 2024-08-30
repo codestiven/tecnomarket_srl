@@ -91,7 +91,6 @@ body {
 
 
 
-
 /* Estilos del menú popup */
 /* Estilo general del popup */
 .comprar-fixed {
@@ -204,14 +203,23 @@ body {
     .comprar-popup-container {
         flex-direction: column;
         height: auto;
+        max-height: 90%;
+        padding: 10px;
+    }
+
+    .comprar-options-container {
+        flex-direction: column;
+        height: auto;
     }
 
     .comprar-popup-option {
         width: 100%;
-        height: 100px;
+        height: auto;
+        margin: 0.5rem 0;
     }
 
     .comprar-popup-title {
         font-size: 2rem;
+        top: -2rem;
     }
 }

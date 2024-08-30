@@ -173,7 +173,7 @@ const handlePurchase = () => {
       <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
         <div class="comprar-popup-container relative bg-white rounded-lg shadow-lg w-full max-w-xl h-96 flex flex-col items-center justify-center p-4">
           <!-- Título, fuera de la caja principal -->
-          <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas comprar?</h2>
+          <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas Realizar la comprar?</h2>
 
           <!-- Contenedor de opciones -->
           <div class="comprar-options-container w-full h-full flex overflow-hidden">
