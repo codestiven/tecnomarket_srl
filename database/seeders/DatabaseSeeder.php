@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
             ProductosSeeder::class,
             DetallesProductosSeeder::class,
             CarouselSeeder::class,
+            PedidoCarritoSeeder::class,
         ]);
 
         // Crear un usuario de prueba

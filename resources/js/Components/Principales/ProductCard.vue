@@ -215,7 +215,7 @@ const handlePurchase = () => {
 
 const whatsappAction = () => {
   alert("El producto comprado es " + props.product.id);
-  Swal.close(); // Cierra el popup
+  Swal.close();
 };
 
 const accountAction = () => {
