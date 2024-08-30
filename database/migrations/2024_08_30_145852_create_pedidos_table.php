@@ -13,7 +13,7 @@ class CreatePedidosTable extends Migration
             $table->foreignId('producto_id')->constrained('productos')->onDelete('cascade'); // Conexión con productos
             $table->foreignId('user_id')->constrained('users')->onDelete('cascade'); // Conexión con usuarios
             $table->foreignId('carrito_id')->nullable()->constrained('carritos')->onDelete('cascade'); // Conexión opcional con carritos
-            $table->enum('estado', ['en proceso', 'terminado', 'cancelado']);
+            $table->enum('estado', ['en proceso', 'terminado', 'cancelado'])->default('en proceso');
             $table->timestamps();
         });
     }

@@ -1,12 +1,15 @@
 <script setup>
 import { Head, Link, useForm } from '@inertiajs/vue3';
 
+// Define las propiedades que el componente recibirá
 const props = defineProps({
     provincias: Array,
 });
 
-console.log('Provincias:', props.provincias); // Verificar en la consola
+// Verifica en la consola las provincias recibidas
+console.log('Provincias:', props.provincias);
 
+// Inicializa el formulario con valores predeterminados
 const form = useForm({
     name: '',
     lastname: '',
@@ -14,10 +17,11 @@ const form = useForm({
     password: '',
     password_confirmation: '',
     address: '',
-    province_id: null,
+    province_id: props.provincias.length > 0 ? props.provincias[0].id : null, // Establece el valor por defecto
     phone: '',
 });
 
+// Función para enviar el formulario
 const submit = () => {
     form.post(route('register'), {
         onFinish: () => form.reset('password', 'password_confirmation'),
@@ -29,6 +33,7 @@ const goBack = () => {
     window.history.back();
 };
 </script>
+
 
 <template>
 
@@ -131,6 +136,7 @@ const goBack = () => {
                         <p v-if="form.errors.province_id" class="mt-2 text-sm text-red-600">{{ form.errors.province_id
                             }}</p>
                     </div>
+
 
                     <div class="flex items-center justify-between">
                         <Link href="/login" class="text-sm text-blue-600 hover:underline">

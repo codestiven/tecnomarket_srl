@@ -40,7 +40,7 @@ class RegisteredUserController extends Controller
             'lastname' => 'required|string|max:255',
             'email' => 'required|string|lowercase|email|max:255|unique:users',
             'password' => ['required', 'confirmed', Rules\Password::defaults()],
-            'address' => 'nullable|string|max:255',
+            'address' => 'nullable|string|min:10|max:255',
             'province_id' => 'nullable|exists:provincias,id',
             'phone' => 'nullable|string|max:15',
         ]);

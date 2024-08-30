@@ -3,6 +3,7 @@ import { ref, onMounted } from 'vue';
 import axios from 'axios';
 import Swal from 'sweetalert2';
 import { differenceInDays, parseISO } from 'date-fns'; // Importa date-fns para calcular la diferencia en días
+import { Inertia } from '@inertiajs/inertia';
 
 const props = defineProps({
   product: {
@@ -168,6 +169,7 @@ const handleAddToCart = () => {
 };
 
 const handlePurchase = () => {
+  localStorage.removeItem('pendingOrder');
   Swal.fire({
     html: `
       <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
@@ -215,14 +217,90 @@ const handlePurchase = () => {
 
 const whatsappAction = () => {
   alert("El producto comprado es " + props.product.id);
-  Swal.close();
-};
-
-const accountAction = () => {
-  alert("El producto comprado es " + props.product.id);
   Swal.close(); // Cierra el popup
 };
 
+const accountAction = async () => {
+  try {
+
+    const response = await axios.post('/pedidos', {
+      producto_id: props.product.id
+    });
+
+
+    Swal.fire({
+      icon: 'success',
+      title: 'Éxito',
+      html: 'El producto comprado es <strong>' + props.product.nombre + '</strong>',
+      footer: 'Nos pondremos en contacto contigo pronto.',
+      willClose: () => {
+        Inertia.visit('/'); // Redirige a la página de inicio usando Inertia.js
+      }
+    });
+
+
+    // Limpiar el estado guardado en localStorage
+    localStorage.removeItem('pendingOrder');
+
+  } catch (error) {
+    if (error.response && error.response.status === 401) {
+      // Guardar la información del pedido en localStorage
+      localStorage.setItem('pendingOrder', JSON.stringify({
+        producto_id: props.product.id
+      }));
+
+      // Redirigir al usuario a la página de registro
+      window.location.href = '/register'; // Cambia a la ruta de registro adecuada
+    } else if (error.response && error.response.status === 400) {
+      // Error en la creación del pedido
+      Swal.fire({
+        icon: 'warning',
+        title: 'Advertencia',
+        text: 'Ya has comprado este producto anteriormente.',
+        footer: 'Nos pondremos en contacto con contigo pronto.'
+      });
+    } else {
+      // Otros errores
+      Swal.fire({
+        icon: 'error',
+        title: 'Error',
+        text: 'Hubo un error al crear el pedido.',
+      });
+    }
+  }
+};
+
+// Llamar a la función para comprobar si hay un pedido pendiente después del registro
+const processPendingOrder = async () => {
+  const pendingOrder = localStorage.getItem('pendingOrder');
+  if (pendingOrder) {
+    try {
+      const orderData = JSON.parse(pendingOrder);
+      const response = await axios.post('/pedidos', orderData);
+    // Mostrar mensaje de éxito
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        text: 'Tu pedido ha sido creado después de registrarte.',
+      });
+
+      // Limpiar el estado guardado en localStorage
+      localStorage.removeItem('pendingOrder');
+
+    } catch (error) {
+      Swal.fire({
+        icon: 'success',
+        title: 'Éxito',
+        footer: 'Nos pondremos en contacto con contigo pronto.'
+      });
+
+      localStorage.removeItem('pendingOrder');
+    }
+  }
+};
+
+// Llamar a la función para procesar el pedido pendiente al cargar la página
+processPendingOrder();
 onMounted(() => {
   const productoId = props.product.id;
   fetchLikesCount(productoId);

@@ -18,6 +18,9 @@ use App\Http\Controllers\MessageController;
 use App\Http\Controllers\SuggestionController;
 use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
+use App\Http\Controllers\PedidoController;
+use Illuminate\Support\Facades\Auth;
+
 
 
 Route::get('/', function () {
@@ -161,9 +164,16 @@ Route::middleware('auth')->group(function () {
 
 
 
-
-
-
-
-require __DIR__.'/auth.php';
+require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
+
+Route::middleware('auth')->group(function () {
+    Route::get('/pedidos', [PedidoController::class, 'index']);
+    Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+    Route::post('/pedidos', [PedidoController::class, 'store']);
+});
+
+
+
+
+
