@@ -26,6 +26,7 @@ return new class extends Migration
                 ->constrained('provincias')
                 ->onDelete('set null'); // Relationship with provincias
             $table->string('phone')->nullable(); // User phone number
+            $table->boolean('is_admin')->default(false); // Is admin field with default value of false
             $table->timestamps();
         });
 

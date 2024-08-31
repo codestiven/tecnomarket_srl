@@ -14,6 +14,24 @@ use Inertia\Inertia;
 
 use App\Http\Controllers\CarritoController;
 
+
+
+use App\Http\Middleware\AdminMiddleware;
+
+Route::middleware([AdminMiddleware::class])->group(function () {
+    Route::get('/users', [RegisteredUserController::class, 'index']);
+
+    // Otras rutas protegidas por el middleware 'admin'
+
+
+
+
+
+
+
+
+
+
 Route::post('/carritos', [CarritoController::class, 'store']);
 
 
@@ -31,7 +49,7 @@ Route::get('/carouselss/{id}', [CarouselController::class, 'show']);
 Route::post('/carousels/{id}', [CarouselController::class, 'update']);
 Route::delete('/carousels/{id}', [CarouselController::class, 'destroy']);
 
-Route::get('/users', [RegisteredUserController::class, 'index']);
+
 Route::get('/users/{id}', [RegisteredUserController::class, 'show']);
 
 Route::get('/Message', [MessageController::class, 'index']);
@@ -65,4 +83,5 @@ Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
 
 Route::get('/admin', function () {
     return Inertia::render('Admin/Index');
+});
 });
