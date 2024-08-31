@@ -168,8 +168,6 @@ require __DIR__ . '/auth.php';
 require __DIR__ . '/admin.php';
 
 Route::middleware('auth')->group(function () {
-    Route::get('/pedidos', [PedidoController::class, 'index']);
-    Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
     Route::post('/pedidos', [PedidoController::class, 'store']);
 });
 

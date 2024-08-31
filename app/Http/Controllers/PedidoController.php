@@ -5,15 +5,16 @@ namespace App\Http\Controllers;
 use App\Models\Pedido;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Validation\ValidationException;
 
 class PedidoController extends Controller
 {
     public function index()
     {
-        // Devuelve todos los pedidos
-        return Pedido::with('producto')->get();
+        // Devuelve todos los pedidos ordenados del más reciente al más antiguo, incluyendo los datos del producto y el usuario
+        return Pedido::with(['producto', 'usuario', 'carrito'])->orderBy('created_at', 'desc')->get();
     }
+
+
 
     public function show($id)
     {
@@ -53,5 +54,24 @@ class PedidoController extends Controller
         return response()->json(['message' => 'Pedido creado con éxito.', 'pedido' => $pedido], 201);
     }
 
+    public function update(Request $request, $id)
+    {
+        $request->validate([
+            'estado' => 'required|in:en proceso,terminado,cancelado',
+        ]);
 
+        $pedido = Pedido::findOrFail($id);
+        $pedido->estado = $request->estado;
+        $pedido->save();
+
+        return response()->json(['message' => 'Estado del pedido actualizado.', 'pedido' => $pedido], 200);
+    }
+
+    public function destroy($id)
+    {
+        $pedido = Pedido::findOrFail($id);
+        $pedido->delete();
+
+        return response()->json(['message' => 'Pedido eliminado con éxito.'], 200);
+    }
 }

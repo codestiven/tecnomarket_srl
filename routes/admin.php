@@ -9,6 +9,7 @@ use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\MessageController;
 use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\CategoriaController;
+use App\Http\Controllers\PedidoController;
 use Inertia\Inertia;
 
 Route::post('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
@@ -47,6 +48,12 @@ Route::post('/categorias', [CategoriaController::class, 'store']);
 Route::get('/categorias/{categoria}', [CategoriaController::class, 'show']);
 Route::put('/categorias/{categoria}', [CategoriaController::class, 'update']);
 Route::delete('/categorias/{categoria}', [CategoriaController::class, 'destroy']);
+
+
+Route::get('/pedidos', [PedidoController::class, 'index']);
+Route::get('/pedidos/{id}', [PedidoController::class, 'show']);
+Route::put('/pedidos/{id}', [PedidoController::class, 'update']);
+Route::delete('/pedidos/{id}', [PedidoController::class, 'destroy']);
 
 
 Route::get('/admin', function () {

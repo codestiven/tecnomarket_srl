@@ -15,12 +15,12 @@
             <nav class="flex-1">
                 <ul>
                     <!-- Reportes primero -->
-                    <li class="mb-2">
+                    <!-- <li class="mb-2">
                         <button @click="selectSection('reportes')" :class="buttonClass('reportes')"
                             class="w-full text-left p-2 rounded transition-all">
                             <i class="fa-solid fa-chart-line mr-2"></i> Reportes
                         </button>
-                    </li>
+                    </li> -->
                     <!-- Carrousel después de Reportes -->
                     <li class="mb-2">
                         <button @click="selectSection('carrousel')" :class="buttonClass('carrousel')"
@@ -90,9 +90,9 @@
                 <h2 class="text-xl font-bold">{{ getSectionTitle(currentSection) }}</h2>
             </div>
 
-            <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
+            <!-- <div v-if="currentSection === 'reportes'" class="overflow-y-auto">
                 <Reportes></Reportes>
-            </div>
+            </div> -->
             <div v-if="currentSection === 'carrousel'" class="overflow-y-auto">
                 <Carrouser></Carrouser>
             </div>
@@ -151,8 +151,8 @@ function buttonClass(section) {
 // Función para obtener el título de la sección actual
 function getSectionTitle(section) {
     switch (section) {
-        case 'reportes':
-            return 'Reportes';
+        // case 'reportes':
+        //     return 'Reportes';
         case 'carrousel':
             return 'Carrousel';
         case 'productos':

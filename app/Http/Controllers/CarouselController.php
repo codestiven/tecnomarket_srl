@@ -6,7 +6,7 @@ use App\Models\Carousel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 
- // Asegúrate de importar tu modelo Carousel
+// Asegúrate de importar tu modelo Carousel
 
 class CarouselController extends Controller
 {
@@ -21,7 +21,7 @@ class CarouselController extends Controller
             'title' => 'required|string|max:255',
             'description' => 'required|string',
             'link' => 'nullable|url',
-            'image' => 'required|image|max:2048',
+            'image' => 'nullable|image',
         ]);
 
         $path = $request->file('image')->store('images', 'public');
@@ -48,8 +48,10 @@ class CarouselController extends Controller
         $validated = $request->validate([
             'title' => 'required|string|max:255',
             'description' => 'required|string',
-            'link' => 'nullable|url','image' => 'nullable|image|max:10240', // Permite cualquier imagen de hasta 10 MB
+            'link' => 'nullable|url',
+            'image' => 'nullable|image', // Permite cualquier tipo de imagen sin restricciones de formato ni tamaño
         ]);
+
 
         if ($request->hasFile('image')) {
             $path = $request->file('image')->store('images', 'public');
