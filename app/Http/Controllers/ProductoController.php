@@ -65,9 +65,9 @@ class ProductoController extends Controller
 
     /**
      * Show the form for creating a new resource.
-     */
-    public function create(Request $request)
+     */ public function create(Request $request)
     {
+        // Validar los datos de entrada
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string|max:1000',
@@ -94,6 +94,9 @@ class ProductoController extends Controller
             // Almacenar imagen
             $imagenPath = $request->file('imagen')->store('public/productos');
 
+            // Establecer valor predeterminado para es_oferta
+            $esOferta = $request->has('es_oferta') ? (bool)$request->es_oferta : false;
+
             // Crear producto en base de datos
             $producto = Producto::create([
                 'nombre' => $request->nombre,
@@ -102,11 +105,11 @@ class ProductoController extends Controller
                 'categoria_id' => $request->categoria_id,
                 'marca_id' => $request->marca_id,
                 'image' => $imagenPath,
-                'es_oferta' => $request->es_oferta ? true : false,
+                'es_oferta' => $esOferta,
             ]);
 
             // Crear oferta si es_oferta es verdadero
-            if ($request->es_oferta) {
+            if ($esOferta) {
                 $producto->oferta()->create([
                     'precio_oferta' => $request->precio_oferta,
                 ]);
@@ -131,6 +134,7 @@ class ProductoController extends Controller
             return response()->json(['error' => 'Error al guardar el producto: ' . $e->getMessage()], 500);
         }
     }
+
 
 
 

@@ -127,16 +127,14 @@
 <script setup>
 import { ref, computed, onMounted } from 'vue';
 import axios from 'axios';
-
+import Swal from 'sweetalert2'; // Importa SweetAlert2
 import { Head, Link } from "@inertiajs/vue3";
 import Header from "@/Components/Principales/Header.vue";
 import Footer from "@/Components/Principales/Footer.vue";
 
-// Definir refs para productos y estado de carga
 const productos = ref([]);
 const loading = ref(true);
 
-// Función para obtener los IDs del carrito del localStorage y enviar la solicitud a la API
 const fetchCartProducts = async () => {
     try {
         const cartIds = JSON.parse(localStorage.getItem('cart')) || [];
@@ -145,11 +143,10 @@ const fetchCartProducts = async () => {
                 ids: cartIds
             });
 
-            // Convertir precios a números y añadir cantidad por defecto
             productos.value = response.data.productos.map(producto => ({
                 ...producto,
                 precio: Number(producto.precio),
-                cantidad: 1 // Cantidad inicial por defecto
+                cantidad: 1
             }));
         }
         loading.value = false;
@@ -159,12 +156,10 @@ const fetchCartProducts = async () => {
     }
 };
 
-// Llamar a la función al montar el componente
 onMounted(() => {
     fetchCartProducts();
 });
 
-// Función para eliminar un producto del carrito
 const removeFromCart = (id) => {
     productos.value = productos.value.filter(item => item.id !== id);
 
@@ -172,30 +167,83 @@ const removeFromCart = (id) => {
     localStorage.setItem('cart', JSON.stringify(remainingIds));
 };
 
-// Función para aumentar la cantidad
 const increaseQuantity = (id) => {
     const item = productos.value.find(item => item.id === id);
-    if (item && item.cantidad < item.stock) {  // Verifica que la cantidad no supere el stock
+    if (item && item.cantidad < item.stock) {
         item.cantidad++;
     }
 };
 
-// Función para disminuir la cantidad
 const decreaseQuantity = (id) => {
     const item = productos.value.find(item => item.id === id);
-    if (item && item.cantidad > 1) {  // Asegura que la cantidad no sea menor a 1
+    if (item && item.cantidad > 1) {
         item.cantidad--;
     }
 };
 
-// Cálculo del subtotal, ITBIS y total
 const subtotal = computed(() => productos.value.reduce((total, item) => total + item.precio * item.cantidad, 0));
 const itbis = computed(() => subtotal.value * 0.18);
 const total = computed(() => subtotal.value + itbis.value);
 
 // Función para realizar la compra
-const checkout = () => {
-    // Aquí iría la lógica para proceder al checkout (enviar el carrito al backend, etc.)
-    alert('Funcionalidad de compra no implementada');
+const checkout = async () => {
+    try {
+        const cartIds = JSON.parse(localStorage.getItem('cart')) || [];
+
+        // Confirmar con el usuario antes de enviar el carrito
+        const { isConfirmed } = await Swal.fire({
+            title: 'Confirmar Envío',
+            text: '¿Estás seguro de que deseas enviar el carrito?',
+            icon: 'question',
+            showCancelButton: true,
+            confirmButtonText: 'Sí, enviar',
+            cancelButtonText: 'Cancelar',
+            confirmButtonColor: '#3085d6', // Color del botón de confirmación
+            cancelButtonColor: '#d33', // Color del botón de cancelación
+        });
+
+        if (isConfirmed) {
+            // Si el usuario confirma, procede a enviar el carrito
+            const response = await axios.post('/carritos', {
+                producto_ids: cartIds
+            });
+
+            // Mostrar mensaje de éxito
+            await Swal.fire({
+                title: 'Carrito Enviado',
+                text: 'Carrito enviado. Nos pondremos en contacto contigo.',
+                icon: 'success',
+                confirmButtonColor: '#3085d6' // Color del botón de confirmación
+            });
+
+            // Limpiar el carrito
+            localStorage.removeItem('cart');
+            productos.value = [];
+
+            // Redirigir a la página de productos
+            window.location.href = '/productos';
+        }
+    } catch (error) {
+        console.error('Error al realizar la compra:', error);
+        if (error.response && error.response.status === 401) {
+            // Mostrar mensaje de error si el usuario no está autenticado
+            await Swal.fire({
+                title: 'No Autenticado',
+                text: 'Debes registrarte para realizar la compra.',
+                icon: 'error',
+                confirmButtonColor: '#3085d6' // Color del botón de confirmación
+            }).then(() => {
+                // Redirigir a la página de registro
+                window.location.href = '/register';
+            });
+        } else {
+            await Swal.fire({
+                title: 'Error',
+                text: 'Hubo un error al guardar el carrito',
+                icon: 'error',
+                confirmButtonColor: '#3085d6' // Color del botón de confirmación
+            });
+        }
+    }
 };
 </script>

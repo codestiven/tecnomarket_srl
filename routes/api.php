@@ -18,6 +18,7 @@ use App\Http\Controllers\ProvinciaController;
 
 
 
+
 Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
 
 

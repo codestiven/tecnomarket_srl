@@ -12,6 +12,13 @@ use App\Http\Controllers\CategoriaController;
 use App\Http\Controllers\PedidoController;
 use Inertia\Inertia;
 
+use App\Http\Controllers\CarritoController;
+
+Route::post('/carritos', [CarritoController::class, 'store']);
+
+
+
+
 Route::post('/productos/create', [ProductoController::class, 'create'])->name('productos.create');
 Route::put('/api/productos/{producto}', [ProductoController::class, 'update']);
 Route::delete('/api/productos/{id}', [ProductoController::class, 'destroy']);
