@@ -12,8 +12,20 @@ class CarouselController extends Controller
 {
     public function index()
     {
-        return Carousel::all();
+        // Obtener todos los elementos del carrusel
+        $carousels = Carousel::all();
+
+        // Iterar sobre cada elemento para agregar la URL completa de la imagen
+        foreach ($carousels as $carousel) {
+            if ($carousel->image) {
+                // Generar la URL completa usando el disco público
+                $carousel->image = Storage::url($carousel->image);
+            }
+        }
+
+        return response()->json($carousels);
     }
+
 
     public function store(Request $request)
     {
