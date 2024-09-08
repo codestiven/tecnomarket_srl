@@ -42,7 +42,7 @@
                                         <span v-else class="text-gray-500">Usuario no disponible</span>
                                     </td>
                                     <td class="py-3 px-4">
-                                        <a :href="`/Productos/${pedido.producto.id}`"
+                                        <a :href="`/Productos/${pedido.producto.nombre}`"
                                             class="text-blue-500 hover:underline">
                                             {{ pedido.producto ? pedido.producto.nombre : 'Producto no disponible' }}
                                         </a>

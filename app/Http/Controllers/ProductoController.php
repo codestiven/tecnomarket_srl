@@ -62,12 +62,11 @@ class ProductoController extends Controller
     }
 
 
-
-   public function create(Request $request)
+    public function create(Request $request)
     {
         // Validar los datos de entrada
         $request->validate([
-            'nombre' => 'required|string|max:255',
+            'nombre' => 'required|string|max:255|unique:productos,nombre',
             'descripcion' => 'required|string|max:1000',
             'precio' => 'required|numeric',
             'categoria_id' => 'required|exists:categorias,id',
@@ -139,11 +138,17 @@ class ProductoController extends Controller
 
 
 
- 
-    public function show(Producto $producto)
+
+
+    public function show($nombre)
     {
-        // Cargar las relaciones asociadas con el producto
-        $producto = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])->findOrFail($producto->id);
+        // Reemplazar los guiones por espacios para hacer coincidir con el nombre en la base de datos
+        $nombre = str_replace('-', ' ', $nombre);
+
+        // Buscar el producto por su nombre
+        $producto = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
+        ->where('nombre', $nombre)
+            ->firstOrFail();
 
         // Obtener la URL de la imagen del producto
         $producto->image = Storage::url($producto->image);
@@ -153,9 +158,8 @@ class ProductoController extends Controller
             'producto' => $producto,
             'detallesProducto' => $producto->detallesProducto
         ]);
-
-        // return response()->json(['producto' => $producto]);
     }
+
 
 
 
