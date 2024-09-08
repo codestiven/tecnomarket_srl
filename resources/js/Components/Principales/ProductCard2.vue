@@ -345,7 +345,7 @@ onMounted(() => {
 <template>
   <div class="card">
     <div class="grid-item image">
-      <a :href="`/Productos/${product.id}`">
+      <a :href="`/Productos/${product.nombre}`">
         <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy"  />
       </a>
     </div>
@@ -357,7 +357,7 @@ onMounted(() => {
 
       <div class="nombre">
         <h1>
-          <a :href="`/Productos/${product.id}`">{{ product.nombre }}</a> <span>( {{ product.stock }} )</span>
+          <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a> <span>( {{ product.stock }} )</span>
         </h1>
       </div>
       <div class="descripcion">

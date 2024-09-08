@@ -101,8 +101,7 @@ Route::get('/Productos', [ProductoController::class, 'Productos'])->name('Produc
 // }) ;
 
 
-
-Route::get('/Productos/{producto}', [ProductoController::class, 'show']);
+Route::get('/Productos/{nombre}', [ProductoController::class, 'show']);
 Route::get('/categoria/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
 Route::get('/marca/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
 

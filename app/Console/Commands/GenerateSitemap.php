@@ -50,7 +50,7 @@ class GenerateSitemap extends Command
 
         // Agregar cada producto al sitemap
         foreach ($productos as $producto) {
-            $sitemap->add(Url::create("/Productos/{$producto->id}") // Usar el slug o id según lo que tengas disponible
+            $sitemap->add(Url::create("/Productos/{$producto->nombre}")
                 ->setPriority(0.9)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)); // Opcional: frecuencia de cambio
         }

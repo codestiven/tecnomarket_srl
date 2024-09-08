@@ -368,7 +368,7 @@ onMounted(() => {
         </button>
       </div>
       <div class="image">
-        <a :href="`/Productos/${product.id}`">
+        <a :href="`/Productos/${product.nombre}`">
           <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy"  />
         </a>
       </div>
@@ -379,7 +379,7 @@ onMounted(() => {
         <div class="nombre">
 
           <h1>
-            <a :href="`/Productos/${product.id}`">{{ product.nombre }}</a>
+            <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
           </h1>
         </div> <span>( {{ product.stock }} )</span>
       </div>
