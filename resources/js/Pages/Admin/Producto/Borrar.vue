@@ -23,7 +23,7 @@
       <tbody class="bg-white divide-y divide-gray-200">
         <tr v-for="producto in productosFiltrados" :key="producto.id">
           <td class="px-6 py-4 whitespace-nowrap">
-            <img :src="producto.image" alt="Imagen del producto" class="w-24 h-24 object-cover">
+            <img :src="producto.image" alt="Imagen del producto" class="w-24 h-24 object-cover" loading="lazy" >
           </td>
           <td class="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{{ producto.id }}</td>
           <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">{{ producto.nombre }}</td>

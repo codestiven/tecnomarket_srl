@@ -132,10 +132,10 @@ const setActiveButton = (buttonType) => {
             <h1>Ordenar por :</h1>
             <div>
               <button :class="{ active: activeButton === 'list' }" @click="setActiveButton('list')">
-                <img src="/images/lista.png" alt="Lista" />
+                <img src="/images/lista.png" alt="Lista" loading="lazy"  />
               </button>
               <button :class="{ active: activeButton === 'grid' }" @click="setActiveButton('grid')">
-                <img src="/images/red.png" alt="Grid" />
+                <img src="/images/red.png" alt="Grid" loading="lazy"  />
               </button>
             </div>
           </div>

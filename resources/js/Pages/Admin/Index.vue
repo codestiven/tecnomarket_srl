@@ -4,7 +4,7 @@
         <aside class="w-64 bg-blue-800 text-white flex flex-col p-4">
             <!-- Información del admin -->
             <div class="flex items-center mb-6">
-                <img src="https://via.placeholder.com/50" alt="Admin" class="rounded-full mr-3">
+                <img src="https://via.placeholder.com/50" alt="Admin" class="rounded-full mr-3" loading="lazy" >
                 <div>
                     <h2 class="text-xl font-bold">Administrador</h2>
                     <p>Bienvenido, Admin</p>
@@ -73,14 +73,14 @@
                 </ul>
             </nav>
 
-            <!-- Botón de salir -->
+            <!-- Botón de salir
             <div class="mt-6">
                 <button @click="selectSection('salir')"
                     :class="{ 'bg-red-600': currentSection === 'salir', 'bg-red-700 hover:bg-red-600': currentSection !== 'salir' }"
                     class="w-full text-left p-2 bg-red-700 hover:bg-red-600 rounded transition">
                     <i class="fa-solid fa-sign-out-alt mr-2"></i> Salir
                 </button>
-            </div>
+            </div> -->
         </aside>
 
         <!-- Contenido principal -->

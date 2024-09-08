@@ -369,7 +369,7 @@ onMounted(() => {
       </div>
       <div class="image">
         <a :href="`/Productos/${product.id}`">
-          <img :src="product.image" alt="Product Image" class="imageUrl" />
+          <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy"  />
         </a>
       </div>
     </div>

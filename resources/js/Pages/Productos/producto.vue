@@ -6,7 +6,7 @@
   <div class="contenedor">
     <div class="left">
       <div class="image">
-        <img :src="producto.image" :alt="producto.nombre" />
+        <img :src="producto.image" :alt="producto.nombre" loading="lazy"  />
       </div>
     </div>
     <div class="right">
