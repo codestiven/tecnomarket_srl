@@ -1,7 +1,7 @@
 <template>
     <div class="flex justify-center items-center">
         <a href="/">
-            <img src="/images/Logo_white.png" alt="Logo" class="max-w-full h-auto">
+            <img src="/images/Logo_white.png" alt="Logo" class="max-w-full h-auto" loading="lazy" >
         </a>
     </div>
 </template>

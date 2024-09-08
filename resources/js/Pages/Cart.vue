@@ -58,7 +58,7 @@
                             <tr v-for="item in productos" :key="item.id">
                                 <td class="px-6 py-4">
                                     <img :src="item.image" alt="Imagen del producto"
-                                        class="w-32 h-32 object-cover rounded">
+                                        class="w-32 h-32 object-cover rounded" loading="lazy" >
                                 </td>
                                 <td class="px-6 py-4 text-sm font-medium text-gray-900">{{ item.nombre }}</td>
                                 <td class="px-6 py-4 text-sm text-gray-500">{{ item.categoria.nombre }}</td>

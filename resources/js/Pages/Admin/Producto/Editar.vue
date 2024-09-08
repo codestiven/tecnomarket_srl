@@ -10,7 +10,7 @@
         <div v-if="!selectedProducto" class="grid grid-cols-3 gap-4">
             <div v-for="producto in filteredProductos" :key="producto.id" class="border rounded p-4 shadow"
                 @click="selectProducto(producto)" style="cursor: pointer;">
-                <img :src="producto.image" alt="Producto" class="w-full h-48 object-cover mb-4">
+                <img :src="producto.image" alt="Producto" class="w-full h-48 object-cover mb-4" loading="lazy" >
                 <h2 class="text-xl font-bold">{{ producto.nombre }}</h2>
                 <p class="descripcion">{{ producto.descripcion }}</p>
                 <p class="text-gray-700 font-bold">${{ producto.precio }}</p>

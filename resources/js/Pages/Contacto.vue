@@ -18,32 +18,33 @@
                 <div class="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-full mr-3">
                   <i class="fas fa-phone-alt text-white"></i>
                 </div>
-                <span class="text-lg text-gray-700">+1 123-456-7890</span>
+                <span class="text-lg text-gray-700">+1 (809)-871-9279</span>
               </div>
               <div class="flex items-center">
                 <div class="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-full mr-3">
                   <i class="fas fa-envelope text-white"></i>
                 </div>
-                <span class="text-lg text-gray-700">correo@ejemplo.com</span>
+                <span class="text-lg text-gray-700">TM@Tecnomarketrd.com</span>
               </div>
               <div class="flex items-center">
                 <div class="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-full mr-3">
                   <i class="fas fa-map-marker-alt text-white"></i>
                 </div>
-                <span class="text-lg text-gray-700">123 Calle Principal, Ciudad, País</span>
+                <span class="text-lg text-gray-700">C/ Acuario #7, Madre Vieja Norte San Cristóbal</span>
               </div>
               <div class="flex items-center">
                 <div class="bg-indigo-600 w-10 h-10 flex items-center justify-center rounded-full mr-3">
                   <i class="fab fa-instagram text-white"></i>
                 </div>
-                <span class="text-lg text-gray-700">@instagramejemplo</span>
+                <span class="text-lg text-gray-700">@tecnomarket_srl </span>
               </div>
             </div>
             <!-- Texto Aleatorio -->
             <div class="mt-8">
               <p class="text-gray-600">
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Curabitur eget velit in turpis consectetur
-                euismod. Nulla facilisi. Etiam interdum orci ut lorem feugiat, vitae venenatis felis cursus.
+                Tecnomarket, en San Cristóbal, RD, ofrece tecnología de vanguardia con atención personalizada. Nos
+                especializamos en productos electrónicos de alta calidad, garantizando una experiencia de compra
+                excepcional y un servicio al cliente impecable.
               </p>
             </div>
           </div>
@@ -78,7 +79,7 @@
             <div class="w-full bg-gray-300 rounded-lg overflow-hidden" style="height: 300px;">
               <iframe
                 src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3642.4354205229315!2d-70.10231242505941!3d18.421380972197042!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x8ea55f95af918ad5%3A0x17aced50d30659a7!2sTECNOMARKET%20SRL!5e1!3m2!1sen!2sus!4v1723574615675!5m2!1sen!2sus"
-                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy"
+                width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" 
                 referrerpolicy="no-referrer-when-downgrade"></iframe>
             </div>
           </div>

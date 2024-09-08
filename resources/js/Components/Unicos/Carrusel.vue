@@ -5,7 +5,7 @@
             :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
             <swiper-slide v-for="(slide, index) in slides" :key="index">
                 <div class="slide-content">
-                    <img :src="slide.image" alt="Slide Image" class="slide-image">
+                    <img :src="slide.image" alt="Slide Image" class="slide-image" loading="lazy" >
                     <div class="slide-text">
                         <h1 class="slide-title">{{ slide.title }}</h1>
                         <p class="slide-description">{{ slide.description }}</p>

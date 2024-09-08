@@ -15,7 +15,7 @@ use App\Http\Controllers\MarcaController;
 use App\Http\Controllers\OfertaController;
 use App\Http\Controllers\ProductoController;
 use App\Http\Controllers\MessageController;
-use App\Http\Controllers\SuggestionController;
+
 use App\Http\Controllers\DashboardController;
 use Illuminate\Http\Request;
 use App\Http\Controllers\PedidoController;
@@ -45,7 +45,7 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::get('/api/suggestions', [SuggestionController::class, 'index']);
+
 
 Route::get('/MyCart', function () {
     return Inertia::render('Cart');
@@ -84,7 +84,7 @@ Route::get('/Ofertas', function () {
     return redirect('/Productos?categoria_id=&en_oferta=solo_ofertas&marca_id=');
 })->name('Ofertas');
 
-Route::get('/Help', function () {
+Route::get('/Ayuda', function () {
     return Inertia::render('Help');
 })->name('Help');
 
@@ -102,7 +102,9 @@ Route::get('/Productos/Crear', function () {
 
 
 
-Route::get('Productos/{producto}', [ProductoController::class, 'show']);
+Route::get('/{producto}', [ProductoController::class, 'show']);
+Route::get('/categoria/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
+Route::get('/marca/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
 
 
 
@@ -111,7 +113,7 @@ Route::get('Productos/{producto}', [ProductoController::class, 'show']);
 Route::get('/Productos/search/{buscar?}', [ProductoController::class, 'search'])->name('productos.search');
 Route::get('/Productos/search', [ProductoController::class, 'search'])->name('productos.search');
 
-Route::get('pp', [ProductoController::class, 'index']);
+
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');

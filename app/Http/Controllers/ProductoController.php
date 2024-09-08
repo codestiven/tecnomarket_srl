@@ -63,9 +63,7 @@ class ProductoController extends Controller
 
 
 
-    /**
-     * Show the form for creating a new resource.
-     */ public function create(Request $request)
+   public function create(Request $request)
     {
         // Validar los datos de entrada
         $request->validate([
@@ -139,17 +137,9 @@ class ProductoController extends Controller
 
 
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
-    }
 
-    /**
-     * Display the specified resource.
-     */
+
+ 
     public function show(Producto $producto)
     {
         // Cargar las relaciones asociadas con el producto
@@ -169,9 +159,7 @@ class ProductoController extends Controller
 
 
 
-    /**
-     * Show the form for editing the specified resource.
-     */
+  
     public function edit(Producto $producto)
     {
         //
@@ -291,6 +279,38 @@ public function update(Request $request, $id)
 
         return response()->json($productos);
     }
+
+    public function redirigirPorCategoria($slugCategoria)
+    {
+        // Buscar la categoría por su nombre (o slug)
+        $categoria = Categoria::where('nombre', $slugCategoria)->first();
+
+        // Si la categoría existe, redirigir a la página de productos con el filtro de la categoría
+        if ($categoria) {
+            return redirect()->route('Productos', [
+                'categoria_id' => $categoria->id,
+                'en_oferta' => '',
+                'marca_id' => ''
+            ]);
+        }
+
+        // Si no se encuentra la categoría, buscar la marca por su nombre
+        $marca = Marca::where('nombre', $slugCategoria)->first();
+
+        // Si la marca existe, redirigir a la página de productos con el filtro de la marca
+        if ($marca) {
+            return redirect()->route('Productos', [
+                'categoria_id' => '',
+                'en_oferta' => '',
+                'marca_id' => $marca->id
+            ]);
+        }
+
+        // Si no se encuentra ni la categoría ni la marca, redirigir a la página de productos sin filtros
+        return redirect()->route('Productos')->with('error', 'No se encontró ninguna categoría o marca con ese nombre.');
+    }
+
+
 
 
     public function Productos(Request $request)

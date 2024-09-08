@@ -1,2 +1,51 @@
 User-agent: *
-Disallow:
+Disallow: /profile
+Disallow: /guardados
+Disallow: /pedidos
+Disallow: /admin
+Disallow: /productos/create
+Disallow: /api/productos/
+Disallow: /Message/
+Disallow: /carousels/
+Disallow: /categorias/
+Disallow: /Marcas/
+Disallow: /guardados/
+Disallow: /Productoliked
+Disallow: /productos/filtrar
+Disallow: /productos/por-ids
+
+Allow: /
+Allow: /Nosotros
+Allow: /Contacto
+Allow: /Ofertas
+Allow: /Ayuda
+Allow: /Productos
+Allow: /Categorias
+Allow: /Marcas
+Allow: /carousels
+Allow: /suggestions
+Allow: /province
+
+# Permitir acceso a rutas específicas para categorías y marcas
+Allow: /categoria/Laptops
+Allow: /categoria/TVS
+Allow: /categoria/Accesorios
+Allow: /categoria/Impresoras
+Allow: /categoria/Celulares
+Allow: /categoria/Tablet
+
+Allow: /marca/Apple
+Allow: /marca/Dell
+Allow: /marca/HP
+Allow: /marca/Lenovo
+Allow: /marca/Acer
+Allow: /marca/Asus
+Allow: /marca/Microsoft
+Allow: /marca/Samsung
+Allow: /marca/MSI
+Allow: /marca/Razer
+Allow: /marca/Alienware
+
+# Permitir acceso a todas las categorías y marcas
+Allow: /categoria/*
+Allow: /marca/*

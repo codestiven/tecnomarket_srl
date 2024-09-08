@@ -346,7 +346,7 @@ onMounted(() => {
   <div class="card">
     <div class="grid-item image">
       <a :href="`/Productos/${product.id}`">
-        <img :src="product.image" alt="Product Image" class="imageUrl" />
+        <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy"  />
       </a>
     </div>
     <div class="grid-item datos">
