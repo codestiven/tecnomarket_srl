@@ -97,7 +97,7 @@ function handleImageError() {
       <div class="Laptos p-8">
         <Link href="/Productos?categoria_id=1&marca_id=&en_oferta=">
         <div class="img">
-          <img src="/images/laptos.png" alt="" />
+          <img src="/images/laptos.png" alt="" loading="lazy"  />
         </div>
         <div class="texto flex justify-end items-center">
           <h1>Laptops</h1>
@@ -108,7 +108,7 @@ function handleImageError() {
       <div class="TV">
         <Link href="/Productos?categoria_id=2&marca_id=&en_oferta=">
         <div>
-          <img src="/images/TV.png" alt="" />
+          <img src="/images/TV.png" alt="" loading="lazy"  />
         </div>
         <div class="texto flex justify-end items-center">
           <h1>TVs</h1>
@@ -118,7 +118,7 @@ function handleImageError() {
       <div class="accesorios">
         <Link href="/Productos?categoria_id=3&marca_id=&en_oferta=">
         <div>
-          <img src="/images/accesorios.png" alt="" />
+          <img src="/images/accesorios.png" alt="" loading="lazy"  />
         </div>
         <div class="texto flex justify-end items-center">
           <h1>Accesorios</h1>
@@ -128,7 +128,7 @@ function handleImageError() {
       <div class="otros flex flex-col md:flex-row items-start">
         <!-- Div con la imagen -->
         <div class="hidden md:flex md:w-1/2 justify-end item_img">
-          <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" />
+          <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" loading="lazy"  />
         </div>
 
         <!-- Div con el texto -->
@@ -148,7 +148,7 @@ function handleImageError() {
     </div>
 
     <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
-    <Servicios />
+    <!-- <Servicios /> -->
 
     <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
     <!-- <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" /> -->
