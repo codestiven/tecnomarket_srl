@@ -5,13 +5,13 @@
             <div class="md:flex md:justify-between">
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
-                        <img src="/images/Logo_white.png" class=" logo" alt="FlowBite Logo" />
+                        <img src="/images/Logo_white.png" class=" logo" alt="FlowBite Logo" loading="lazy"  />
                         <h1 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
                             SRL</h1>
                     </a>
-                    <p class="mt-2 ">Mejoramos y facilitamos cada día<br> la búsqueda y aplicación a pasantías<br> en
-                        toda la
-                        República Dominicana.</p>
+                    <p class="mt-2">Ofrecemos soluciones tecnológicas<br> accesibles para estudiantes y empresas<br> en
+                        toda la República Dominicana.</p>
+
                 </div>
                 <div class="grid grid-cols-2 gap-8 sm:gap-6 sm:grid-cols-3">
                     <!-- <div>

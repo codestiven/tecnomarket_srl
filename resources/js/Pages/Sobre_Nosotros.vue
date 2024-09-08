@@ -20,28 +20,28 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
   <WhatsappButton></WhatsappButton>
 
   <main>
-
     <div class="img_principio">
-      <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+      <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
+        alt="Imagen de la tienda TecnoMarket SRL" loading="lazy"  />
     </div>
 
     <div class="contenido_sobre_nosotros">
-      <Titulo titulo="Quienes Somos" />
+      <Titulo titulo="¿Quiénes Somos?" />
 
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex justify-center items-center">
-          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
+            alt="Equipo de TecnoMarket SRL" loading="lazy"  />
         </div>
         <div class="md:w-1/2 flex justify-center p-5 texto_simple">
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including
-            versions of Lorem Ipsum.
+            TecnoMarket SRL es una tienda especializada en la venta de laptops a bajo costo, tanto nuevas como usadas.
+            Nos ubicamos en Calle Acuario #7, Madre Vieja Norte, Benemérita De San Cristóbal, San Cristóbal, República
+            Dominicana. Desde nuestra fundación en febrero de 2015, hemos trabajado incansablemente para convertirnos en
+            una opción confiable para estudiantes, profesionales y empresas que buscan soluciones tecnológicas a precios
+            accesibles. TecnoMarket se enorgullece de ser una empresa fundada por una mujer emprendedora, cuyo esfuerzo
+            ha permitido que la tienda crezca continuamente. Nuestro compromiso es proporcionar productos de alta
+            calidad y un servicio al cliente excepcional.
           </p>
         </div>
       </div>
@@ -51,48 +51,46 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex justify-center p-5 texto_simple">
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including
-            versions of Lorem Ipsum.
+            En TecnoMarket SRL, nuestro compromiso se basa en ofrecer laptops de alta calidad, tanto nuevas como usadas,
+            a los mejores precios del mercado. Entendemos que cada cliente tiene necesidades únicas, por lo que nos
+            esforzamos en brindar un servicio personalizado para ayudar a cada persona a encontrar la laptop que mejor
+            se ajuste a sus requisitos y presupuesto. Ya sea que necesites una computadora para estudios, trabajo o
+            entretenimiento, en TecnoMarket nos aseguramos de que recibas una opción confiable. Nuestro objetivo es
+            hacer que la tecnología sea accesible para todos, manteniendo una relación cercana y transparente con
+            nuestros clientes.
           </p>
         </div>
 
         <div class="md:w-1/2 flex justify-center items-center">
-          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg" alt="" />
+          <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
+            alt="Servicio al cliente TecnoMarket SRL" loading="lazy"  />
         </div>
       </div>
 
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Mision">
-          <h1>Mision</h1>
+          <h1>Misión</h1>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including
-            versions of Lorem Ipsum.
+            Nuestra misión en TecnoMarket SRL es proporcionar soluciones tecnológicas accesibles a través de la venta de
+            laptops a bajo costo, nuevas y usadas. Creemos que la tecnología debe estar al alcance de todos, y
+            trabajamos para asegurar que nuestros productos no solo sean asequibles, sino también de alta calidad. Nos
+            esforzamos por empoderar a nuestros clientes ofreciéndoles herramientas tecnológicas que mejoren su vida
+            diaria, tanto en el ámbito laboral como en el educativo. Nos comprometemos a ofrecer una atención
+            personalizada y productos que cumplan con los más altos estándares, ayudando así a nuestros clientes a
+            alcanzar sus metas tecnológicas.
           </p>
         </div>
 
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Vision">
-          <h1>Vision</h1>
+          <h1>Visión</h1>
           <p>
-            Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-            Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-            unknown printer took a galley of type and scrambled it to make a type specimen
-            book. It has survived not only five centuries, but also the leap into electronic
-            typesetting, remaining essentially unchanged. It was popularised in the 1960s
-            with the release of Letraset sheets containing Lorem Ipsum passages, and more
-            recently with desktop publishing software like Aldus PageMaker including
-            versions of Lorem Ipsum.
+            En TecnoMarket SRL, nuestra visión es ser la tienda líder en la venta de laptops a bajo costo en la
+            República Dominicana. Nos proyectamos como un negocio confiable, donde nuestros clientes siempre encuentren
+            productos tecnológicos de calidad y un servicio al cliente sobresaliente. Queremos expandir nuestra
+            presencia en todo el país y ser reconocidos por nuestra innovación, integridad y compromiso con la
+            satisfacción del cliente. A medida que crecemos, mantenemos como prioridad seguir ofreciendo laptops tanto
+            nuevas como usadas, que respondan a las necesidades de los estudiantes, emprendedores y empresas,
+            contribuyendo al avance tecnológico de nuestra comunidad.
           </p>
         </div>
       </div>
@@ -100,21 +98,20 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
       <div class="Cliente">
         <Titulo titulo="Servicio al Cliente" />
 
-        <p> Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem
-          Ipsum has been the industry's standard dummy text ever since the 1500s, when an
-          unknown printer took a galley of type and scrambled it to make a type specimen
-          book. It has survived not only five centuries, but also the leap into electronic
-          typesetting, remaining essentially unchanged. It was popularised in the 1960s
-          with the release of Letraset sheets containing Lorem Ipsum passages, and more
-          recently with desktop publishing software like Aldus PageMaker including
-          versions of Lorem Ipsum.</p>
-
-
+        <p>
+          En TecnoMarket SRL, creemos firmemente que un excelente servicio al cliente es lo que nos diferencia. Nos
+          dedicamos a atender cada consulta de manera rápida y eficiente, brindando soluciones personalizadas para cada
+          situación. Ya sea que estés buscando una laptop nueva o usada, nuestro equipo está listo para ofrecerte la
+          mejor opción basada en tus necesidades y presupuesto. Nuestro objetivo es que cada cliente se sienta valorado
+          y satisfecho con su compra. Nos enorgullece recibir comentarios positivos, lo cual refleja nuestro esfuerzo en
+          mantener altos estándares de atención al cliente.
+        </p>
       </div>
 
       <Mapa />
     </div>
   </main>
+
   <Footer />
 </template>
 
