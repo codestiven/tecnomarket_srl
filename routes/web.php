@@ -47,7 +47,7 @@ Route::get('/user', function (Request $request) {
 
 
 
-Route::get('/MyCart', function () {
+Route::get('/MiCarrito', function () {
     return Inertia::render('Cart');
 })->name('Cart');
 
@@ -96,13 +96,13 @@ Route::get('/Productos', [ProductoController::class, 'Productos'])->name('Produc
 
 
 
-Route::get('/Productos/Crear', function () {
-    return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
-}) ;
+// Route::get('/Productos/Crear', function () {
+//     return Inertia::render('Productos/Crear'); // Asegúrate de que el nombre coincida con el componente Vue creado
+// }) ;
 
 
 
-Route::get('/{producto}', [ProductoController::class, 'show']);
+Route::get('/Productos/{producto}', [ProductoController::class, 'show']);
 Route::get('/categoria/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
 Route::get('/marca/{slugCategoria}', [ProductoController::class, 'redirigirPorCategoria']);
 
