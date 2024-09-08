@@ -42,6 +42,8 @@ class GenerateSitemap extends Command
                 ->setPriority(0.7))
             ->add(Url::create('/Ayuda')
                 ->setPriority(0.6))
+            ->add(Url::create('/guardados')
+                ->setPriority(0.6))
             ->add(Url::create('/Productos')
                 ->setPriority(0.9));
 
