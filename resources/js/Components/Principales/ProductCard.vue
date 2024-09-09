@@ -571,10 +571,11 @@ onMounted(() => {
 
 .card .up .image img {
 
-  width: 360px;
+
   object-fit: cover;
   cursor: pointer;
   border-radius: 8px;
+  height: 180px;
 
 
 }
