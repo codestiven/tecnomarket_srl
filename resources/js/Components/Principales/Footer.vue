@@ -7,7 +7,7 @@
                     <a href="/" class="flex items-center">
                         <img src="/images/Logo_white.png" class=" logo" alt="FlowBite Logo" loading="lazy"  />
                         <h1 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
-                            SRL</h1>
+                            </h1>
                     </a>
                     <p class="mt-2">Ofrecemos soluciones tecnológicas<br> accesibles para estudiantes y empresas<br> en
                         toda la República Dominicana.</p>
@@ -61,7 +61,7 @@
             <hr class="my-6 border-gray-200 sm:mx-auto dark:border-gray-700 lg:my-8" />
             <div class="sm:flex sm:items-center sm:justify-between">
                 <div class="text-center mt-2 text-white/70">
-                    &copy; 2024 Tecno Market SRL. Todos los derechos reservados.
+                    &copy; 2024 Tecno Market Todos los derechos reservados.
                 </div>
                 <div class="flex mt-4 sm:justify-center sm:mt-0">
                     <a href="https://www.facebook.com/profile.php?id=100064692615620"

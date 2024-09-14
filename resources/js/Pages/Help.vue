@@ -13,9 +13,9 @@ const faqs = ref([
     open: false,
   },
   {
-    question: "¿Dónde está ubicada la tienda Tecnomarket SRL?",
+    question: "¿Dónde está ubicada la tienda Tecnomarket ?",
     answer:
-      "Tecnomarket SRL está ubicada en C/ Acuario #7, Madre Vieja Norte, San Cristóbal, República Dominicana.",
+      "Tecnomarket está ubicada en C/ Acuario #7, Madre Vieja Norte, San Cristóbal, República Dominicana.",
     open: false,
   },
   {

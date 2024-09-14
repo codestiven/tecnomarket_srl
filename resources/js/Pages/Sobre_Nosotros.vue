@@ -22,7 +22,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
   <main>
     <div class="img_principio">
       <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-        alt="Imagen de la tienda TecnoMarket SRL" loading="lazy"  />
+        alt="Imagen de la tienda TecnoMarket " loading="lazy"  />
     </div>
 
     <div class="contenido_sobre_nosotros">
@@ -31,11 +31,11 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex justify-center items-center">
           <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-            alt="Equipo de TecnoMarket SRL" loading="lazy"  />
+            alt="Equipo de TecnoMarket " loading="lazy"  />
         </div>
         <div class="md:w-1/2 flex justify-center p-5 texto_simple">
           <p>
-            TecnoMarket SRL es una tienda especializada en la venta de laptops a bajo costo, tanto nuevas como usadas.
+            TecnoMarket es una tienda especializada en la venta de laptops a bajo costo, tanto nuevas como usadas.
             Nos ubicamos en Calle Acuario #7, Madre Vieja Norte, Benemérita De San Cristóbal, San Cristóbal, República
             Dominicana. Desde nuestra fundación en febrero de 2015, hemos trabajado incansablemente para convertirnos en
             una opción confiable para estudiantes, profesionales y empresas que buscan soluciones tecnológicas a precios
@@ -51,7 +51,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex justify-center p-5 texto_simple">
           <p>
-            En TecnoMarket SRL, nuestro compromiso se basa en ofrecer laptops de alta calidad, tanto nuevas como usadas,
+            En TecnoMarket , nuestro compromiso se basa en ofrecer laptops de alta calidad, tanto nuevas como usadas,
             a los mejores precios del mercado. Entendemos que cada cliente tiene necesidades únicas, por lo que nos
             esforzamos en brindar un servicio personalizado para ayudar a cada persona a encontrar la laptop que mejor
             se ajuste a sus requisitos y presupuesto. Ya sea que necesites una computadora para estudios, trabajo o
@@ -63,7 +63,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
 
         <div class="md:w-1/2 flex justify-center items-center">
           <img src="https://www.shutterstock.com/image-photo/gdynia-poland-may-1-2023-260nw-2297024239.jpg"
-            alt="Servicio al cliente TecnoMarket SRL" loading="lazy"  />
+            alt="Servicio al cliente TecnoMarket " loading="lazy"  />
         </div>
       </div>
 
@@ -71,7 +71,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Mision">
           <h1>Misión</h1>
           <p>
-            Nuestra misión en TecnoMarket SRL es proporcionar soluciones tecnológicas accesibles a través de la venta de
+            Nuestra misión en TecnoMarket es proporcionar soluciones tecnológicas accesibles a través de la venta de
             laptops a bajo costo, nuevas y usadas. Creemos que la tecnología debe estar al alcance de todos, y
             trabajamos para asegurar que nuestros productos no solo sean asequibles, sino también de alta calidad. Nos
             esforzamos por empoderar a nuestros clientes ofreciéndoles herramientas tecnológicas que mejoren su vida
@@ -84,7 +84,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Vision">
           <h1>Visión</h1>
           <p>
-            En TecnoMarket SRL, nuestra visión es ser la tienda líder en la venta de laptops a bajo costo en la
+            En TecnoMarket , nuestra visión es ser la tienda líder en la venta de laptops a bajo costo en la
             República Dominicana. Nos proyectamos como un negocio confiable, donde nuestros clientes siempre encuentren
             productos tecnológicos de calidad y un servicio al cliente sobresaliente. Queremos expandir nuestra
             presencia en todo el país y ser reconocidos por nuestra innovación, integridad y compromiso con la
@@ -99,7 +99,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
         <Titulo titulo="Servicio al Cliente" />
 
         <p>
-          En TecnoMarket SRL, creemos firmemente que un excelente servicio al cliente es lo que nos diferencia. Nos
+          En TecnoMarket , creemos firmemente que un excelente servicio al cliente es lo que nos diferencia. Nos
           dedicamos a atender cada consulta de manera rápida y eficiente, brindando soluciones personalizadas para cada
           situación. Ya sea que estés buscando una laptop nueva o usada, nuestro equipo está listo para ofrecerte la
           mejor opción basada en tus necesidades y presupuesto. Nuestro objetivo es que cada cliente se sienta valorado
