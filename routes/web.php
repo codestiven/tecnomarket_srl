@@ -89,7 +89,9 @@ Route::get('/Ayuda', function () {
 })->name('Help');
 
 
-
+Route::get('/Help', function () {
+    return Inertia::render('Help');
+})->name('Help');
 
 // productos ----------------------------------------------------------
 Route::get('/Productos', [ProductoController::class, 'Productos'])->name('Productos');

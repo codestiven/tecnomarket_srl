@@ -301,7 +301,7 @@ const processPendingOrder = async () => {
     try {
       const orderData = JSON.parse(pendingOrder);
       const response = await axios.post('/pedidos', orderData);
-    // Mostrar mensaje de éxito
+      // Mostrar mensaje de éxito
       Swal.fire({
         icon: 'success',
         title: 'Éxito',
@@ -369,7 +369,7 @@ onMounted(() => {
       </div>
       <div class="image">
         <a :href="`/Productos/${product.nombre}`">
-          <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy"  />
+          <img :src="product.image" alt="Product Image" class="imageUrl" loading="lazy" />
         </a>
       </div>
     </div>
@@ -381,7 +381,8 @@ onMounted(() => {
           <h1>
             <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
           </h1>
-        </div> <span>( {{ product.stock }} )</span>
+        </div>
+        <!-- <span>( {{ product.stock }} )</span> -->
       </div>
       <div class="marcation">
         <span>{{ product.marca.nombre }} - {{ product.categoria.nombre }}</span>
@@ -422,10 +423,6 @@ onMounted(() => {
 
 
 <style scoped>
-
-
-
-
 * {
   margin: 0;
   padding: 0;
@@ -521,33 +518,74 @@ onMounted(() => {
 
 }
 
-.card .up .up_image .oferta {
-  width: 60%;
-  font-size: 20px;
-  font-weight: bold;
+.card .up .up_image .oferta,
+.card .up .up_image .New {
+  width: 50%;
+  font-size: 0.9rem;
   color: white;
-  background-color: #F36262;
-  padding: 5px 10px;
-  border-radius: 5px;
-
+  padding: 6px 12px;
+  border-radius: 0;
   display: flex;
   align-items: center;
-  gap: 20px;
+  gap: 12px;
+  justify-content: center;
+  clip-path: polygon(0% 0%, 100% 0%, 93% 50%, 100% 100%, 0% 100%);
+
+  border-radius:2px ;
 
 }
 
+.card .up .up_image .oferta {
+  background-color: #F36262;
+}
+
 .card .up .up_image .New {
-  width: 60%;
-  font-size: 20px;
-
-  color: white;
   background-color: #0f7bd4;
-  padding: 5px 10px;
-  border-radius: 5px;
+}
 
-  display: flex;
-  align-items: center;
-  gap: 20px;
+.card .up .up_image .oferta i,
+.card .up .up_image .New i {
+  font-size: 1.1rem;
+  /* Tamaño de ícono ajustado */
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+
+  .card .up .up_image .oferta,
+  .card .up .up_image .New {
+    font-size: 0.85rem;
+    /* Reducir ligeramente el tamaño en pantallas medianas */
+    gap: 10px;
+    padding: 5px 10px;
+    width: 55%;
+    /* Ancho ajustado en pantallas medianas */
+  }
+
+  .card .up .up_image .oferta i,
+  .card .up .up_image .New i {
+    font-size: 1rem;
+    /* Tamaño de ícono ajustado en pantallas medianas */
+  }
+}
+
+@media (max-width: 480px) {
+
+  .card .up .up_image .oferta,
+  .card .up .up_image .New {
+    font-size: 0.8rem;
+    /* Fuente reducida en pantallas pequeñas */
+    gap: 8px;
+    padding: 4px 8px;
+    width: 60%;
+    /* Ancho ajustado en pantallas pequeñas */
+  }
+
+  .card .up .up_image .oferta i,
+  .card .up .up_image .New i {
+    font-size: 0.9rem;
+    /* Ícono reducido en pantallas pequeñas */
+  }
 }
 
 .card .up .up_image .oferta i {
@@ -571,10 +609,11 @@ onMounted(() => {
 
 .card .up .image img {
 
-  width: 360px;
+
   object-fit: cover;
   cursor: pointer;
   border-radius: 8px;
+  height: 180px;
 
 
 }
@@ -596,29 +635,45 @@ onMounted(() => {
   display: flex;
   gap: 3%;
   align-items: center;
-
 }
 
 .card .center .name .nombre {
   max-width: 100%;
-  /* height:30px ; */
-  display: flex;
-
-  /* background-color: aqua; */
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-
-
+  display: block;
+  /* Permite ajuste en varias líneas */
 }
 
 .card .center .name .nombre h1 {
   font-size: 22px;
   font-weight: bold;
   color: #3D3D3D;
+  margin: 0;
+  line-height: 1.2;
+  /* Ajusta el espacio entre líneas */
+  max-width: 100%;
+  max-height: 2.4em;
+  /* Altura máxima para 2 líneas */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* Limita a un máximo de 2 líneas (para navegadores con prefijo webkit) */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
 
-
+  /* Propiedad estándar sin prefijo */
+  display: box;
+  box-orient: vertical;
+  line-clamp: 2;
+  /* Limita a un máximo de 2 líneas (para navegadores modernos) */
 }
+
+.card .center .name .nombre h1 a {
+  text-decoration: none;
+  color: inherit;
+  display: inline;
+}
+
 
 .card .center .name .nombre h1:hover {
   font-weight: bold;
@@ -656,7 +711,7 @@ onMounted(() => {
 }
 
 .price h1 {
-  font-size: 27px;
+  font-size: 25px;
   font-weight: bold;
   white-space: nowrap;
   color: #393939;
@@ -733,6 +788,7 @@ onMounted(() => {
   background-color: #ECECEC;
 
 }
+
 .agregar .fa-solid {
   color: #7B7B7B;
 }
@@ -743,7 +799,7 @@ onMounted(() => {
 
 }
 
-.agregado button:active{
+.agregado button:active {
   color: #ffffff;
   background-color: #8a3333;
 

@@ -142,8 +142,8 @@ class ProductoController extends Controller
 
     public function show($nombre)
     {
-        // Reemplazar los guiones por espacios para hacer coincidir con el nombre en la base de datos
-        $nombre = str_replace('-', ' ', $nombre);
+
+        // $nombre = str_replace('-', ' ', $nombre);
 
         // Buscar el producto por su nombre
         $producto = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
