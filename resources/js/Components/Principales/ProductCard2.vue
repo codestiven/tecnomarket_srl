@@ -357,7 +357,8 @@ onMounted(() => {
 
       <div class="nombre">
         <h1>
-          <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a> <span>( {{ product.stock }} )</span>
+          <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
+           <!-- <span>( {{ product.stock }} )</span> -->
         </h1>
       </div>
       <div class="descripcion">
@@ -453,8 +454,37 @@ onMounted(() => {
 }
 
 .datos .nombre {
-  font-size: 35px;
+  font-size: 2.2rem;
+  /* Tamaño de fuente ajustado para la vista estándar */
   font-weight: bold;
+  margin: 0;
+  line-height: 1.3;
+  /* Ajusta el espacio entre líneas */
+  max-width: 100%;
+  /* Asegura que el texto no se desborde del contenedor */
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  /* Limita a un máximo de 2 líneas */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: normal;
+  /* Permite que el texto se ajuste en múltiples líneas */
+}
+
+/* Media Queries para Responsividad */
+@media (max-width: 768px) {
+  .datos .nombre {
+    font-size: 1.8rem;
+    /* Reduce el tamaño de fuente en pantallas medianas */
+  }
+}
+
+@media (max-width: 480px) {
+  .datos .nombre {
+    font-size: 1.5rem;
+    /* Reduce aún más el tamaño de fuente en pantallas pequeñas */
+  }
 }
 
 .datos .nombre span {
