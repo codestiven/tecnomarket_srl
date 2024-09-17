@@ -44,9 +44,6 @@ class GenerateSitemap extends Command
                 ->setPriority(1.0)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
                 ->setLastModificationDate(Carbon::now()))
-            ->add(Url::create($baseUrl . '/MiCarrito')
-                ->setPriority(0.8)
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY))
             ->add(Url::create($baseUrl . '/Nosotros')
                 ->setPriority(0.8)
                 ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
@@ -111,7 +108,8 @@ class GenerateSitemap extends Command
         $sitemapIndex->add($baseUrl . "/$productosSitemapFile");
 
         // Save the sitemap index
-        $sitemapIndex->writeToFile(public_path('sitemap.xml'));
+        $sitemapIndexFile = 'sitemap.xml';
+        $sitemapIndex->writeToFile(public_path($sitemapIndexFile));
 
         // Generate robots.txt
         $robotsContent = "User-agent: *\n";
@@ -145,6 +143,8 @@ class GenerateSitemap extends Command
         $robotsContent .= "# Permitir acceso a todas las categorías y marcas\n";
         $robotsContent .= "Allow: /categoria/*\n";
         $robotsContent .= "Allow: /marca/*\n";
+        $robotsContent .= "\n";
+        $robotsContent .= "Sitemap: $baseUrl/sitemap.xml\n"; // Añadir referencia al sitemap index
 
         file_put_contents(public_path('robots.txt'), $robotsContent);
 
