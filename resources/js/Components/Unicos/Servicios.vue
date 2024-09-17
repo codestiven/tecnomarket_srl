@@ -1,6 +1,6 @@
 <template>
 
-    <Titulo titulo="Servicios" />
+    <Titulo titulo="Nuestros Servicios" />
 
     <div class="parent">
 

@@ -69,7 +69,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
 
       <div class="quieneSomos md:flex">
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Mision">
-          <h1>Misión</h1>
+          <h4>Misión</h4>
           <p>
             Nuestra misión en TecnoMarket es proporcionar soluciones tecnológicas accesibles a través de la venta de
             laptops a bajo costo, nuevas y usadas. Creemos que la tecnología debe estar al alcance de todos, y
@@ -82,7 +82,7 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
         </div>
 
         <div class="md:w-1/2 flex flex-col items-center justify-center p-5 texto_simple text-left Vision">
-          <h1>Visión</h1>
+          <h4>Visión</h4>
           <p>
             En TecnoMarket , nuestra visión es ser la tienda líder en la venta de laptops a bajo costo en la
             República Dominicana. Nos proyectamos como un negocio confiable, donde nuestros clientes siempre encuentren
@@ -160,8 +160,8 @@ import WhatsappButton from "@/Components/WhatsappButton.vue";
   text-align: justify;
 }
 
-.Mision h1,
-.Vision h1 {
+.Mision h4,
+.Vision h4 {
   color: #ffffff;
   font-size: 50px;
   font-weight: bold;

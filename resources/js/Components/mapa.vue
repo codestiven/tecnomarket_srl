@@ -17,6 +17,6 @@
 .mapa {
   width: 100%;
 
-  margin: 120px 0px 120px 0px;
+  margin: 50px 0px 100px 0px;
 }
 </style>

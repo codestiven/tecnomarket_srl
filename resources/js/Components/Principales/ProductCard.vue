@@ -378,9 +378,9 @@ onMounted(() => {
       <div class="name">
         <div class="nombre">
 
-          <h1>
+          <p>
             <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
-          </h1>
+        </p>
         </div>
         <!-- <span>( {{ product.stock }} )</span> -->
       </div>
@@ -388,11 +388,11 @@ onMounted(() => {
         <span>{{ product.marca.nombre }} - {{ product.categoria.nombre }}</span>
       </div>
       <div class="price" v-if="!product.es_oferta">
-        <h1>RD$ {{ Number(product.precio).toLocaleString() }}</h1>
+        <p>RD$ {{ Number(product.precio).toLocaleString() }}</p>
       </div>
 
       <div class="price" v-else>
-        <h1>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</h1>
+        <p>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</p>
         <span>RD$ {{ Number(product.precio).toLocaleString() }}</span>
       </div>
 
@@ -643,7 +643,7 @@ onMounted(() => {
   /* Permite ajuste en varias líneas */
 }
 
-.card .center .name .nombre h1 {
+.card .center .name .nombre p {
   font-size: 22px;
   font-weight: bold;
   color: #3D3D3D;
@@ -668,14 +668,14 @@ onMounted(() => {
   /* Limita a un máximo de 2 líneas (para navegadores modernos) */
 }
 
-.card .center .name .nombre h1 a {
+.card .center .name .nombre p a {
   text-decoration: none;
   color: inherit;
   display: inline;
 }
 
 
-.card .center .name .nombre h1:hover {
+.card .center .name .nombre p:hover {
   font-weight: bold;
   color: #295f92;
 
@@ -710,7 +710,7 @@ onMounted(() => {
 
 }
 
-.price h1 {
+.price p {
   font-size: 25px;
   font-weight: bold;
   white-space: nowrap;

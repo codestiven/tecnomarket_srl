@@ -16,10 +16,10 @@
         </div>
         <div class="info_nombre">
           <div>
-            <h1>codigo:</h1> <span>{{ producto.id }}</span>
+            <h5>codigo:</h5> <span>{{ producto.id }}</span>
           </div>
           <div>
-            <h1>{{ producto.marca ? producto.marca.nombre : 'Desconocida' }}</h1>
+            <p>{{ producto.marca ? producto.marca.nombre : 'Desconocida' }}</p>
           </div>
         </div>
       </div>
@@ -27,20 +27,20 @@
       <div class="linea"></div>
       <!-- Mostrar solo cuando no hay oferta -->
       <div class="precio" v-if="!producto.es_oferta">
-        <h1>RD$ {{ producto.precio ? Number(producto.precio).toLocaleString() : 'Desconocido' }}</h1>
+        <h4>RD$ {{ producto.precio ? Number(producto.precio).toLocaleString() : 'Desconocido' }}</h4>
       </div>
 
       <!-- Mostrar solo cuando hay oferta -->
       <div class="precio" v-else>
-        <h1>RD$ {{ producto.oferta && producto.oferta.precio_oferta ?
-          Number(producto.oferta.precio_oferta).toLocaleString() : 'Desconocido' }}</h1>
+        <h4>RD$ {{ producto.oferta && producto.oferta.precio_oferta ?
+          Number(producto.oferta.precio_oferta).toLocaleString() : 'Desconocido' }}</h4>
         <span>RD$ {{ producto.precio ? Number(producto.precio).toLocaleString() : 'Desconocido' }}</span>
       </div>
 
       <div class="linea"></div>
       <div class="descripcion">
         <div class="titulo">
-          <h1>descripcion</h1> <span> ( {{ likesCount }} me gusta)</span>
+          <h2>descripcion</h2> <span> ( {{ likesCount }} me gusta)</span>
         </div>
         <div class="subtitulo">{{ producto.categoria ? producto.categoria.nombre : 'Desconocida' }}</div>
         <div class="fecha">Creado en: <span>{{ formattedDate }}</span></div>
@@ -48,7 +48,7 @@
         <div class="descripcion_contenido">
           <p>{{ producto.descripcion ? producto.descripcion : 'No disponible' }} </p>
           <div class="flex items-center gap-2 my-4">
-            <h1 class="text-lg font-medium text-gray-700">Color</h1>
+            <p class="text-lg font-medium text-gray-700">Color</p>
             <span class="text-xl font-bold text-black-600">{{ detallesProducto && detallesProducto.color ?
               detallesProducto.color : 'Desconocido' }}</span>
           </div>
@@ -450,7 +450,7 @@ const handleAddToCart = () => {
 
 }
 
-.contenedor .right .principal .info_nombre>div h1 {
+.contenedor .right .principal .info_nombre>div h4 {
 
   font-weight: bold;
 }
@@ -461,7 +461,7 @@ align-items: center;
   gap: 10px;
 }
 
-.contenedor .right .precio h1{
+.contenedor .right .precio h4{
   font-size: 65px;
   font-weight: bold;
   color: #0B86E7;
@@ -482,7 +482,7 @@ align-items: center;
 
 }
 
-.descripcion .titulo h1 {
+.descripcion .titulo h2 {
   font-size: 1.8rem;
 
   font-weight: 700;

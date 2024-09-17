@@ -150,7 +150,7 @@ const setActiveButton = (buttonType) => {
 
         <!-- Mostrar un mensaje si no hay productos -->
         <div v-if="!cargando && productos.length === 0" class="text-center mt-16">
-          <h1 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h1>
+          <h2 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h2>
         </div>
 
         <!-- Diseño de cuadrícula para los productos -->
@@ -177,7 +177,7 @@ const setActiveButton = (buttonType) => {
               type="button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" aria-hidden="true" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h28"></path>
               </svg>
             </button>
 

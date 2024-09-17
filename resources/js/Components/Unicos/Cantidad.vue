@@ -56,13 +56,13 @@ export default {
     </div>
 
     <div class="contenedor productos" v-if="!error">
-      <h1>Productos</h1>
+      <h3>Productos</h3>
       <div class="cartas">
         <div v-for="categoria in categorias" :key="categoria.id" class="carta">
           <div class="carta_titulo">
-            <h1>{{ categoria.nombre }}</h1>
+            <p>{{ categoria.nombre }}</p>
           </div>
-          <p>{{ categoria.cantidad_productos }}</p>
+          <h4>{{ categoria.cantidad_productos }}</h4>
         </div>
       </div>
     </div>
@@ -96,7 +96,7 @@ export default {
   padding: 25px;
 }
 
-.contenedor .productos > h1 {
+.contenedor .productos > h3 {
   padding: 00px 10px 20px 0px;
   font-size: 25px;
   color: rgb(37, 37, 37);
@@ -104,7 +104,7 @@ export default {
   font-weight: bold;
 }
 
-.contenedor .productos > h1::after {
+.contenedor .productos > h3::after {
   content: "";
   display: block;
   width: 60%;
@@ -134,11 +134,11 @@ export default {
   
 }
 
-.contenedor .productos .carta h1 {
+.contenedor .productos .carta p {
   margin: 0;
 }
 
-.contenedor .productos .carta p {
+.contenedor .productos .carta h4 {
   background-color: #c2c2c2;
   color: #585858;
   border-radius: 100px;

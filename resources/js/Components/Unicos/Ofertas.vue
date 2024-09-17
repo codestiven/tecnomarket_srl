@@ -1,8 +1,9 @@
 <template>
   <div class="container">
     <div class="titulo">
-      <h1>Encuentra tu producto ideal</h1>
+      <h3>Oferta especial</h3>
       <h2>Explora las mejores ofertas en laptops y accesorios de tecnología.</h2>
+
     </div>
     <div class="swiper-container">
       <!-- Custom Previous Button -->
@@ -11,7 +12,7 @@
       </button>
 
       <!-- Swiper Component -->
-      <swiper ref="swiper" :pagination="true" :slides-per-view="1" :space-between="0" :loop="true" :autoplay="autoplay"
+      <swiper  ref="swiper" :pagination="true" :slides-per-view="1" :space-between="0" :loop="true" :autoplay="autoplay"
         :modules="modules" :breakpoints="breakpoints" class="mySwiper" @swiper="onSwiper">
         <swiper-slide v-for="(product, index) in products" :key="index">
           <ProductCard :product="product" />
@@ -23,11 +24,11 @@
         <i class="fas fa-chevron-right"></i>
       </button>
     </div>
-    <div class="ver-mas">
+    <!-- <div class="ver-mas">
       <button @click="irAPasantias">
         <a href="/Productos">Ver todos los productos</a>
       </button>
-    </div>
+    </div> -->
   </div>
 </template>
 
@@ -111,15 +112,20 @@ export default {
         slidesPerView: 1,
         spaceBetween: 20,
       },
-      768: {
-        slidesPerView: 2,
+      900: {
+        slidesPerView: 3,
         spaceBetween: 30,
       },
       1024: {
-        slidesPerView: 3,
+        slidesPerView: 4,
         spaceBetween: 40,
       },
+      1800: { // O simplemente podrías usar 1024 como un punto de referencia
+        slidesPerView: 5,
+        spaceBetween: 50, // Ajusta el espacio entre slides si es necesario
+      },
     };
+
 
     return {
       slideNext,
@@ -146,7 +152,7 @@ export default {
 
 .container {
   width: 100%;
-  margin: 100px auto;
+  margin: 30px auto;
 background: rgb(106, 180, 227);
   background: linear-gradient(132deg, rgba(106, 180, 227, 1) 20%, rgba(81, 122, 167, 1) 100%);
   padding: 20px;
@@ -164,6 +170,7 @@ background: rgb(106, 180, 227);
   width: 100%;
   height: 300px;
   flex-grow: 1;
+
 }
 
 .swiper-slide {
@@ -192,6 +199,7 @@ background: rgb(106, 180, 227);
   display: flex;
   align-items: center;
   justify-content: center;
+  margin: 0px -20px;
 }
 
 .prev-button {
@@ -215,7 +223,7 @@ background: rgb(106, 180, 227);
   height: auto;
   display: flex;
   align-items: center;
-  margin-top: 50px;
+  margin-top: 10px;
 }
 
 .mySwiper {
@@ -240,32 +248,17 @@ background: rgb(106, 180, 227);
   justify-content: space-between;
   height: 230px;
   width: 100%;
-  margin-right: 20px;
+  /* margin-right: 20px; */
 }
 
 .slide-content:last-child {
   margin-right: 0;
 }
 
-.slide-content .header {
-  display: flex;
-  align-items: center;
-  margin-bottom: 1rem;
-}
 
 
 
-.slide-content .title {
-  font-size: 1.25rem;
-  font-weight: bold;
-  color: #1d1d1d;
-}
 
-.slide-content .company {
-  font-size: 1rem;
-  color: #777;
-  margin-bottom: 0.5rem;
-}
 
 .slide-content .content {
   font-size: 1rem;
@@ -312,19 +305,13 @@ background: rgb(106, 180, 227);
   background-color: rgba(0, 0, 0, 0.7);
 }
 
-.cantidad_vacantes {
-  margin-top: 50px;
-  background-color: #f0f0f0;
-  display: flex;
-  flex-direction: column;
-  padding: 50px 60px;
-}
+
 
 .titulo {
   text-align: center;
 }
 
-.titulo h1 {
+.titulo h3 {
   color: #ffffff;
   font-weight: bold;
   font-size: 40px;
@@ -333,15 +320,9 @@ background: rgb(106, 180, 227);
 .titulo h2 {
   color: #1d1d1d;
   font-weight: bold;
-  font-size: 25px;
+  font-size: 20px;
 }
 
-.carousel-container {
-  margin: 0 auto;
-  max-width: 90%;
-  position: relative;
-  margin-top: 40px;
-}
 
 .vacancies-swiper {
   width: 100%;
@@ -350,8 +331,7 @@ background: rgb(106, 180, 227);
 .ver-mas {
   display: flex;
   justify-content: center;
-  margin-top: 40px;
-  margin-bottom: 60px;
+  margin: 20px 0 10px;
 }
 
 .ver-mas button {

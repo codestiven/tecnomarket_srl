@@ -91,16 +91,16 @@ function handleImageError() {
     <Carruser></Carruser>
 
     <!-- -----------------------------------------------------  productos ------------------------------------ -->
-    <Titulo titulo="Productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
+    <Titulo titulo="Catalogo de productos" subtitulo="Todos nuestros productos a solo un click de tus manos" />
 
     <div class="productos">
       <div class="Laptos p-8">
         <Link href="/Productos?categoria_id=1&marca_id=&en_oferta=">
         <div class="img">
-          <img src="/images/laptos.png" alt="" loading="lazy"  />
+          <img src="/images/laptos.png" alt="" loading="lazy" />
         </div>
         <div class="texto flex justify-end items-center">
-          <h1>Laptops</h1>
+          <h3>Laptops</h3>
         </div>
         </Link>
       </div>
@@ -108,63 +108,68 @@ function handleImageError() {
       <div class="TV">
         <Link href="/Productos?categoria_id=2&marca_id=&en_oferta=">
         <div>
-          <img src="/images/TV.png" alt="" loading="lazy"  />
+          <img src="/images/TV.png" alt="" loading="lazy" />
         </div>
         <div class="texto flex justify-end items-center">
-          <h1>TVs</h1>
+          <h3>TVs</h3>
         </div>
         </Link>
       </div>
       <div class="accesorios">
         <Link href="/Productos?categoria_id=3&marca_id=&en_oferta=">
         <div>
-          <img src="/images/accesorios.png" alt="" loading="lazy"  />
+          <img src="/images/accesorios.png" alt="" loading="lazy" />
         </div>
         <div class="texto flex justify-end items-center">
-          <h1>Accesorios</h1>
+          <h3>Accesorios</h3>
         </div>
         </Link>
       </div>
       <div class="otros flex flex-col md:flex-row items-start">
         <!-- Div con la imagen -->
         <div class="hidden md:flex md:w-1/2 justify-end item_img">
-          <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" loading="lazy"  />
+          <img src="/images/dipositivos.png" alt="" class="max-w-full h-auto" loading="lazy" />
         </div>
 
         <!-- Div con el texto -->
         <div class="md:w-1/2 tt">
-          <h1 class="text-3xl font-bold mb-4">Otros</h1>
+          <h3 class="text-3xl font-bold mb-4">Otros</h3>
           <p>
             Descubre nuestra variedad de laptops, TVs y accesorios de calidad. Encuentra los mejores productos
             tecnológicos en República Dominicana. ¡No olvides explorar nuestra sección de 'Otros' para ofertas
             exclusivas!
             Calidad y precio insuperables, justo aquí. ¡Compra hoy mismo!
           </p>
-          <boton1>
-            <Link href="/Productos?categoria_id=&marca_id=&en_oferta=">Ver más</Link>
-          </boton1>
+          <div class="boton1">
+            <boton1>
+              <Link href="/Productos?categoria_id=&marca_id=&en_oferta=">Ver más</Link>
+            </boton1>
+          </div>
         </div>
       </div>
     </div>
 
-    <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
-    <!-- <Servicios /> -->
+
+
+    <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
+
+    <Destacados />
 
     <!-- ----------------------------------------------------- Ofertas ------------------------------------ -->
-    <!-- <Titulo titulo="Nuevas Ofertas" :mostrarLinea="false" /> -->
+
     <Ofertas />
+
+    <!-- -----------------------------------------------------  Servicios ------------------------------------ -->
+    <Servicios />
 
     <!-- -----------------------------------------------------  motivacion ------------------------------------ -->
     <div class="motivacion">
       <div class="overlay">
-        <h1>Estamos aquí para ti</h1>
+        <h3>Estamos aquí para ti</h3>
       </div>
     </div>
 
-    <!-- -----------------------------------------------------  Destacados ------------------------------------ -->
-    <Titulo titulo="Artículos Destacados"
-      subtitulo="Laptop      Accesorios      TV     Mouse   Teclado   audífonos   otros" :mostrarLinea="false" />
-    <Destacados />
+
 
     <!-- -----------------------------------------------------  mapa ------------------------------------ -->
     <Titulo titulo="Donde nos encontramos" :mostrarLinea="false" />
@@ -187,7 +192,7 @@ function handleImageError() {
   grid-template-rows: repeat(2, 1fr);
   grid-column-gap: 50px;
   grid-row-gap: 50px;
-  padding: 0px 120px;
+  padding: 0px 70px;
 }
 
 /* Animación de rebote */
@@ -251,19 +256,17 @@ function handleImageError() {
   animation: bounceIn 0.5s ease-out;
 }
 
-.productos > div {
+.productos>div {
   background-image: url("/images/fondos_cuadros.jpg");
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-position: center;
   text-align: center;
-
   font-size: 30px;
-
-  border-radius: 40px;
-
-  color: #fff;
-  font-size: 35px;
   font-weight: bold;
-  padding:  30px;
-  
+  padding: 20px;
+  border-radius: 40px;
+  color: #fff;
 }
 
 .productos .img img {
@@ -272,21 +275,23 @@ function handleImageError() {
   max-height: 270px;
 }
 
-.productos > .img:hover {
+.productos>.img:hover {
   transform: scale(1.05);
   color: #ffffff;
 }
 
-.productos > div:hover img {
+.productos>div:hover img {
   transform: scale(1.3);
   color: #962727;
   font-size: 40px;
 }
+
 .productos {
   display: grid;
-  grid-template-columns: repeat(3, 1fr); /* Tres columnas */
-  grid-template-rows: auto; /* Altura automática según el contenido */
-  grid-gap: 30px; 
+  grid-template-columns: repeat(3, 1fr);
+  /* Tres columnas */
+  grid-template-rows: auto;
+  grid-gap: 30px;
 
 }
 
@@ -310,7 +315,7 @@ function handleImageError() {
 }
 
 .productos .otros p {
-  font-size: 20px;
+  font-size: 21px;
   font-weight: 100;
 
   margin-bottom: 20px;
@@ -333,21 +338,25 @@ function handleImageError() {
 }
 
 .productos .otros:hover .item_img img {
- 
+
   transform: scale(1.7) translateX(55px);
 }
 
-.productos .otros:hover .tt h1{
- 
-  transform: scale(1.2) ;
+.productos .otros:hover .tt h3 {
+
+  transform: scale(1.2);
 }
 
 @media (max-width: 768px) {
   .productos {
-    grid-template-columns: 1fr; /* Una sola columna */
-    grid-template-rows: auto; /* Altura automática según el contenido */
-    grid-gap: 20px; /* Espacio entre las celdas */
-    padding: 0 20px; /* Ajuste de padding */
+    grid-template-columns: repeat(2, 1fr);
+
+    grid-template-rows: auto;
+
+    grid-gap: 20px;
+    /* Espacio entre las celdas */
+    padding: 0 20px;
+    /* Ajuste de padding */
   }
 
   .productos .Laptos,
@@ -355,8 +364,47 @@ function handleImageError() {
   .productos .accesorios,
   .productos .otros {
     grid-area: auto;
-    overflow: hidden; /* Resetear las áreas grid */
+    overflow: hidden;
+    /* Resetear las áreas grid */
   }
+
+.productos .otros {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.productos .otros h3{
+  margin: 0 auto;
+
+}
+.productos .otros p {
+  margin: 0 auto;
+
+display: none;
+}
+
+.productos .otros .boton1 {
+  margin: 10px 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+
+}
+
+.productos .otros a {
+  display: inline-block;
+  text-decoration: none;
+
+  /* Cambia esto al color que prefieras */
+  color: white;
+  /* Cambia esto al color del texto que prefieras */
+  padding: 0.5rem 1rem;
+  border-radius: 0.25rem;
+}
+
+
 }
 
 
@@ -390,16 +438,11 @@ function handleImageError() {
   color: white;
 }
 
-.motivacion h1 {
+.motivacion h3 {
   font-size: 70px;
   letter-spacing: 6px;
 
   font-weight: bold;
   text-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
 }
-
-
-
-
-
 </style>

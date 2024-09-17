@@ -356,10 +356,10 @@ onMounted(() => {
       </div>
 
       <div class="nombre">
-        <h1>
+        <p>
           <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
            <!-- <span>( {{ product.stock }} )</span> -->
-        </h1>
+        </p>
       </div>
       <div class="descripcion">
         <p> {{ product.descripcion }}
@@ -381,8 +381,8 @@ onMounted(() => {
         </button>
       </div>
       <div class="precio">
-        <h1 v-if="!product.es_oferta">RD$ {{ Number(product.precio).toLocaleString() }}</h1>
-        <h1 v-else>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</h1>
+        <p v-if="!product.es_oferta">RD$ {{ Number(product.precio).toLocaleString() }}</p>
+        <p v-else>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</p>
       </div>
       <div class="compra"> <button class="comprar" @click="handlePurchase"> <i class="fa-solid fa-basket-shopping"></i>
           comprar</button></div>

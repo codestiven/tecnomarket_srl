@@ -7,7 +7,7 @@
                 <div class="slide-content">
                     <img :src="slide.image" alt="Slide Image" class="slide-image" loading="lazy" >
                     <div class="slide-text">
-                        <h1 class="slide-title">{{ slide.title }}</h1>
+                        <h2 class="slide-title">{{ slide.title }}</h2>
                         <p class="slide-description">{{ slide.description }}</p>
                         <a v-if="slide.link" :href="slide.link" class="view-more-link">Ver más</a>
 
@@ -143,7 +143,7 @@ export default {
 
 .slide-image {
     width: 100%;
-    height: auto;
+    height: 100%;
     object-fit: cover;
 }
 
