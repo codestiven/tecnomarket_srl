@@ -4,8 +4,12 @@ namespace App\Console\Commands;
 
 use Illuminate\Console\Command;
 use Spatie\Sitemap\Sitemap;
+use Spatie\Sitemap\SitemapIndex;
 use Spatie\Sitemap\Tags\Url;
 use App\Models\Producto;
+use App\Models\Categoria;
+use App\Models\Marca;
+use Carbon\Carbon;
 
 class GenerateSitemap extends Command
 {
@@ -21,45 +25,129 @@ class GenerateSitemap extends Command
      *
      * @var string
      */
-    protected $description = 'Generate the sitemap for the website including productos';
+    protected $description = 'Generate an advanced sitemap with filters like categoria, marca, and oferta';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        // Crear un nuevo sitemap
-        $sitemap = Sitemap::create()
-            ->add(Url::create('/')
-                ->setPriority(1.0))
-            ->add(Url::create('/MiCarrito')
-                ->setPriority(0.8))
-            ->add(Url::create('/Nosotros')
-                ->setPriority(0.8))
-            ->add(Url::create('/Contacto')
-                ->setPriority(0.7))
-            ->add(Url::create('/Ofertas')
-                ->setPriority(0.7))
-            ->add(Url::create('/Ayuda')
-                ->setPriority(0.6))
-            ->add(Url::create('/guardados')
-                ->setPriority(0.6))
-            ->add(Url::create('/Productos')
-                ->setPriority(0.9));
+        // Obtener el dominio base de la aplicación desde el archivo .env
+        $baseUrl = config('app.url'); // Asegúrate de que APP_URL esté correctamente configurado en tu .env
 
-        // Obtener los productos desde la base de datos usando el modelo Producto
-        $productos = Producto::all();
+        // Create a sitemap index
+        $sitemapIndex = SitemapIndex::create();
 
-        // Agregar cada producto al sitemap
-        foreach ($productos as $producto) {
-            $sitemap->add(Url::create("/Productos/{$producto->nombre}")
-                ->setPriority(0.9)
-                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)); // Opcional: frecuencia de cambio
+        // General site pages sitemap
+        $generalSitemap = Sitemap::create()
+            ->add(Url::create($baseUrl . '/')
+                ->setPriority(1.0)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY)
+                ->setLastModificationDate(Carbon::now()))
+            ->add(Url::create($baseUrl . '/MiCarrito')
+                ->setPriority(0.8)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_DAILY))
+            ->add(Url::create($baseUrl . '/Nosotros')
+                ->setPriority(0.8)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+            ->add(Url::create($baseUrl . '/Contacto')
+                ->setPriority(0.7)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_YEARLY));
+
+        // Save the general sitemap
+        $generalSitemapFile = 'sitemap-general.xml';
+        $generalSitemap->writeToFile(public_path($generalSitemapFile));
+        $sitemapIndex->add($baseUrl . "/$generalSitemapFile");
+
+        // Filtrando productos por categoría, marca y ofertas
+        $productosSitemap = Sitemap::create();
+        $categorias = Categoria::all();
+        $marcas = Marca::all();
+
+        // Filtro por categoría
+        foreach ($categorias as $categoria) {
+            $productosByCategoria = Producto::where('categoria_id', $categoria->id)->get();
+
+            foreach ($productosByCategoria as $producto) {
+                $productosSitemap->add(Url::create($baseUrl . "/Productos?categoria_id={$categoria->id}&producto={$producto->slug}")
+                    ->setPriority(0.8)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setLastModificationDate($producto->updated_at ?? Carbon::now()));
+            }
         }
 
-        // Guardar el sitemap en un archivo
-        $sitemap->writeToFile(public_path('sitemap.xml'));
+        // Filtro por marca
+        foreach ($marcas as $marca) {
+            $productosByMarca = Producto::where('marca_id', $marca->id)->get();
 
-        $this->info('Sitemap generado con éxito, incluyendo productos.');
+            foreach ($productosByMarca as $producto) {
+                $productosSitemap->add(Url::create($baseUrl . "/Productos?marca_id={$marca->id}&producto={$producto->slug}")
+                    ->setPriority(0.8)
+                    ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                    ->setLastModificationDate($producto->updated_at ?? Carbon::now()));
+            }
+        }
+
+        // Filtro por ofertas
+        $productosEnOferta = Producto::where('es_oferta', 1)->get();
+        foreach ($productosEnOferta as $producto) {
+            $productosSitemap->add(Url::create($baseUrl . "/Productos?en_oferta=solo_ofertas&producto={$producto->slug}")
+                ->setPriority(0.9)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                ->setLastModificationDate($producto->updated_at ?? Carbon::now()));
+        }
+
+        $productosSinOferta = Producto::where('es_oferta', 0)->get();
+        foreach ($productosSinOferta as $producto) {
+            $productosSitemap->add(Url::create($baseUrl . "/Productos?en_oferta=sin_ofertas&producto={$producto->slug}")
+                ->setPriority(0.7)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_WEEKLY)
+                ->setLastModificationDate($producto->updated_at ?? Carbon::now()));
+        }
+
+        // Save the productos sitemap
+        $productosSitemapFile = 'sitemap-productos.xml';
+        $productosSitemap->writeToFile(public_path($productosSitemapFile));
+        $sitemapIndex->add($baseUrl . "/$productosSitemapFile");
+
+        // Save the sitemap index
+        $sitemapIndex->writeToFile(public_path('sitemap.xml'));
+
+        // Generate robots.txt
+        $robotsContent = "User-agent: *\n";
+        $robotsContent .= "Disallow: /profile\n";
+        $robotsContent .= "Disallow: /guardados\n";
+        $robotsContent .= "Disallow: /pedidos\n";
+        $robotsContent .= "Disallow: /admin\n";
+        $robotsContent .= "Disallow: /productos/create\n";
+        $robotsContent .= "Disallow: /api/productos/\n";
+        $robotsContent .= "Disallow: /Message/\n";
+        $robotsContent .= "Disallow: /carousels/\n";
+        $robotsContent .= "Disallow: /categorias/\n";
+        $robotsContent .= "Disallow: /Marcas/\n";
+        $robotsContent .= "Disallow: /guardados/\n";
+        $robotsContent .= "Disallow: /Productoliked\n";
+        $robotsContent .= "Disallow: /productos/filtrar\n";
+        $robotsContent .= "Disallow: /productos/por-ids\n";
+        $robotsContent .= "\n";
+        $robotsContent .= "Allow: /\n";
+        $robotsContent .= "Allow: /Nosotros\n";
+        $robotsContent .= "Allow: /Contacto\n";
+        $robotsContent .= "Allow: /Ofertas\n";
+        $robotsContent .= "Allow: /Ayuda\n";
+        $robotsContent .= "Allow: /Productos\n";
+        $robotsContent .= "Allow: /Categorias\n";
+        $robotsContent .= "Allow: /Marcas\n";
+        $robotsContent .= "Allow: /carousels\n";
+        $robotsContent .= "Allow: /suggestions\n";
+        $robotsContent .= "Allow: /province\n";
+        $robotsContent .= "\n";
+        $robotsContent .= "# Permitir acceso a todas las categorías y marcas\n";
+        $robotsContent .= "Allow: /categoria/*\n";
+        $robotsContent .= "Allow: /marca/*\n";
+
+        file_put_contents(public_path('robots.txt'), $robotsContent);
+
+        $this->info('Sitemap and robots.txt generated successfully with product filters and clickable links.');
     }
 }

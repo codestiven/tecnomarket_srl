@@ -30,7 +30,7 @@
                     :class="{ 'border-red-500': errors.image }" accept="image/*">
 
                 <img v-if="previewImage" :src="previewImage" class="mt-2 h-40 w-40 object-cover" alt="Preview"
-                    loading="lazy" >
+                 >
                 <span v-if="errors.image" class="text-red-500 text-sm">{{ errors.image }}</span>
             </div>
 
@@ -40,8 +40,8 @@
         <div v-for="carousel in carousels" :key="carousel.id" class="bg-white p-4 rounded shadow-md mb-4 flex-1">
             <div class="flex items-center">
                 <img :src="`${carousel.image}`" class="h-20 w-20 object-cover mr-4" alt="Imagen Carrusel"
-                    loading="lazy" >
-                <div class="flex-1" loading="lazy" >
+                   >
+                <div class="flex-1">
                     <h2 class="text-lg font-bold">{{ carousel.title }}</h2>
                     <p>{{ carousel.description }}</p>
                     <p v-if="carousel.link"><a :href="carousel.link" class="text-blue-500">Enlace</a></p>
