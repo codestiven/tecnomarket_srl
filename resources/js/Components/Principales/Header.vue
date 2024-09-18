@@ -7,6 +7,27 @@ import badges from "@/Components/badges.vue";
 import axios from "axios";
 import Swal from 'sweetalert2';
 
+function handleClick() {
+  axios.get('/user')
+    .then(response => {
+      window.location.href = route('guardados.index');
+    })
+    .catch(error => {
+      if (error.response && error.response.status === 401) {
+        // Si la respuesta es 401, mostrar alerta
+        Swal.fire({
+          title: 'No estás registrado',
+          text: 'Para ver los productos guardados primero debes iniciar sesión.',
+          icon: 'warning',
+          confirmButtonText: 'OK'
+        });
+      } else {
+        console.error('Error al verificar el estado de autenticación:', error);
+      }
+    });
+}
+
+
 const open = ref(false);
 
 const props = defineProps({
@@ -48,9 +69,9 @@ async function fetchGuardadosCount() {
   } catch (error) {
     if (error.response && error.response.status === 401) {
       // Maneja la redirección o el mensaje de error aquí
-      console.error('No autorizado. Por favor, inicia sesión.');
+      console.log('No autorizado. Por favor, inicia sesión.');
     } else {
-      console.error('Error al obtener la cantidad de elementos guardados:', error);
+      console.log('Error al obtener la cantidad de elementos guardados:', error);
     }
     guardadosCount.value = 0;
   }
@@ -180,12 +201,13 @@ onMounted(() => {
 
 
         <badges class="badges" :badge-number="guardadosCount">
-          <Link :href="route('guardados.index')">
-          <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-            <path
-              d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
-          </svg>
-          </Link>
+          <button @click="handleClick">
+            <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+              <path
+                d="M47.6 300.4L228.3 469.1c7.5 7 17.4 10.9 27.7 10.9s20.2-3.9 27.7-10.9L464.4 300.4c30.4-28.3 47.6-68 47.6-109.5v-5.8c0-69.9-50.5-129.5-119.4-141C347 36.5 300.6 51.4 268 84L256 96 244 84c-32.6-32.6-79-47.5-124.6-39.9C50.5 55.6 0 115.2 0 185.1v5.8c0 41.5 17.2 81.2 47.6 109.5z" />
+            </svg>
+          </button>
+          
         </badges>
         <badges class="badges" :badge-number="cartCount">
           <Link :href="route('Cart')">

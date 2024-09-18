@@ -199,7 +199,7 @@ background: rgb(106, 180, 227);
   display: flex;
   align-items: center;
   justify-content: center;
-  margin: 0px -20px;
+  margin: 0px -25px;
 }
 
 .prev-button {
