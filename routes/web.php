@@ -164,6 +164,21 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 
+//servicios
+
+Route::get('/Financiamiento', function () {
+    return Inertia::render('Servicios/Financiamiento');
+})->name('Financiamiento');
+
+Route::get('/Garantia', function () {
+    return Inertia::render('Servicios/Garantia');
+})->name('Garantia');
+
+Route::get('/Soporte_tecnico', function () {
+    return Inertia::render('Servicios/Soporte_tecnico');
+})->name('Soporte_tecnico');
+
+
 
 
 

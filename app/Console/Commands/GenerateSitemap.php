@@ -107,6 +107,23 @@ class GenerateSitemap extends Command
         $productosSitemap->writeToFile(public_path($productosSitemapFile));
         $sitemapIndex->add($baseUrl . "/$productosSitemapFile");
 
+        // Creación del sitemap de servicios
+        $serviciosSitemap = Sitemap::create()
+            ->add(Url::create($baseUrl . '/Financiamiento')
+                ->setPriority(0.8)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+            ->add(Url::create($baseUrl . '/Garantia')
+                ->setPriority(0.8)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY))
+            ->add(Url::create($baseUrl . '/Soporte_tecnico')
+                ->setPriority(0.8)
+                ->setChangeFrequency(Url::CHANGE_FREQUENCY_MONTHLY));
+
+        // Guardar el sitemap de servicios
+        $serviciosSitemapFile = 'sitemap-servicios.xml';
+        $serviciosSitemap->writeToFile(public_path($serviciosSitemapFile));
+        $sitemapIndex->add($baseUrl . "/$serviciosSitemapFile");
+
         // Save the sitemap index
         $sitemapIndexFile = 'sitemap.xml';
         $sitemapIndex->writeToFile(public_path($sitemapIndexFile));
@@ -148,6 +165,6 @@ class GenerateSitemap extends Command
 
         file_put_contents(public_path('robots.txt'), $robotsContent);
 
-        $this->info('Sitemap and robots.txt generated successfully with product filters and clickable links.');
+        $this->info('Sitemap and robots.txt generated successfully with product and service filters.');
     }
 }

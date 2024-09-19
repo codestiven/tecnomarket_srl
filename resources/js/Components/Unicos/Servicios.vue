@@ -4,17 +4,49 @@
 
     <div class="parent">
 
-        <div class="child-3">
-            Hijo 1 (3/12)
+        <div
+            class="child-3 group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+            <img src="/images/Soporte tecnico.jpg" alt="Soporte tecnico"
+                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+            <Link :href="route('Soporte_tecnico')"
+                class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
+            <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Soporte Técnico</h2>
+            <p class="text-white text-xl md:text-2xl drop-shadow-md">Atención y solución de problemas técnicos.</p>
+            </Link>
+
+
+
         </div>
 
+
+
+
         <div class="child-9">
-            <div class="child-9-half child-9-half-1">
-                Hijo 2.1 (1/2)
+            <div
+                class="child-9-half group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+                <img src="/images/Financiamiento.jpg" alt="Financiamiento Disponible"
+                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+                <Link :href="route('Financiamiento')"
+                    class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
+                <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Financiamiento
+                    Disponible</h2>
+                <p class="text-white text-xl md:text-2xl drop-shadow-md">Oportunidades de crédito a tu alcance.</p>
+                </Link>
+
             </div>
-            <div class="child-9-half child-9-half-2">
-                Hijo 2.2 (1/2)
+
+            <div
+                class="child-9-half child-9-half-2 group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
+                <img src="/images/Garantia.jpg" alt="Garantia"
+                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+                <Link :href="route('Garantia')"
+                    class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
+                <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Garantía</h2>
+                <p class="text-white text-xl md:text-2xl drop-shadow-md">Cobertura y soporte de calidad asegurada.
+                </p>
+                </Link>
             </div>
+
         </div>
 
     </div>
@@ -22,6 +54,7 @@
 
 <script setup>
 import Titulo from "@/Components/Titulos.vue";
+import { Link } from "@inertiajs/vue3";
 
 </script>
 
@@ -37,11 +70,12 @@ import Titulo from "@/Components/Titulos.vue";
 
 .child-3 {
     grid-column: span 4;
-    background-color: #f87171;
+    background-color: #1c2c41;
     display: flex;
     align-items: center;
     justify-content: center;
     border-radius: 40px;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 
 
 }
@@ -53,6 +87,7 @@ import Titulo from "@/Components/Titulos.vue";
     gap: 30px;
     padding: 10px;
 
+
 }
 
 .child-9-half {
@@ -61,6 +96,8 @@ import Titulo from "@/Components/Titulos.vue";
     align-items: center;
     justify-content: center;
     border-radius: 40px;
+    background-color: #929937;
+    text-shadow: 5px 5px 10px rgba(0, 0, 0, 0.5);
 }
 
 .child-9-half-1 {
@@ -68,7 +105,7 @@ import Titulo from "@/Components/Titulos.vue";
 }
 
 .child-9-half-2 {
-    background-color: #34d399;
+    background-color: #1f491d;
 }
 
 @media (max-width: 768px) {
