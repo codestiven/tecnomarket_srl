@@ -53,3 +53,7 @@ Route::get('/carousels/{id}', [CarouselController::class, 'show']);
 
 // Rutas de Provincias
 Route::get('/province', [ProvinciaController::class, 'index']);
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');

@@ -386,5 +386,20 @@ public function update(Request $request, $id)
     }
 
 
+    public function showFinancingForm($id)
+    {
+        // Buscar el producto por ID
+        $product = Producto::findOrFail($id);
+
+        // Añadir la URL completa de la imagen
+        $product->image = Storage::url($product->image);
+
+        // Retornar la vista con Inertia y pasar los datos del producto
+        return inertia('FinancingForm', [
+            'product' => $product
+        ]);
+    }
+
+
 
 }

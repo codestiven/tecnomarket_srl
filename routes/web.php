@@ -179,6 +179,7 @@ Route::get('/Soporte_tecnico', function () {
 })->name('Soporte_tecnico');
 
 
+Route::get('/solicitud-financiamiento/{id}', [ProductoController::class, 'showFinancingForm']);
 
 
 
