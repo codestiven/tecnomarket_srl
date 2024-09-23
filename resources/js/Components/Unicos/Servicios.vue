@@ -7,7 +7,8 @@
         <div
             class="child-3 group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
             <img src="/images/Soporte tecnico.jpg" alt="Soporte tecnico"
-                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+                class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300"
+                loading="lazy" />
             <Link :href="route('Soporte_tecnico')"
                 class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
             <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Soporte Técnico</h2>
@@ -25,7 +26,8 @@
             <div
                 class="child-9-half group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
                 <img src="/images/Financiamiento.jpg" alt="Financiamiento Disponible"
-                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300"
+                    loading="lazy" />
                 <Link :href="route('Financiamiento')"
                     class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
                 <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Financiamiento
@@ -38,7 +40,8 @@
             <div
                 class="child-9-half child-9-half-2 group relative overflow-hidden rounded-lg shadow-lg hover:shadow-2xl transition duration-300 transform hover:scale-105 cursor-pointer">
                 <img src="/images/Garantia.jpg" alt="Garantia"
-                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300" />
+                    class="absolute inset-0 w-full h-full object-cover opacity-60 group-hover:opacity-70 transition duration-300"
+                    loading="lazy" />
                 <Link :href="route('Garantia')"
                     class="relative z-10 text-center p-4 flex flex-col items-center justify-center w-full h-full">
                 <h2 class="text-white text-3xl md:text-4xl font-extrabold mb-2 drop-shadow-md">Garantía</h2>
