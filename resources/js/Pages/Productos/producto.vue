@@ -43,7 +43,7 @@
           <h2>descripcion</h2> <span> ( {{ likesCount }} me gusta)</span>
         </div>
         <div class="subtitulo">{{ producto.categoria ? producto.categoria.nombre : 'Desconocida' }}</div>
-        <div class="fecha">Creado en: <span>{{ formattedDate }}</span></div>
+
 
         <div class="descripcion_contenido">
           <p>{{ producto.descripcion ? producto.descripcion : 'No disponible' }} </p>
