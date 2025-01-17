@@ -172,28 +172,48 @@ class ProductoController extends Controller
     /**
      * Update the specified resource in storage.
      */
-public function update(Request $request, $id)
-{
-    $validated = $request->validate([
-        'nombre' => 'required|string|max:255',
-        'descripcion' => 'required|string',
-        'precio' => 'required|numeric|min:0',
-        'categoria_id' => 'required|exists:categorias,id',
-        'marca_id' => 'required|exists:marcas,id',
-        'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-    ]);
+    public function update(Request $request, $id)
+    {
+        // Validar los campos
+        $validated = $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'required|string',
+            'precio' => 'required|numeric|min:0',
+            'categoria_id' => 'required|exists:categorias,id',
+            'marca_id' => 'required|exists:marcas,id',
+            'image' => 'nullable|image|max:2048', // Validar imagen si se envía
+        ]);
 
-    $producto = Producto::findOrFail($id);
-    $producto->update($validated);
+        $producto = Producto::findOrFail($id);
 
-    // Manejo del archivo de imagen si se carga
-    if ($request->hasFile('imagen')) {
-        $path = $request->file('imagen')->store('productos');
-        $producto->update(['image' => $path]);
+        // Si hay una nueva imagen, subimos el archivo
+        if ($request->hasFile('image')) {
+            // Eliminar la imagen vieja (si existe)
+            if ($producto->image && Storage::exists($producto->image)) {
+                Storage::delete($producto->image);
+            }
+
+            // Guardar la nueva imagen
+            $path = $request->file('image')->store('images', 'public');
+            $producto->image = $path;
+        }
+
+        // Actualizar otros campos
+        $producto->update([
+            'nombre' => $validated['nombre'],
+            'descripcion' => $validated['descripcion'],
+            'precio' => $validated['precio'],
+            'categoria_id' => $validated['categoria_id'],
+            'marca_id' => $validated['marca_id'],
+            'es_oferta' => $request->es_oferta ?? false,
+            'precio_oferta' => $request->precio_oferta ?? null
+        ]);
+
+        return response()->json(['message' => 'Producto actualizado con éxito']);
     }
 
-    return response()->json(['message' => 'Producto actualizado con éxito']);
-}
+
+
 
 
     /**

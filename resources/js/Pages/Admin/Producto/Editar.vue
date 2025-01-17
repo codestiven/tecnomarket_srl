@@ -10,7 +10,7 @@
         <div v-if="!selectedProducto" class="grid grid-cols-3 gap-4">
             <div v-for="producto in filteredProductos" :key="producto.id" class="border rounded p-4 shadow"
                 @click="selectProducto(producto)" style="cursor: pointer;">
-                <img :src="producto.image" alt="Producto" class="w-full h-48 object-cover mb-4" loading="lazy" >
+                <img :src="producto.image" alt="Producto" class="w-full h-48 object-cover mb-4" loading="lazy">
                 <h2 class="text-xl font-bold">{{ producto.nombre }}</h2>
                 <p class="descripcion">{{ producto.descripcion }}</p>
                 <p class="text-gray-700 font-bold">${{ producto.precio }}</p>
@@ -66,6 +66,14 @@
                     <input type="number" v-model="selectedProducto.precio_oferta" class="w-full p-2 border rounded" />
                     <span v-if="errors.precio_oferta" class="text-red-500">{{ errors.precio_oferta[0] }}</span>
                 </div>
+
+                <!-- Input para la imagen -->
+                <div class="mb-4">
+                    <label class="block text-gray-700">Imagen</label>
+                    <input type="file" @change="handleImageChange" accept="image/*" class="w-full p-2 border rounded" />
+                    <span v-if="errors.image" class="text-red-500">{{ errors.image[0] }}</span>
+                </div>
+
                 <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded hover:bg-blue-600">
                     Actualizar
                 </button>
@@ -143,19 +151,49 @@ export default {
             this.selectedProducto = { ...producto }; // Clonamos el objeto para evitar modificar el original
             this.errors = {}; // Resetear errores al seleccionar un nuevo producto
         },
+        // Manejar el cambio de imagen
+        handleImageChange(event) {
+            const file = event.target.files[0];
+            if (file) {
+                this.selectedProducto.nuevaImagen = file; // Asignamos el archivo al objeto
+            }
+        },
         // Enviar formulario
         submitForm() {
             if (this.selectedProducto && this.selectedProducto.id) {
-                axios.put(`/api/productos/${this.selectedProducto.id}`, this.selectedProducto)
+                const formData = new FormData();
+                formData.append('nombre', this.selectedProducto.nombre || '');
+                formData.append('descripcion', this.selectedProducto.descripcion || '');
+                formData.append('precio', this.selectedProducto.precio || '');
+                formData.append('categoria_id', this.selectedProducto.categoria_id || '');
+                formData.append('marca_id', this.selectedProducto.marca_id || '');
+                formData.append('es_oferta', this.selectedProducto.es_oferta ? 1 : 0);
+
+                if (this.selectedProducto.es_oferta) {
+                    formData.append('precio_oferta', this.selectedProducto.precio_oferta || 0);
+                }
+
+                // Si hay una nueva imagen, la agregamos al FormData
+                if (this.selectedProducto.nuevaImagen) {
+                    formData.append('image', this.selectedProducto.nuevaImagen);
+                }
+
+                formData.append('_method', 'PUT'); // Simular el PUT
+
+                axios.post(`/api/productos/${this.selectedProducto.id}`, formData, {
+                    headers: {
+                        'Content-Type': 'multipart/form-data'
+                    }
+                })
                     .then(response => {
                         alert('Producto actualizado correctamente');
-                        this.fetchProductos(); // Volver a cargar la lista de productos
-                        this.selectedProducto = null; // Limpiar selección
+                        this.fetchProductos(); // Volver a cargar los productos
+                        this.selectedProducto = null; // Limpiar formulario
                         this.errors = {}; // Limpiar errores
                     })
                     .catch(error => {
                         if (error.response && error.response.data.errors) {
-                            this.errors = error.response.data.errors; // Asignar errores de validación
+                            this.errors = error.response.data.errors; // Mostrar errores de validación
                         } else {
                             console.error('Error al actualizar el producto:', error);
                         }
@@ -171,17 +209,3 @@ export default {
     }
 };
 </script>
-
-<style scoped>
-.container {
-    max-width: 1200px;
-}
-
-.descripcion {
-    display: -webkit-box;
-    -webkit-box-orient: vertical;
-    -webkit-line-clamp: 3;
-    overflow: hidden;
-    text-overflow: ellipsis;
-}
-</style>
