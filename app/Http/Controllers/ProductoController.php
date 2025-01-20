@@ -9,6 +9,7 @@ use Inertia\Inertia;
 use Illuminate\Support\Facades\Storage;
 use App\Models\Categoria;
 use App\Models\Marca;
+use App\Models\DetallesProducto;
 
 class ProductoController extends Controller
 {
@@ -37,12 +38,12 @@ class ProductoController extends Controller
     {
         if ($buscar != "*") {
             $resultados = Producto::with(['categoria', 'marca', 'oferta']) // Cargar relaciones
-            ->where('nombre', 'like', '%' . $buscar . '%')
-            ->orWhere('descripcion', 'like', '%' . $buscar . '%')
-            ->get();
+                ->where('nombre', 'like', '%' . $buscar . '%')
+                ->orWhere('descripcion', 'like', '%' . $buscar . '%')
+                ->get();
         } else {
             $resultados = Producto::with(['categoria', 'marca', 'oferta']) // Cargar relaciones
-            ->inRandomOrder()
+                ->inRandomOrder()
                 ->get();
         }
 
@@ -147,7 +148,7 @@ class ProductoController extends Controller
 
         // Buscar el producto por su nombre
         $producto = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
-        ->where('nombre', $nombre)
+            ->where('nombre', $nombre)
             ->firstOrFail();
 
         // Obtener la URL de la imagen del producto
@@ -163,7 +164,7 @@ class ProductoController extends Controller
 
 
 
-  
+
     public function edit(Producto $producto)
     {
         //
@@ -174,7 +175,7 @@ class ProductoController extends Controller
      */
     public function update(Request $request, $id)
     {
-        // Validar los campos
+        // Validar los campos principales y los detalles del producto
         $validated = $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'required|string',
@@ -182,34 +183,84 @@ class ProductoController extends Controller
             'categoria_id' => 'required|exists:categorias,id',
             'marca_id' => 'required|exists:marcas,id',
             'image' => 'nullable|image|max:2048', // Validar imagen si se envía
+            'color' => 'nullable|string|max:255',
+            'peso' => 'nullable|numeric|min:0',
+            'pantalla' => 'nullable|string|max:255',
+            'sistema_operativo' => 'nullable|string|max:255',
+            'procesador' => 'nullable|string|max:255',
+            'ram' => 'nullable|integer|min:0',
+            'almacenamiento' => 'nullable|integer|min:0',
+            'tipo_de_almacenamiento' => 'nullable|string|in:SSD,HDD',
+            'tarjeta_grafica' => 'nullable|string|max:255',
+            'consumo_energetico' => 'nullable|numeric|min:0',
         ]);
 
+        // Buscar el producto
         $producto = Producto::findOrFail($id);
 
-        // Si hay una nueva imagen, subimos el archivo
-        if ($request->hasFile('image')) {
-            // Eliminar la imagen vieja (si existe)
-            if ($producto->image && Storage::exists($producto->image)) {
-                Storage::delete($producto->image);
-            }
-
-            // Guardar la nueva imagen
-            $path = $request->file('image')->store('images', 'public');
-            $producto->image = $path;
-        }
-
-        // Actualizar otros campos
+        // Actualizar los datos principales del producto
         $producto->update([
             'nombre' => $validated['nombre'],
             'descripcion' => $validated['descripcion'],
             'precio' => $validated['precio'],
             'categoria_id' => $validated['categoria_id'],
             'marca_id' => $validated['marca_id'],
-            'es_oferta' => $request->es_oferta ?? false,
-            'precio_oferta' => $request->precio_oferta ?? null
+            'es_oferta' => $request->boolean('es_oferta'),
+            'precio_oferta' => $request->input('precio_oferta'),
+
         ]);
 
-        return response()->json(['message' => 'Producto actualizado con éxito']);
+        // Manejar la imagen si se envía
+        if ($request->hasFile('image')) {
+            if ($producto->image && Storage::exists($producto->image)) {
+                Storage::delete($producto->image);
+            }
+            $path = $request->file('image')->store('images', 'public');
+            $producto->image = $path;
+            $producto->save(); // Guardar la nueva ruta de la imagen
+        }
+
+        //     // Manejar los detalles del producto
+        // $detallesProducto = DetallesProducto::where('producto_id', $id)->first();
+        // $detallesProducto->fill(
+        //     [
+        //         'color' => $validated['color'],
+        //         'peso' => $validated['peso'],
+        //         'pantalla' => $validated['pantalla'],
+        //         'sistema_operativo' => $validated['sistema_operativo'],
+        //         'procesador' => $validated['procesador'],
+        //     ]
+        // );
+
+        // // $detallesProducto->save();
+
+        // $producto->DetallesProducto();
+
+
+        $detallesProducto = DetallesProducto::where('producto_id', $producto->id )->update([
+            'color' => $validated['color'],
+            'peso' => $validated['peso'],
+            'pantalla' => $validated['pantalla'],
+            'sistema_operativo' => $validated['sistema_operativo'],
+            'procesador' => $validated['procesador'],
+            'ram' => $validated['ram'],
+            'almacenamiento' => $validated['almacenamiento'],
+            'tipo_de_almacenamiento' => $validated['tipo_de_almacenamiento'],
+            'tarjeta_grafica' => $validated['tarjeta_grafica'],
+            'consumo_energetico' => $validated['consumo_energetico'],
+
+        ]);
+
+        // $detallesProducto ->color = "aaaa";
+
+        // $detallesProducto -> save();
+
+
+        // // $detallesProducto->Producto()->associate($producto);
+
+        // $detallesProducto->Producto()->associate($producto);
+
+        return response()->json($detallesProducto);
     }
 
 
@@ -363,7 +414,7 @@ class ProductoController extends Controller
 
         // Obtener los productos que coinciden con los IDs proporcionados y cargar las relaciones
         $productos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
-        ->whereIn('id', $ids)
+            ->whereIn('id', $ids)
             ->get();
 
         // Añadir la URL completa de la imagen a cada producto
@@ -381,15 +432,15 @@ class ProductoController extends Controller
 
         // Obtener los productos en oferta, priorizándolos
         $productosEnOferta = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
-        ->where('es_oferta', 1)
-        ->limit(10)
+            ->where('es_oferta', 1)
+            ->limit(10)
             ->get();
 
         // Si no hemos alcanzado los 10 productos, completar con productos que no están en oferta
         if ($productosEnOferta->count() < 10) {
             $restoProductos = Producto::with(['categoria', 'marca', 'oferta', 'detallesProducto'])
-            ->where('es_oferta', 0)
-            ->limit(10 - $productosEnOferta->count())
+                ->where('es_oferta', 0)
+                ->limit(10 - $productosEnOferta->count())
                 ->get();
 
             // Combinar los productos en oferta con los productos no en oferta
@@ -402,7 +453,7 @@ class ProductoController extends Controller
         }
 
         // Retornar los 10 productos como máximo, priorizando los que están en oferta
-        return response()->json( $productosEnOferta);
+        return response()->json($productosEnOferta);
     }
 
 
@@ -422,4 +473,15 @@ class ProductoController extends Controller
 
 
 
+
+
+
+    public function showdetalle($id)
+    {
+        $detallesProducto = DetallesProducto::where('producto_id', $id)
+            ->firstOrFail();
+
+
+        return response()->json($detallesProducto);
+    }
 }

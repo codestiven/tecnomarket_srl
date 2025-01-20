@@ -16,6 +16,8 @@ use App\Http\Controllers\SuggestionController;
 
 
 
+Route::get('detalles-producto/{id}', [ProductoController::class, 'showdetalle']);
+
 
 // Rutas de Productos
 Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
