@@ -83,7 +83,7 @@ function handleImageError() {
   </transition>
 
   <!-- --------------------------------------------------- header ------------------------------------- -->
-  <Header></Header>
+  <Header SectionActive="Home"></Header>
 
   <!-- -----------------------------------------------------  carrusel ------------------------------------ -->
 
@@ -368,41 +368,42 @@ function handleImageError() {
     /* Resetear las áreas grid */
   }
 
-.productos .otros {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
+  .productos .otros {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
 
-.productos .otros h3{
-  margin: 0 auto;
+  .productos .otros h3 {
+    margin: 0 auto;
 
-}
-.productos .otros p {
-  margin: 0 auto;
+  }
 
-display: none;
-}
+  .productos .otros p {
+    margin: 0 auto;
 
-.productos .otros .boton1 {
-  margin: 10px 0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 100%;
+    display: none;
+  }
 
-}
+  .productos .otros .boton1 {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
 
-.productos .otros a {
-  display: inline-block;
-  text-decoration: none;
+  }
 
-  /* Cambia esto al color que prefieras */
-  color: white;
-  /* Cambia esto al color del texto que prefieras */
-  padding: 0.5rem 1rem;
-  border-radius: 0.25rem;
-}
+  .productos .otros a {
+    display: inline-block;
+    text-decoration: none;
+
+    /* Cambia esto al color que prefieras */
+    color: white;
+    /* Cambia esto al color del texto que prefieras */
+    padding: 0.5rem 1rem;
+    border-radius: 0.25rem;
+  }
 
 
 }
