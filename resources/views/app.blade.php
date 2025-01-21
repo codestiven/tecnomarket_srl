@@ -12,8 +12,11 @@
     <meta name="keywords" content="Apple, Dell, HP, Lenovo, Acer, Asus, Microsoft, Samsung, MSI, Razer, Alienware, laptops, TVS, televisores, accesorios, impresoras, celulares, tablet, laptops nuevas, laptops usadas, laptops económicas, laptops con garantía, financiamiento de laptops, venta de laptops, comprar laptops, venta de laptops en San Cristóbal, laptops con financiamiento en República Dominicana, TecnoMarket , productos tecnológicos San Cristóbal, ofertas de laptops, Madre Vieja Norte, computadoras económicas, tecnología accesible, venta de laptops con garantía, soluciones tecnológicas, servicio al cliente, laptops baratas, televisores económicos, computadoras, impresoras con financiamiento, celulares económicos, tablet económicas, accesorios de tecnología, smart TV San Cristóbal, impresoras con garantía, financiamiento disponible en República Dominicana, comprar laptops, reparar laptops, seguridad, barato, venta de computadoras, Windows laptops, laptops Windows nuevas, laptops Windows usadas, laptops seguras, laptops baratas, reparar computadoras">
     <meta http-equiv="Content-Language" content="es-DO">
 
+    <meta name="robots" content="noindex">
+
     <meta name="robots" content="index, follow">
 
+    <link rel="canonical" href="{{ url()->current() }}">
 
 
 

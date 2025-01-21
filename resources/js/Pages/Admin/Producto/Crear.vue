@@ -1,6 +1,6 @@
 <template>
   <div class="container mx-auto p-4">
-    <h1 class="text-2xl font-bold mb-4">Crear Producto</h1>
+    <h2 class="text-2xl font-bold mb-4">Crear Producto</h2>
 
     <form @submit.prevent="submitForm" class="space-y-4">
       <!-- Campos del formulario -->

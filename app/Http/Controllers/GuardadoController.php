@@ -166,11 +166,11 @@ class GuardadoController extends Controller
         $guardados = Guardado::select('producto_id', DB::raw('count(distinct user_id) as cantidad'))
             ->groupBy('producto_id')
             ->orderBy('cantidad', 'desc')
-            ->limit(20)
+            ->limit(40)
             ->get();
 
-        // Obtener los productos correspondientes
-        $productos = $guardados->map(function ($guardado) {
+        // Obtener los productos correspondientes a los guardados
+        $productosGuardados = $guardados->map(function ($guardado) {
             $producto = Producto::with(['categoria', 'marca', 'oferta'])->find($guardado->producto_id);
             if ($producto) {
                 $producto->image = Storage::url($producto->image);
@@ -181,27 +181,41 @@ class GuardadoController extends Controller
             ];
         });
 
-        // Si hay menos de 20 productos, completar con otros productos
-        if ($productos->count() < 20) {
-            $restoProductos = Producto::with(['categoria', 'marca', 'oferta'])
-                ->whereNotIn('id', $guardados->pluck('producto_id'))
-                ->limit(20 - $productos->count())
-                ->get();
+        // Obtener todos los productos, ordenados por el más reciente
+        $todosLosProductos = Producto::with(['categoria', 'marca', 'oferta'])
+            ->orderBy('created_at', 'desc') // Ordenar por fecha de creación descendente
+            ->limit(40) // Puedes ajustar el límite según sea necesario
+            ->get();
 
-            $restoProductos = $restoProductos->map(function ($producto) {
-                $producto->image = Storage::url($producto->image);
-                return [
-                    'producto' => $producto,
-                    'cantidad' => 0, // No están guardados, por lo que la cantidad es 0
-                ];
-            });
+        // Asignar la URL de la imagen a cada producto
+        $todosLosProductos = $todosLosProductos->map(function ($producto) {
+            $producto->image = Storage::url($producto->image);
+            return [
+                'producto' => $producto,
+                'cantidad' => 0, // No está guardado, cantidad es 0 por defecto
+            ];
+        });
 
-            // Combinar los productos guardados con los productos restantes
-            $productos = $productos->merge($restoProductos);
+        // Si hay productos guardados, mezclar con los demás productos no guardados
+        if ($productosGuardados->count() > 0) {
+            // Excluir los productos que ya están en la lista de guardados
+            $restoProductos = $todosLosProductos->whereNotIn('producto.producto_id', $productosGuardados->pluck('producto.id'));
+
+            // Mezclar los productos guardados con los no guardados
+            $productos = $productosGuardados->merge($restoProductos);
+        } else {
+            // Si no hay guardados, devolver solo los productos normales
+            $productos = $todosLosProductos;
         }
 
-        return response()->json($productos);
+        // Ordenar los productos resultantes por el más reciente
+        $productos = $productos->sortByDesc(function ($producto) {
+            return $producto['producto']->created_at;
+        });
+
+        return $productos->take(40); // Limitar a 40 productos como máximo
     }
+
 
 
 }

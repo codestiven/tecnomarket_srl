@@ -16,6 +16,8 @@ use App\Http\Controllers\SuggestionController;
 
 
 
+Route::get('detalles-producto/{id}', [ProductoController::class, 'showdetalle']);
+
 
 // Rutas de Productos
 Route::get('/ProductoCount', [ProductoController::class, 'ContadorProductos']);
@@ -53,3 +55,7 @@ Route::get('/carousels/{id}', [CarouselController::class, 'show']);
 
 // Rutas de Provincias
 Route::get('/province', [ProvinciaController::class, 'index']);
+
+Route::get('/user', function (Request $request) {
+    return $request->user();
+})->middleware('auth:sanctum');

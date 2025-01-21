@@ -172,27 +172,28 @@ const handlePurchase = () => {
   localStorage.removeItem('pendingOrder');
   Swal.fire({
     html: `
-      <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
-        <div class="comprar-popup-container relative bg-white rounded-lg shadow-lg w-full max-w-xl h-96 flex flex-col items-center justify-center p-4">
-          <!-- Título, fuera de la caja principal -->
-          <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas Realizar la comprar?</h2>
-
-          <!-- Contenedor de opciones -->
-          <div class="comprar-options-container w-full h-full flex overflow-hidden">
-            <!-- Opción de WhatsApp -->
-            <div id="whatsappOption" class="comprar-popup-option comprar-whatsapp-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
-              <i class="fa-brands fa-whatsapp text-6xl comprar-icon comprar-whatsapp-icon transition duration-300"></i>
-              <span class="text-2xl mt-4 font-bold comprar-whatsapp-text transition duration-300">WhatsApp</span>
-            </div>
-
-            <!-- Opción de Usar Cuenta -->
-            <div id="accountOption" class="comprar-popup-option comprar-account-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
-              <i class="fa-solid fa-user text-6xl comprar-icon comprar-account-icon transition duration-300"></i>
-              <span class="text-2xl mt-4 font-bold comprar-account-text transition duration-300">Usar Cuenta</span>
-            </div>
-          </div>
+  <div id="comprarBackground" class="comprar-fixed inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+    <div class="comprar-popup-container relative bg-white rounded-lg shadow-lg w-full max-w-xl h-96 flex flex-col items-center justify-center p-4">
+      <h2 class="comprar-popup-title absolute text-3xl font-bold text-white text-center">¿Cómo deseas realizar la compra?</h2>
+      <div class="comprar-options-container w-full h-full flex overflow-hidden">
+        <div id="whatsappOption" class="comprar-popup-option comprar-whatsapp-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+          <i class="fa-brands fa-whatsapp text-6xl comprar-icon comprar-whatsapp-icon transition duration-300"></i>
+          <span class="text-2xl mt-4 font-bold comprar-whatsapp-text transition duration-300">WhatsApp</span>
+        </div>
+        <div id="accountOption" class="comprar-popup-option comprar-account-option flex-1 flex flex-col items-center justify-center cursor-pointer transition-colors duration-300 bg-white rounded-lg m-2">
+          <i class="fa-solid fa-user text-6xl comprar-icon comprar-account-icon transition duration-300"></i>
+          <span class="text-2xl mt-4 font-bold comprar-account-text transition duration-300">Usar Cuenta</span>
         </div>
       </div>
+      <div>
+<a href="/solicitud-financiamiento/${props.product.id}" class="inline-block bg-blue-300 text-white font-semibold py-2 px-4 rounded shadow hover:bg-blue-700 transition duration-300">
+    Solicitar financiamiento de este producto
+</a>
+
+
+      </div>
+    </div>
+  </div>
     `,
     showConfirmButton: false,
     width: '100%',
@@ -356,10 +357,10 @@ onMounted(() => {
       </div>
 
       <div class="nombre">
-        <h1>
+        <p>
           <a :href="`/Productos/${product.nombre}`">{{ product.nombre }}</a>
            <!-- <span>( {{ product.stock }} )</span> -->
-        </h1>
+        </p>
       </div>
       <div class="descripcion">
         <p> {{ product.descripcion }}
@@ -381,8 +382,8 @@ onMounted(() => {
         </button>
       </div>
       <div class="precio">
-        <h1 v-if="!product.es_oferta">RD$ {{ Number(product.precio).toLocaleString() }}</h1>
-        <h1 v-else>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</h1>
+        <p v-if="!product.es_oferta">RD$ {{ Number(product.precio).toLocaleString() }}</p>
+        <p v-else>RD$ {{ Number(product.oferta.precio_oferta).toLocaleString() }}</p>
       </div>
       <div class="compra"> <button class="comprar" @click="handlePurchase"> <i class="fa-solid fa-basket-shopping"></i>
           comprar</button></div>

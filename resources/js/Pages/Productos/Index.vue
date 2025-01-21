@@ -119,18 +119,19 @@ const setActiveButton = (buttonType) => {
                 {{ marca.nombre }}
               </option>
             </select>
+            
 
             <select id="en_oferta"
               class="filtro bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
               @change="actualizarFiltros">
               <option selected value="">Todos</option>
               <option value="solo_ofertas">Solo en Oferta</option>
-              <option value="sin_ofertas">Sin Ofertas</option>
+              <!-- <option value="sin_ofertas">Sin Ofertas</option> -->
             </select>
           </div>
           <div class="right">
-            <h1>Ordenar por :</h1>
-            <div>
+
+            <div class="tipos">
               <button :class="{ active: activeButton === 'list' }" @click="setActiveButton('list')">
                 <img src="/images/lista.png" alt="Lista" loading="lazy"  />
               </button>
@@ -149,12 +150,16 @@ const setActiveButton = (buttonType) => {
 
         <!-- Mostrar un mensaje si no hay productos -->
         <div v-if="!cargando && productos.length === 0" class="text-center mt-16">
-          <h1 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h1>
+          <h2 class="text-4xl font-bold text-gray-600">No se han encontrado productos</h2>
         </div>
 
         <!-- Diseño de cuadrícula para los productos -->
         <div v-if="!cargando && productos.length > 0 && activeButton === 'grid'" class="contenido">
           <ProductCard v-for="producto in productos" :key="producto.id" :product="producto" />
+          <div></div>
+          <div></div>
+          <div></div>
+          <div></div>
         </div>
 
         <div v-if="!cargando && productos.length > 0 && activeButton === 'list'" class="vertical">
@@ -172,7 +177,7 @@ const setActiveButton = (buttonType) => {
               type="button">
               <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2"
                 stroke="currentColor" aria-hidden="true" class="w-4 h-4">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h18"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" d="M10.5 19.5L3 12m0 0l7.5-7.5M3 12h28"></path>
               </svg>
             </button>
 
@@ -266,7 +271,7 @@ const setActiveButton = (buttonType) => {
   display: grid;
   grid-template-columns: repeat(12, 1fr); /* 12 columnas igualmente distribuidas */
   gap: 10px; /* Espacio entre los elementos */
-  padding-left: 20px
+  padding: 0px 25px;
 }
 
 .filtros .left {
@@ -274,7 +279,7 @@ const setActiveButton = (buttonType) => {
 
   grid-column: span 9;
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   padding-right: 25%;
   gap: 30px;
 }
@@ -302,7 +307,7 @@ const setActiveButton = (buttonType) => {
 .filtros .right {
   display: flex;
   grid-column: span 3;
-  justify-content: flex-start;
+  justify-content: flex-end;
   align-items: center;
   gap: 30px;
   font-size: 20px;

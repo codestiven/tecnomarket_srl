@@ -1,5 +1,7 @@
 <template>
+
   <div class="destacados">
+    <Titulo titulo="Artículos Destacados" :mostrarLinea="false" />
     <div v-if="productos.length > 0" class="Cartas" ref="cartasContainer">
       <transition-group name="fade-slide">
         <Card v-for="(producto, index) in visibleProducts" :key="producto.id" :product="producto" />
@@ -28,6 +30,7 @@ import { ref, onMounted } from "vue";
 import axios from "axios";
 import Card from "@/Components/Principales/ProductCard.vue";
 import Boton from "@/Components/Boton_principar.vue";
+import Titulo from "@/Components/Titulos.vue";
 
 const verMas = ref(false);
 const cartasContainer = ref(null);
@@ -50,7 +53,7 @@ const mostrarTodosLosProductos = () => {
 };
 
 const mostrarSoloProductosLimitados = () => {
-  visibleProducts.value = productos.value.slice(0, 8);
+  visibleProducts.value = productos.value.slice(0, 12);
   if (cartasContainer.value) {
     cartasContainer.value.scrollTop = 0;
   }
@@ -82,6 +85,7 @@ onMounted(() => {
   align-items: center;
   justify-content: flex-start;
   padding: 0px 40px;
+  margin-top: 20px;
 }
 
 .Cartas {

@@ -6,8 +6,8 @@
                 <div class="mb-6 md:mb-0">
                     <a href="/" class="flex items-center">
                         <img src="/images/Logo_white.png" class=" logo" alt="FlowBite Logo" loading="lazy"  />
-                        <h1 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
-                            </h1>
+                        <h4 class="self-center text-2xl font-semibold whitespace-nowrap dark:text-white">Tecnomarket
+                            </h4>
                     </a>
                     <p class="mt-2">Ofrecemos soluciones tecnológicas<br> accesibles para estudiantes y empresas<br> en
                         toda la República Dominicana.</p>
@@ -123,7 +123,7 @@ footer p , footer h2 {
     color: white;
 }
 
-footer h1 {
+footer h4 {
     color: white;
     font-size: 25px;
     font-weight: bold;
